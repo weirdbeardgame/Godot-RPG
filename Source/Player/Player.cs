@@ -9,6 +9,21 @@ public partial class Player : Creature
     {
     }
 
+    public void Equip(Equipable e)
+    {
+
+    }
+
+    public void Die()
+    {
+
+    }
+
+    public void LevelUp()
+    {
+
+    }
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {

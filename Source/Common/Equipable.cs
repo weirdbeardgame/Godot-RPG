@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Weapon : Node
+public partial class Equipable : Node
 {
     protected List<Stat> WeaponStats;
     protected string WeaponName;
