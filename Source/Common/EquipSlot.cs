@@ -1,20 +1,20 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 
-public enum SlotType { LARM, RARM, BODY, HEAD }
-
-public partial class Equipable : Node
+public partial class EquipSlot : Node
 {
-    protected List<Stat> WeaponStats;
-    protected string WeaponName;
-    protected int WeaponID;
-
-    SlotType type;
+    private SlotType _slot;
+    private Equipable _equipment;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+    }
+
+    public void Equip(SlotType s, Equipable e)
+    {
+        _slot = s;
+        _equipment = e;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
