@@ -1,7 +1,3 @@
-using Godot;
-using System;
-using System.Collections.Generic;
-
 public partial class Party : Node
 {
     public List<Player> PlayerParty;

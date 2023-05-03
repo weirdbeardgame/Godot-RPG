@@ -1,7 +1,3 @@
-using Godot;
-using System;
-using System.Collections.Generic;
-
 public partial class Stat : Node
 {
     public enum StatType { HEALTH, SPEED, STRENGTH, MAGIC, DEFENSE }

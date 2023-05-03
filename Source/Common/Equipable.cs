@@ -1,7 +1,3 @@
-using Godot;
-using System;
-using System.Collections.Generic;
-
 public enum SlotType { LARM, RARM, BODY, HEAD }
 
 public partial class Equipable : Node

@@ -1,7 +1,3 @@
-using Godot;
-using System;
-using System.Collections.Generic;
-
 // A Class to be inherited from. Creatures are units stats.
 public partial class Creature : Node
 {
