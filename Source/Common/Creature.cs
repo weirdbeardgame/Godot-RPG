@@ -4,7 +4,7 @@ namespace RPG;
 public partial class Creature : Node
 {
     // Stats are objects that can be dynamically constructed and set!
-    protected List<Stat> Stats;
+    protected Dictionary<string, Stat> Stats;
     protected List<EquipSlot> Slots;
     protected string CreatureName;
     protected float Experience;
