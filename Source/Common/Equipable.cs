@@ -4,7 +4,8 @@ public enum SlotType { LARM, RARM, BODY, HEAD }
 
 public partial class Equipable : Node
 {
-    protected List<Stat> WeaponStats;
+    // Probably wrong, but we'll leave it for now.
+    protected Dictionary<string, Stat> WeaponStats;
     protected string WeaponName;
     protected int WeaponID;
 
