@@ -1,5 +1,4 @@
-using Godot;
-using System;
+namespace RPG;
 
 public partial class EquipSlot : Node
 {

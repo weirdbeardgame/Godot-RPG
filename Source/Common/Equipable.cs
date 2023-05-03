@@ -1,6 +1,4 @@
-using Godot;
-using System;
-using System.Collections.Generic;
+namespace RPG;
 
 public enum SlotType { LARM, RARM, BODY, HEAD }
 
