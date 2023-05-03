@@ -2,6 +2,8 @@ global using Godot;
 global using System;
 global using System.Collections.Generic;
 
+namespace RPG;
+
 public partial class Player : Creature
 {
 

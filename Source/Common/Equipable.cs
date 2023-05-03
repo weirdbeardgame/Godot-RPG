@@ -1,3 +1,5 @@
+namespace RPG;
+
 public enum SlotType { LARM, RARM, BODY, HEAD }
 
 public partial class Equipable : Node

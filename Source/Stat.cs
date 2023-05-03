@@ -1,3 +1,5 @@
+namespace RPG;
+
 public partial class Stat : Node
 {
     public enum StatType { HEALTH, SPEED, STRENGTH, MAGIC, DEFENSE }

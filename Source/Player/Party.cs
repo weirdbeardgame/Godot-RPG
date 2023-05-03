@@ -1,3 +1,5 @@
+namespace RPG;
+
 public partial class Party : Node
 {
     public List<Player> PlayerParty;
