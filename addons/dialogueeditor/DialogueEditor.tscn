@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc54e8p2g2jnw"]
+
+[ext_resource type="Script" path="res://addons/dialogueeditor/Sources/DEditor.cs" id="1_tckua"]
+[ext_resource type="PackedScene" uid="uid://ccysoxx3gjhev" path="res://addons/dialogueeditor/DialogueContextMenu.tscn" id="2_5mcvv"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 10980.0
+offset_bottom = 7440.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -292.0
+offset_right = 11311.0
+offset_bottom = 7705.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 238.0
+offset_right = 11038.0
+offset_bottom = 66.0
+
+[node name="Dialogue Node" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+text = "New Dialogue Node"
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="GraphEdit" type="GraphEdit" parent="Panel"]
+layout_mode = 0
+offset_left = 244.0
+offset_top = 82.0
+offset_right = 11214.0
+offset_bottom = 7471.0
+scroll_offset = Vector2(-110, -531)
+script = ExtResource("1_tckua")
+
+[node name="DialogueContextMenu" parent="Panel/GraphEdit" instance=ExtResource("2_5mcvv")]
+visible = false
+position = Vector2(1, 1)
+
+[connection signal="pressed" from="Panel/HBoxContainer/Dialogue Node" to="Panel/GraphEdit" method="AddNode"]
+[connection signal="pressed" from="Panel/GraphEdit/DialogueContextMenu/Menu/Node" to="Panel/GraphEdit" method="AddNode"]
+
+[editable path="Panel/GraphEdit/DialogueContextMenu"]
