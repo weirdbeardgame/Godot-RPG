@@ -7,13 +7,18 @@ public partial class Stat : Node
     // We put stat name in here for display purposes.
     // Player Data structure should hold its own string for this
     private string _statName;
-
     private Buff _buff;
 
-    public void CreateStats(string Name, float Stats)
+    public Stat()
+    {
+        _statName = "";
+        _stat = 0.0f;
+    }
+
+    public Stat(string name, float stat)
     {
         _statName = Name;
-        _stat = Stats;
+        _stat = stat;
     }
 
     // Return name and Value
