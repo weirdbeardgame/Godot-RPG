@@ -1,6 +1,3 @@
-using Godot;
-using System;
-
 namespace RPG;
 
 // Here be where normal game logic is processed
@@ -23,7 +20,6 @@ public partial class MainGameState : State
     {
 
     }
-
 
     public override void Stop()
     {

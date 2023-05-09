@@ -1,23 +1,19 @@
-using Godot;
-using System;
-using Godot.Collections;
-
 namespace RPG;
+
+// Since this is defined after the namespace, it will always override the
+// global usings. So for example if you had global using System.Collections.Generic
+// This local using would override that. If it was defined before the line of the
+// namespace, this would not be the case.
+using Godot.Collections;
 
 public partial class StateMachine : Node
 {
-    Godot.Collections.Dictionary<string, NodePath> Nodes;
+    Dictionary<string, NodePath> Nodes;
 
     private State _oldState;
     private State _state;
 
-    public State CurrentState
-    {
-        get
-        {
-            return _state;
-        }
-    }
+    public State CurrentState => _state;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -26,10 +22,8 @@ public partial class StateMachine : Node
 
     public void AddState(State s, string name)
     {
-        if (Nodes == null)
-        {
-            Nodes = new Godot.Collections.Dictionary<string, NodePath>();
-        }
+        Nodes ??= new Dictionary<string, NodePath>();
+
         if (!Nodes.ContainsKey(name) && Nodes != null)
         {
             Nodes.Add(name, s.GetPath());
@@ -54,10 +48,7 @@ public partial class StateMachine : Node
             {
                 _oldState = _state;
                 _state = (State)GetNode(Nodes[newState]);
-                if (_oldState != null)
-                {
-                    _oldState.Stop();
-                }
+                _oldState?.Stop();
                 _state.Start();
             }
         }
@@ -65,10 +56,8 @@ public partial class StateMachine : Node
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_state != null)
-        {
-            _state.FixedUpdate(delta);
-        }
+        // Seems inefficent to check if state is null every frame
+        _state?.FixedUpdate(delta);
     }
 
     // Take the current _state and restart it's logic, IE. You're going to double jump!
@@ -91,9 +80,9 @@ public partial class StateMachine : Node
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        if (_state != null)
-        {
-            _state.Update(delta);
-        }
+        // Seems inefficent to check if state is null every frame
+        // Why are you doing _state?.Update(delta) in both _Process and _PhysicsProcess?
+        // Did you mean to just do one?
+        _state?.Update(delta);
     }
 }

@@ -1,5 +1,4 @@
-using Godot;
-using System;
+namespace RPG;
 
 // There can be more in here, these are just examples
 public enum BuffType { TIMED, PERMA };
