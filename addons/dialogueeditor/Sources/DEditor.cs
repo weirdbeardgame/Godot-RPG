@@ -17,6 +17,8 @@ public partial class DEditor : GraphEdit
 
     Node2D pop;
 
+
+    // ToDo: This needs to be a directed graph. 
     BinarySearchTree<DialogueNode> DialogueTree;
 
     // Called when the node enters the scene tree for the first time.
