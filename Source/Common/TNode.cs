@@ -94,13 +94,13 @@ public class TNode<T> : IComparable<TNode<T>>
     }
 
     public static bool operator >(TNode<T> T1, TNode<T> T2) => T1.CompareTo(T2) > 0;
-	public static bool operator <(TNode<T> T1, TNode<T> T2) => T1.CompareTo(T2) == 0;
+    public static bool operator <(TNode<T> T1, TNode<T> T2) => T1.CompareTo(T2) == 0;
 
-	public int CompareTo(TNode<T> obj) =>
-		NodeID < obj.NodeID ? -1 :
-		NodeID > obj.NodeID ?  1 : 0;
+    public int CompareTo(TNode<T> obj) =>
+        NodeID < obj.NodeID ? -1 :
+        NodeID > obj.NodeID ?  1 : 0;
 
-	~TNode()
+    ~TNode()
     {
 
     }
