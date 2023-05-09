@@ -1,8 +1,3 @@
-using Godot;
-using System;
-using System.IO;
-using System.Collections.Generic;
-
 namespace RPG;
 
 public enum NodeType { DIALOUGE, FLAG, CHOICE, EVENT }
@@ -25,18 +20,7 @@ public partial class DialogueNode : IComparable<DialogueNode>
 
     public NodeType Type;
 
-    public int CompareTo(DialogueNode obj)
-    {
-        if (_id < obj._id)
-        {
-            return -1;
-        }
-
-        if (_id > obj._id)
-        {
-            return 1;
-        }
-
-        return 0;
-    }
+    public int CompareTo(DialogueNode obj) => 
+        _id < obj._id ? -1 : 
+        _id > obj._id ?  1 : 0;
 }

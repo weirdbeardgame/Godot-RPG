@@ -1,9 +1,9 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
+// You have this under a folder called Common so im not sure if you want RPG namespace
+// here. Either way it's good practice to use namespaces. Maybe something like
+// namespace Common;
+namespace RPG;
 
-
-[System.Serializable]
+[Serializable]
 public class TNode<T> : IComparable<TNode<T>>
 {
     public T Data;
@@ -16,24 +16,14 @@ public class TNode<T> : IComparable<TNode<T>>
 
     public int NodeID;
 
-    public TNode()
-    {
-        Parent = null;
-        Left = null;
-        Right = null;
-    }
-
     public TNode(T Dat)
     {
         Data = Dat;
-        Parent = null;
-        Left = null;
-        Right = null;
     }
 
     public TNode<T> AddLeft(TNode<T> PNode, T Data)
     {
-        TNode<T> ItemNode = new TNode<T>(Data);
+        var ItemNode = new TNode<T>(Data);
 
         if (PNode.Left == null)
         {
@@ -47,20 +37,15 @@ public class TNode<T> : IComparable<TNode<T>>
         }
 
         else if (PNode.Left != null)
-        {
             return AddLeft(PNode.Left, Data);
-        }
 
         return null;
-
     }
 
     public void AddLeft(TNode<T> Node, TNode<T> Child) // If I feel it nessacary to add a copy function. This would be used
     {
         if (Child == null)
-        {
             return;
-        }
 
         //The referenced one points forward to the new one.
         Node.Left = Child;
@@ -72,11 +57,10 @@ public class TNode<T> : IComparable<TNode<T>>
 
     public TNode<T> AddRight(TNode<T> PNode, T Dat)
     {
-        TNode<T> ItemNode = new TNode<T>(Dat);
+        var ItemNode = new TNode<T>(Dat);
 
         if (PNode.Right == null)
         {
-
             ItemNode.NodeID += 1;
 
             PNode.Right = ItemNode;
@@ -87,20 +71,15 @@ public class TNode<T> : IComparable<TNode<T>>
         }
 
         else if (PNode.Right != null)
-        {
             return AddRight(PNode.Right, Data);
-        }
 
         return null;
-
     }
 
     public void AddRight(TNode<T> Node, TNode<T> Child)
     {
         if (Child == null)
-        {
             return;
-        }
 
         //The referenced one points forward to the new one.
         Node.Right = Child;
@@ -114,39 +93,15 @@ public class TNode<T> : IComparable<TNode<T>>
         return 0;
     }
 
+    public static bool operator >(TNode<T> T1, TNode<T> T2) => T1.CompareTo(T2) > 0;
+	public static bool operator <(TNode<T> T1, TNode<T> T2) => T1.CompareTo(T2) == 0;
 
-    public static bool operator >(TNode<T> T1, TNode<T> T2)
-    {
-        return T1.CompareTo(T2) > 0;
-    }
+	public int CompareTo(TNode<T> obj) =>
+		NodeID < obj.NodeID ? -1 :
+		NodeID > obj.NodeID ?  1 : 0;
 
-
-    public static bool operator <(TNode<T> T1, TNode<T> T2)
-    {
-        return T1.CompareTo(T2) == 0;
-    }
-
-
-    public int CompareTo(TNode<T> obj)
-    {
-        if (this.NodeID < obj.NodeID)
-        {
-            return -1;
-        }
-
-        if (NodeID > obj.NodeID)
-        {
-            return 1;
-        }
-
-        return 0;
-    }
-
-
-    ~TNode()
+	~TNode()
     {
 
     }
-
-
 }

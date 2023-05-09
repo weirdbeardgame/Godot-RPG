@@ -7,7 +7,7 @@ public partial class Party : Node
     public override void _Ready()
     {
         // Read from data files to create and init player Party
-        PlayerParty = new List<Player>();
+        PlayerParty = new();
 
     }
 
