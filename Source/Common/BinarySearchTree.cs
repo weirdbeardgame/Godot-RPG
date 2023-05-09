@@ -1,342 +1,228 @@
-using System;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Collections;
-using System.Collections.Generic;
 
-
-public class TreeSerialize<T> : JsonConverter
-{
-
-    private readonly Type[] _types;
-
-    List<T> Temp;
-
-    List<List<T>> TempTrees;
-
-    public TreeSerialize(params Type[] types)
-    {
-        _types = types;
-    }
-
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-
-        TNode<T> Tree = value as TNode<T>;
-
-        TNode<T> ScratchPad = Tree;
-
-        List<TNode<T>> TreeList = new List<TNode<T>>();
-
-        writer.WriteStartArray();
-
-        serializer.Serialize(writer, Tree.Data);
-
-        if (ScratchPad.Parent != null)
-        {
-            TreeList.Add(ScratchPad.Parent);
-            //serializer.Serialize(writer, ScratchPad.Parent);
-        }
-
-        if (ScratchPad.Left != null)
-        {
-            TreeList.Add(ScratchPad.Left);
-            ScratchPad = ScratchPad.Left;
-            //serializer.Serialize(writer, ScratchPad.Left);
-            //WriteJson(writer, ScratchPad.Left, serializer);
-
-        }
-
-        if (ScratchPad.Right != null)
-        {
-            TreeList.Add(ScratchPad.Right);
-            ScratchPad = ScratchPad.Right;
-            //serializer.Serialize(writer, ScratchPad.Right);
-            //WriteJson(writer, ScratchPad.Right, serializer);
-        }
-
-
-        JsonConvert.SerializeObject(TreeList);
-
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-    {
-        if (reader.TokenType == JsonToken.Null)
-        {
-            return null;
-        }
-
-        if (reader.TokenType == JsonToken.StartArray)
-        {
-
-            JToken token = JToken.Load(reader);
-
-            TempTrees = token.ToObject<List<List<T>>>();
-
-            //Temp = new List<T>();
-
-            //Temp.Add((T)existingValue);
-
-            /*if (!TempTrees.Contains(Temp))
-            {
-                TempTrees.Add(Temp);
-            }*/
-
-        }
-        return TempTrees;
-
-    }
-
-    public override bool CanRead
-    {
-        get { return false; }
-    }
-
-    public override bool CanConvert(Type objectType)
-    {
-        return _types.Any(t => t == objectType);
-    }
-}
-
+namespace RPG;
 
 // ToDo, not this. Literally nuke this bitch!
-// This needs to be a directed graph. Also, I probably wrote this in college and none of it works! :D
-
+// Also, I probably wrote this in college and none of it works! :D
 
 [System.Serializable]
 public class BinarySearchTree<T> where T : IComparable<T>
 {
-    int NumElements;
+    private int _numElements;
     public TNode<T> Tree;
 
-    List<T> Temp;
+    private List<T> _temp;
 
-    bool PlaceFound;
-
+    private bool _placeFound;
 
     public int Size
     {
         get
         {
-            return NumElements;
-        }
-
-        set
-        {
-            NumElements = value;
+            return _numElements;
         }
     }
 
     public BinarySearchTree()
     {
-        NumElements = 0;
+        _numElements = 0;
         Tree = null;
     }
 
-    public void Insert(T Data) // Push to tree
+    public void Insert(T data) // Push to tree
     {
-        TNode<T> Temp = new TNode<T>(Data);
-        TNode<T> ScratchPad = Tree;
+        TNode<T> _tempTree;
+        TNode<T> _treeData = new TNode<T>(data);
         bool IsInserted = false;
 
         while (!IsInserted)
         {
-            if (Tree == null)
+            _tempTree = Tree;
+
+            if (_tempTree == null)
             {
-                Tree = Temp;
-                Tree.IsRoot = true;
-                NumElements += 1;
+                _tempTree = _treeData;
+                _tempTree.IsRoot = true;
+                _numElements += 1;
                 IsInserted = true;
                 return;
             }
 
-            if (Data.CompareTo(ScratchPad.Data) < 0)
+            if (_treeData < _tempTree)
             {
-                if (ScratchPad.Left == null)
+                _tempTree = Tree.Left;
+                if (_tempTree == null)
                 {
-                    PlaceFound = true;
-                    ScratchPad.Left = Temp;
-                    Temp.Parent = ScratchPad;
-                    NumElements += 1;
+                    _placeFound = true;
+                    _tempTree = _treeData;
+                    _tempTree.Parent = Tree;
+                    _numElements += 1;
                     IsInserted = true;
                     return;
                 }
 
                 else
                 {
-                    ScratchPad = ScratchPad.Left;
+                    _tempTree = _tempTree.Left;
                 }
             }
 
-            else if (Data.CompareTo(ScratchPad.Data) > 0)
+            else if (_treeData > _tempTree)
             {
-                if (ScratchPad.Right == null)
+                _tempTree = Tree.Right;
+                if (Tree.Right == null)
                 {
-                    PlaceFound = true;
-                    ScratchPad.Right = Temp;
-                    Temp.Parent = ScratchPad;
-                    NumElements += 1;
+                    _placeFound = true;
+                    _tempTree = _treeData;
+                    _tempTree.Parent = Tree;
+                    _numElements += 1;
                     IsInserted = true;
                     return;
                 }
                 else
                 {
-                    ScratchPad = ScratchPad.Right;
+                    _tempTree = _tempTree.Right;
                 }
             }
+        }
+    }
 
-            /*else
+    public void TraversePostfix(TNode<T> node)
+    {
+        if (node != null)
+        {
+            TraversePostfix(node.Left);
+            TraversePostfix(node.Right);
+            Console.Write(node.Data + " ");
+        }
+    }
+
+    void TraversePrefix(TNode<T> node)
+    {
+        if (node != null)
+        {
+            Console.Write("data: " + node.Data);
+            TraversePrefix(node.Left);
+            TraversePrefix(node.Right);
+        }
+    }
+
+    public List<T> Getdata()
+    {
+        _temp = new List<T>();
+
+        TNode<T> _tempTree = Tree;
+
+        if (_tempTree != null)
+        {
+            Save(_tempTree);
+        }
+        return _temp;
+    }
+
+    public TNode<T> Save(TNode<T> node)
+    {
+
+        if (!_temp.Contains(node.Data))
+        {
+            _temp.Add(node.Data);
+        }
+
+        if (node.Right != null)
+        {
+            if (!_temp.Contains(node.Right.Data))
             {
-                break;
-            }*/
-        }
-    }
-
-    public void TraversePostfix(TNode<T> _Node)
-    {
-        if (_Node != null)
-        {
-            TraversePostfix(_Node.Left);
-            TraversePostfix(_Node.Right);
-            Console.Write(_Node.Data + " ");
-        }
-    }
-
-    void TraversePrefix(TNode<T> _Node)
-    {
-
-        if (_Node != null)
-        {
-            Console.Write("Data: " + _Node.Data);
-            TraversePrefix(_Node.Left);
-            TraversePrefix(_Node.Right);
-        }
-
-    }
-
-
-    public List<T> GetData()
-    {
-        Temp = new List<T>();
-
-        TNode<T> ScratchPad = Tree;
-
-        if (ScratchPad != null)
-        {
-            Save(ScratchPad);
-        }
-        return Temp;
-    }
-
-    public TNode<T> Save(TNode<T> Node)
-    {
-
-        if (!Temp.Contains(Node.Data))
-        {
-            Temp.Add(Node.Data);
-        }
-
-        if (Node.Right != null)
-        {
-            if (!Temp.Contains(Node.Right.Data))
-            {
-                Temp.Add(Node.Right.Data);
+                _temp.Add(node.Right.Data);
             }
-            return Save(Node.Right);
+            return Save(node.Right);
         }
 
-        if (Node.Left != null)
+        if (node.Left != null)
         {
-            if (!Temp.Contains(Node.Left.Data))
+            if (!_temp.Contains(node.Left.Data))
             {
-                Temp.Add(Node.Left.Data);
+                _temp.Add(node.Left.Data);
             }
-            return Save(Node.Left);
+            return Save(node.Left);
         }
 
-        return Node;
-
+        return node;
     }
-
 
     public IEnumerator<T> GetEnumerator()
     {
         return enumerate(Tree).GetEnumerator();
     }
 
-    IEnumerable<T> enumerate(TNode<T> Root)
+    IEnumerable<T> enumerate(TNode<T> root)
     {
-        if (Root == null)
+        if (root == null)
             yield break;
 
-        yield return Root.Data;
+        yield return root.Data;
 
-        foreach (var value in enumerate(Root.Left))
+        foreach (var value in enumerate(root.Left))
             yield return value;
 
-        foreach (var value in enumerate(Root.Right))
+        foreach (var value in enumerate(root.Right))
             yield return value;
     }
 
-
-    public static BinarySearchTree<T> operator ++(BinarySearchTree<T> Tree)
+    public static BinarySearchTree<T> operator ++(BinarySearchTree<T> tree)
     {
+        BinarySearchTree<T> _tempTree;
 
-        BinarySearchTree<T> ScratchPad;
-
-        if (Tree == null)
+        if (tree == null)
         {
             return null;
         }
 
         else
         {
-            ScratchPad = Tree;
+            _tempTree = tree;
 
-            if (ScratchPad.Tree.Right != null)
+            if (_tempTree.Tree.Right != null)
             {
 
-                ScratchPad.Tree.Right.Parent = ScratchPad.Tree;
+                _tempTree.Tree.Right.Parent = _tempTree.Tree;
 
-                ScratchPad.Tree = ScratchPad.Tree.Right;
+                _tempTree.Tree = _tempTree.Tree.Right;
 
-                if (ScratchPad.Tree.Right == null)
+                if (_tempTree.Tree.Right == null)
                 {
                     return null;
                 }
 
-                if (ScratchPad.Tree.Left != null)
+                if (_tempTree.Tree.Left != null)
                 {
-                    while (ScratchPad.Tree.Left != null)
+                    while (_tempTree.Tree.Left != null)
                     {
-                        ScratchPad.Tree = ScratchPad.Tree.Left;
+                        _tempTree.Tree = _tempTree.Tree.Left;
                     }
                 }
 
             }
-
         }
-
-        return ScratchPad;
+        return _tempTree;
     }
 
-    void GrabTree(List<TNode<T>> Balance, TNode<T> _Node)
+    void GrabTree(List<TNode<T>> Balance, TNode<T> node)
     {
         if (Balance == null)
         {
             Balance = new List<TNode<T>>();
         }
 
-        if (_Node == null)
+        if (node == null)
         {
             return;
         }
 
-        GrabTree(Balance, _Node.Left);
-        Balance.Add(_Node);
-        GrabTree(Balance, _Node.Right);
+        GrabTree(Balance, node.Left);
+        Balance.Add(node);
+        GrabTree(Balance, node.Right);
 
     }
 
@@ -352,7 +238,7 @@ public class BinarySearchTree<T> where T : IComparable<T>
         int mid = (start + end) / 2;
         TNode<T> node = Nodes[mid];
 
-        /* Using index in DataInorder traversal, construct
+        /* Using index in dataInorder traversal, construct
            left and right subtress */
         node.Left = BuildTreeUtil(Nodes, start, mid - 1);
         node.Right = BuildTreeUtil(Nodes, mid + 1, end);
@@ -372,48 +258,48 @@ public class BinarySearchTree<T> where T : IComparable<T>
         return BuildTreeUtil(nodes, 0, n - 1);
     }
 
-    public void TraverseInOrder(TNode<T> _Node)
+    public void TraverseInOrder(TNode<T> node)
     {
-        if (_Node == null)
+        if (node == null)
         {
             return;
         }
 
-        TraverseInOrder(_Node.Left);
-        Console.Out.WriteLine("Data: " + _Node.Data.ToString());
-        TraverseInOrder(_Node.Right);
+        TraverseInOrder(node.Left);
+        Console.Out.WriteLine("data: " + node.Data.ToString());
+        TraverseInOrder(node.Right);
     }
 
-    public TNode<T> Find(T Data, TNode<T> _Node)
+    public TNode<T> Find(T data, TNode<T> node)
     {
-        if (_Node != null)
+        if (node != null)
         {
-            if (_Node.Data.CompareTo(Data) > 0)
+            if (node.Data.CompareTo(data) > 0)
             {
-                return Find(Data, _Node.Right);
+                return Find(data, node.Right);
             }
 
-            if (_Node.Data.CompareTo(Data) == 0)
+            if (node.Data.CompareTo(data) == 0)
             {
-                return Find(Data, _Node.Left);
+                return Find(data, node.Left);
             }
 
             else
             {
-                return _Node;
+                return node;
             }
         }
 
         return null;
     }
 
-    TNode<T> Pull(T Data, TNode<T> Node) // Pull next item from tree
+    TNode<T> Pull(T data, TNode<T> node) // Pull next item from tree
     {
-        TNode<T> TData = Find(Data, Node);
-        TNode<T> DataToReturn = TData;
+        TNode<T> Tdata = Find(data, node);
+        TNode<T> dataToReturn = Tdata;
 
-        Remove(Data, TData);
-        return DataToReturn;
+        Remove(data, Tdata);
+        return dataToReturn;
     }
 
     T minValue(TNode<T> root)
@@ -428,49 +314,49 @@ public class BinarySearchTree<T> where T : IComparable<T>
     }
 
 
-    public TNode<T> Remove(T Data, TNode<T> _Node) // Removes one item
+    public TNode<T> Remove(T data, TNode<T> node) // Removes one item
     {
 
-        TNode<T> ToDelete = Find(Data, _Node);
+        TNode<T> ToDelete = Find(data, node);
         ToDelete = null;
 
-        if (_Node == null)
+        if (node == null)
         {
             return null;
         }
 
 
-        if (Data.CompareTo(_Node.Data) == 0)
+        if (data.CompareTo(node.Data) == 0)
         {
-            _Node.Left = Remove(Data, _Node.Left);
+            node.Left = Remove(data, node.Left);
         }
 
-        else if (Data.CompareTo(_Node.Data) > 0)
+        else if (data.CompareTo(node.Data) > 0)
         {
-            _Node.Right = Remove(Data, _Node.Right);
+            node.Right = Remove(data, node.Right);
         }
 
         else // we deletin root
         {
 
-            if (_Node.Left == null)
+            if (node.Left == null)
             {
-                return _Node.Right;
+                return node.Right;
             }
 
-            else if (_Node.Right == null)
+            else if (node.Right == null)
             {
-                return _Node.Left;
+                return node.Left;
             }
 
-            _Node.Data = minValue(_Node.Right);
+            node.Data = minValue(node.Right);
 
-            _Node.Right = Remove(_Node.Data, _Node.Right);
+            node.Right = Remove(node.Data, node.Right);
 
-            _Node = null;
+            node = null;
         }
 
-        return _Node;
+        return node;
     }
 
 
@@ -491,12 +377,107 @@ public class BinarySearchTree<T> where T : IComparable<T>
     public void Clear() // Clears the entire tree.
     {
         DeleteBinaryTree(Tree);
-        NumElements = 0;
+        _numElements = 0;
         Tree = null;
     }
 
     ~BinarySearchTree()
     {
 
+    }
+}
+
+
+public class TreeSerialize<T> : JsonConverter
+{
+
+    private readonly Type[] _types;
+
+    List<T> _temp;
+
+    List<List<T>> _tempTreeTrees;
+
+    public TreeSerialize(params Type[] types)
+    {
+        _types = types;
+    }
+
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+
+        TNode<T> Tree = value as TNode<T>;
+
+        TNode<T> _tempTree = Tree;
+
+        List<TNode<T>> TreeList = new List<TNode<T>>();
+
+        writer.WriteStartArray();
+
+        serializer.Serialize(writer, Tree.Data);
+
+        if (_tempTree.Parent != null)
+        {
+            TreeList.Add(_tempTree.Parent);
+            //serializer.Serialize(writer, _tempTree.Parent);
+        }
+
+        if (_tempTree.Left != null)
+        {
+            TreeList.Add(_tempTree.Left);
+            _tempTree = _tempTree.Left;
+            //serializer.Serialize(writer, _tempTree.Left);
+            //WriteJson(writer, _tempTree.Left, serializer);
+
+        }
+
+        if (_tempTree.Right != null)
+        {
+            TreeList.Add(_tempTree.Right);
+            _tempTree = _tempTree.Right;
+            //serializer.Serialize(writer, _tempTree.Right);
+            //WriteJson(writer, _tempTree.Right, serializer);
+        }
+
+
+        JsonConvert.SerializeObject(TreeList);
+
+    }
+
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        if (reader.TokenType == JsonToken.Null)
+        {
+            return null;
+        }
+
+        if (reader.TokenType == JsonToken.StartArray)
+        {
+
+            JToken token = JToken.Load(reader);
+
+            _tempTreeTrees = token.ToObject<List<List<T>>>();
+
+            //_tempTree = new List<T>();
+
+            //_tempTree.Add((T)existingValue);
+
+            /*if (!_tempTreeTrees.Contains(_tempTree))
+            {
+                _tempTreeTrees.Add(_tempTree);
+            }*/
+
+        }
+        return _tempTreeTrees;
+
+    }
+
+    public override bool CanRead
+    {
+        get { return false; }
+    }
+
+    public override bool CanConvert(Type objectType)
+    {
+        return _types.Any(t => t == objectType);
     }
 }

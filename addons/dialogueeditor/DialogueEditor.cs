@@ -12,7 +12,6 @@ public partial class DialogueEditor : EditorPlugin
 
     public override void _EnterTree()
     {
-
         DEditorInstance = (Control)DEditor.Instantiate();
 
         // Add the main panel to the editor's main viewport.
