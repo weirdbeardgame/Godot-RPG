@@ -4,9 +4,6 @@ using Newtonsoft.Json.Linq;
 
 namespace RPG;
 
-// ToDo, not this. Literally nuke this bitch!
-// Also, I probably wrote this in college and none of it works! :D
-
 [System.Serializable]
 public class BinarySearchTree<T> where T : IComparable<T>
 {
@@ -31,6 +28,8 @@ public class BinarySearchTree<T> where T : IComparable<T>
         Tree = null;
     }
 
+    // This may only go one level deep at present!
+    // Also, use of "NodeID" will mean this is only a right leaning Tree
     public void Insert(T data) // Push to tree
     {
         TNode<T> _tempTree;
@@ -52,39 +51,17 @@ public class BinarySearchTree<T> where T : IComparable<T>
 
             if (_treeData < _tempTree)
             {
-                _tempTree = Tree.Left;
-                if (_tempTree == null)
-                {
-                    _placeFound = true;
-                    _tempTree = _treeData;
-                    _tempTree.Parent = Tree;
-                    _numElements += 1;
-                    IsInserted = true;
-                    return;
-                }
-
-                else
-                {
-                    _tempTree = _tempTree.Left;
-                }
+                _tempTree = _tempTree.AddLeft(_tempTree, data);
+                _numElements += 1;
+                IsInserted = true;
+                return;
             }
-
             else if (_treeData > _tempTree)
             {
-                _tempTree = Tree.Right;
-                if (Tree.Right == null)
-                {
-                    _placeFound = true;
-                    _tempTree = _treeData;
-                    _tempTree.Parent = Tree;
-                    _numElements += 1;
-                    IsInserted = true;
-                    return;
-                }
-                else
-                {
-                    _tempTree = _tempTree.Right;
-                }
+                _tempTree = _tempTree.AddRight(_tempTree, data);
+                _numElements += 1;
+                IsInserted = true;
+                return;
             }
         }
     }

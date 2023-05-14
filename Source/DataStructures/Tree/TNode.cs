@@ -1,13 +1,11 @@
-// You have this under a folder called Common so im not sure if you want RPG namespace
-// here. Either way it's good practice to use namespaces. Maybe something like
-// namespace Common;
 namespace RPG;
 
+// Should make a common node type since this matches Tree logic. Graphs don't follow that persay
+// IComparable comes from NodeCommon, but Node Types can differ per structure. This will worry about tree root and position
+// Graphs will worry about direction and edges 
 [Serializable]
-public class TNode<T> : IComparable<TNode<T>>
+public class TNode<T> : NodeCommon<T>
 {
-    public T Data;
-
     public TNode<T> Parent;
     public TNode<T> Left;
     public TNode<T> Right;
@@ -92,13 +90,6 @@ public class TNode<T> : IComparable<TNode<T>>
     {
         return 0;
     }
-
-    public static bool operator >(TNode<T> T1, TNode<T> T2) => T1.CompareTo(T2) > 0;
-    public static bool operator <(TNode<T> T1, TNode<T> T2) => T1.CompareTo(T2) == 0;
-
-    public int CompareTo(TNode<T> obj) =>
-        NodeID < obj.NodeID ? -1 :
-        NodeID > obj.NodeID ?  1 : 0;
 
     ~TNode()
     {
