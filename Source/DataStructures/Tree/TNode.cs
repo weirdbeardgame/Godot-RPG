@@ -12,8 +12,6 @@ public class TNode<T> : NodeCommon<T>
 
     public bool IsRoot;
 
-    public int NodeID;
-
     public TNode(T Dat)
     {
         Data = Dat;
