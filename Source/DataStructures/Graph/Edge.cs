@@ -6,7 +6,7 @@ public partial class Edge<T>
     GNode<T> _right;
     T dat;
 
-    Edge(GNode<T> l, GNode<T> r)
+    public Edge(GNode<T> l, GNode<T> r)
     {
         _left = l;
         _right = r;

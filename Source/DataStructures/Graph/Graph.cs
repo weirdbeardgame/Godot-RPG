@@ -6,12 +6,18 @@ public partial class Graph<T> where T : IComparable<T>
     public bool IsDirected;
 
     // 2d Cordinates, Data
-    private Dictionary<GNode<T>, GNode<T>> _nodes;
-    private Dictionary<(GNode<T>, GNode<T>), Edge<T>> _edges;
+    //private Dictionary<GNode<T>, GNode<T>> _nodes;
+    //private Dictionary<(GNode<T>, GNode<T>), Edge<T>> _edges;
+    List<Edge<T>> graph;
 
-    public void AddNode(int row, int col, GNode<T> dat)
+    Graph()
     {
-        //matrix[(row, col)] = dat;
+        graph = new List<Edge<T>>();
     }
 
+    public void AddEdge(GNode<T> l, GNode<T> r)
+    {
+        Edge<T> e = new Edge<T>(l, r);
+        graph.Add(e);
+    }
 }
