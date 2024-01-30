@@ -4,14 +4,14 @@ public enum SlotType { LARM, RARM, BODY, HEAD }
 
 public partial class Equipable : Node
 {
-    // Probably wrong, but we'll leave it for now.
     protected Dictionary<string, Stat> WeaponStats;
     protected string WeaponName;
     protected int WeaponID;
-
     Sprite2D icon;
-
     SlotType type;
+
+    // To check if weapon can actually be equipped by the Job Type
+    public JobSystem Job;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -22,4 +22,15 @@ public partial class Equipable : Node
     public override void _Process(double delta)
     {
     }
+
+    public virtual void Attack()
+    {
+
+    }
+
+    public virtual void Defend()
+    {
+
+    }
+
 }
