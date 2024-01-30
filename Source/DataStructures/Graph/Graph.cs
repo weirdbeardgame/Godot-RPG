@@ -10,7 +10,7 @@ public partial class Graph<T> where T : IComparable<T>
     //private Dictionary<(GNode<T>, GNode<T>), Edge<T>> _edges;
     List<Edge<T>> graph;
 
-    Graph()
+    public Graph()
     {
         graph = new List<Edge<T>>();
     }

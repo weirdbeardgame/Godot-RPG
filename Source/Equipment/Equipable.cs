@@ -9,6 +9,8 @@ public partial class Equipable : Node
     protected string WeaponName;
     protected int WeaponID;
 
+    Sprite2D icon;
+
     SlotType type;
 
     // Called when the node enters the scene tree for the first time.

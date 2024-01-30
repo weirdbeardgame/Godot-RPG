@@ -1,5 +1,7 @@
 namespace RPG;
 
+public enum JobSystem { MAGE, WARRIOR, FIGHTER, DRAGOON, THIEF, SAMURAI };
+
 // A Class to be inherited from. Creatures are units stats.
 public partial class Creature : Node
 {
@@ -14,6 +16,15 @@ public partial class Creature : Node
 
     public override void _Ready()
     {
+    }
+
+    public void CreateWeaponSlots()
+    {
+        Slots ??= new List<EquipSlot>();
+        for (int i = 0; i < 5; i++)
+        {
+            Slots.Add(new EquipSlot((SlotType)i));
+        }
     }
 
     public override void _Process(double delta)

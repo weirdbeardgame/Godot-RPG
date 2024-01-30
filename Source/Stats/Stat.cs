@@ -31,6 +31,8 @@ public partial class Stat : Node
     public void Decrease(float modifier)
     {
         if (_stat >= modifier)
+        {
             _stat -= modifier;
+        }
     }
 }

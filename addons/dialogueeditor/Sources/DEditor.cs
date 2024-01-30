@@ -17,16 +17,15 @@ public partial class DEditor : GraphEdit
 
     Node2D pop;
 
-
     // ToDo: This needs to be a directed graph. 
-    BinarySearchTree<DialogueNode> DialogueTree;
+    Graph<DialogueNode> DialogueTree;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         if (DialogueTree == null)
         {
-            DialogueTree = new BinarySearchTree<DialogueNode>();
+            DialogueTree = new Graph<DialogueNode>();
         }
 
         pop = GetNode<Node2D>("DialogueContextMenu");
@@ -44,7 +43,7 @@ public partial class DEditor : GraphEdit
     public void AddNode()
     {
         var Dialogue = (DNode)_dnode.Instantiate();
-        DialogueTree.Insert(Dialogue.DialogueNode);
+        //DialogueTree.AddEdge(Dialogue.DialogueNode);
         AddChild(Dialogue);
     }
 }
