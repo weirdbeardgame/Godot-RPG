@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://xcdsjhjqk3ey"]
+
+[ext_resource type="Script" path="res://addons/SceneManager/SceneManagerData.cs" id="1_lxcmf"]
+
+[resource]
+script = ExtResource("1_lxcmf")
+_Levels = {}
+CurrentLevel = "Test1"
