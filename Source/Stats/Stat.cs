@@ -1,38 +1,43 @@
+using System.Runtime.Intrinsics.Arm;
+
 namespace RPG;
 
-public partial class Stat : Node
+public partial class Stat : Resource
 {
-    private float _stat;
+    private float _Stat;
 
     // We put stat name in here for display purposes.
     // Player Data structure should hold its own string for this
-    private string _statName;
+    private string _StatName;
     private Buff _buff;
 
     public Stat()
     {
-        _statName = "";
-        _stat = 0.0f;
+        _StatName = "";
+        _Stat = 0.0f;
     }
 
-    public Stat(string name, float stat)
+    public Stat(string Name, float Stat)
     {
-        _statName = Name;
-        _stat = stat;
+        _StatName = Name;
+        _Stat = Stat;
     }
 
     // Return name and Value
-    public override string ToString() => _statName + ": " + _stat.ToString();
 
-    public float GetStat => _stat;
+    public string StatName => _StatName;
 
-    public void Increase(float modifier) => _stat += modifier;
+    public override string ToString() => _StatName + ": " + _Stat.ToString();
 
-    public void Decrease(float modifier)
-    {
-        if (_stat >= modifier)
-        {
-            _stat -= modifier;
-        }
-    }
+    public float GetStat => _Stat;
+
+    public static Stat operator +(Stat s1, Stat s2) => new Stat(s1.StatName, (s1.GetStat + s2.GetStat));
+
+    public static Stat operator -(Stat s1, Stat s2) => new Stat(s1.StatName, (s1.GetStat - s2.GetStat));
+
+    public static bool operator >(Stat s1, Stat s2) => s1.GetStat > s2.GetStat;
+
+    public static bool operator <(Stat s1, Stat s2) => s1.GetStat < s2.GetStat;
+
 }
+
