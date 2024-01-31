@@ -1,7 +1,5 @@
 namespace RPG;
 
-public enum JobSystem { MAGE, WARRIOR, FIGHTER, DRAGOON, THIEF, SAMURAI };
-
 // A Class to be inherited from. Creatures are units stats.
 public partial class Creature : Node
 {
@@ -10,6 +8,9 @@ public partial class Creature : Node
     protected List<EquipSlot> Slots;
     protected string CreatureName;
     protected float Experience;
+
+    // Enemies and Players can be assigned a job.
+    JobSystem Job;
 
     // Can be used for UI in 3D games, or 2d games can be used for general world stuffs
     Sprite2D sprite;
