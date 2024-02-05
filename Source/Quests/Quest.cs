@@ -3,16 +3,25 @@ using System;
 
 public partial class Quest : Resource
 {
+    [Export]
     private bool _Active;
+
+    [Export]
     private string _Name;
+
+    [Export]
     private string _Description;
 
-    Dictionary<string, Goal> _QuestGoals;
+    [Export]
+    int _Amt;
 
-    Item _reward;
+    [Export]
+    Variant _RequiredToStart;
 
-    // A previous quest that may need to have been completed to start the current one.
-    Quest _requiredToActivate;
+    [Export]
+    Godot.Collections.Dictionary<string, Goal> _QuestGoals;
+    [Export]
+    Godot.Collections.Array<QuestRequirement> _Requirements;
 
     public bool IsActive => _Active;
 
@@ -20,8 +29,13 @@ public partial class Quest : Resource
     {
         if (!_Active)
         {
-            // Check conditions, set active to true if met and slot it into the active quest
-
+            foreach (var Required in _Requirements)
+            {
+                if (!Required.Check(_Amt, _RequiredToStart))
+                {
+                    return false;
+                }
+            }
             _Active = true;
         }
 

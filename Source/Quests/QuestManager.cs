@@ -3,7 +3,6 @@ using System;
 
 public partial class QuestManager : Node
 {
-
     Dictionary<string, Quest> Quests;
 
     Quest _ActiveQuest;

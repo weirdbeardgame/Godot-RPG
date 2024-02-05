@@ -2,46 +2,37 @@ using Godot;
 using System;
 
 // Should probably make this a string for custom goal types
-enum GoalTypes { COLLECT_ITEM, KILL_ENEMY }
 
 public partial class Goal : Node
 {
-    private string _Name;
-    private GoalTypes _Type;
-    private string _Description;
+    [Export]
+    protected string GoalTitle;
+    [Export]
+    protected string Description;
+    [Export]
+    protected int AmtRequired;
 
-    // Goal Properties
+    public string Title => GoalTitle;
+    public string GoalDescription => Description;
 
-    Item NeededItemToCollect;
-    // Enemy ToKill;
-
-
-    public string GoalName => _Name;
-    public string Description => _Description;
-
-    public delegate bool CompleteHandler();
-    public static event CompleteHandler Complete;
+    public virtual bool CheckIfCompleted(int Amount, Variant Goal) => false;
+}
 
 
-    void Start()
-    {
-        Complete += CheckIfCompleted;
-    }
+public partial class ItemCollect : Goal
+{
+    [Export]
+    Item ItemToCollect;
 
-    bool CheckIfCompleted()
-    {
+    public override bool CheckIfCompleted(int Amount, Variant Goal) => (Item)Goal == ItemToCollect && Amount <= AmtRequired;
 
-        switch (_Type)
-        {
-            case GoalTypes.COLLECT_ITEM:
+}
 
-                break;
+public partial class EnemyKill : Goal
+{
+    [Export]
+    Enemy EnemyToKill;
 
-            case GoalTypes.KILL_ENEMY:
+    public override bool CheckIfCompleted(int Amount, Variant Goal) => (Enemy)Goal == EnemyToKill && Amount <= AmtRequired;
 
-                break;
-        }
-
-        return false;
-    }
 }
