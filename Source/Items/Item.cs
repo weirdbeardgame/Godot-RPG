@@ -4,19 +4,25 @@ using System;
 
 enum ItemType { BUFF, DEBUFF };
 
-public partial class Item : Node
+public partial class Item : Resource
 {
-    int ID;
-    string ItemName;
-    ItemType type;
+    int _ID;
+    string _ItemName;
+    ItemType _Type;
+
+    // Uncomment for weight based Inventory system
+    // int _ItemWeight;
+    // public int ItemWeight => _ItemWeight;
+
+    public string ItemName => _ItemName;
+
     // The Stats this item applies too.
     Dictionary<string, Stat> StatsAffected;
-
 
     // ToDo, add check if Buff or Debuff apply correctly. IE. Current stat is not too large or small
     public virtual bool Use(ref Dictionary<string, Stat> Stats)
     {
-        switch (type)
+        switch (_Type)
         {
             case ItemType.BUFF:
                 foreach (var Stat in StatsAffected)

@@ -3,7 +3,6 @@ namespace RPG;
 public partial class Player : Creature
 {
 
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -20,6 +19,16 @@ public partial class Player : Creature
     }
 
     public void LevelUp()
+    {
+
+    }
+
+    public void RecieveItem(Item it)
+    {
+
+    }
+
+    public void UseItem(Item it)
     {
 
     }
