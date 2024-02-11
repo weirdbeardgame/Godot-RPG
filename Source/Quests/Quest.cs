@@ -24,6 +24,21 @@ public partial class Quest : Resource
     Godot.Collections.Array<QuestRequirement> _Requirements;
 
     public bool IsActive => _Active;
+    public string QuestName => _Name;
+    public string QuestDescription => _Description;
+
+
+    public Quest()
+    {
+
+    }
+
+    public Quest(string QName, string Descrip)
+    {
+        _Name = QName;
+        _Description = Descrip;
+    }
+
 
     public bool Start()
     {

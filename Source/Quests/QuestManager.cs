@@ -1,17 +1,32 @@
 using Godot;
 using System;
 
+[Tool]
 public partial class QuestManager : Node
 {
     Dictionary<string, Quest> Quests;
 
     Quest _ActiveQuest;
 
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
     }
+
+#if TOOLS
+
+    public override void _EnterTree()
+    {
+        Quests = new Dictionary<string, Quest>();
+    }
+
+    public void NewQuest()
+    {
+        Quest Q = new Quest("Quest " + Quests.Count.ToString(), "Default");
+        Quests.Add(Q.QuestName, Q);
+    }
+#endif
+
 
     public bool ActivateQuest(string QuestName)
     {
