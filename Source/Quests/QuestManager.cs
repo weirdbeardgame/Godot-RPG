@@ -27,7 +27,6 @@ public partial class QuestManager : Node
     }
 #endif
 
-
     public bool ActivateQuest(string QuestName)
     {
         Quest Temp;
@@ -43,7 +42,6 @@ public partial class QuestManager : Node
 
         return false;
     }
-
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
