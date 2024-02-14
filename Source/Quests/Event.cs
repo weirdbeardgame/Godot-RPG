@@ -1,5 +1,4 @@
 using Godot;
-using RPG;
 using System;
 
 public enum EventTypes { CUTSCENE, GIVE, TAKE, DIALOG, PLAY_SOUND, FOLLOW_PLAYER }

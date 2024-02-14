@@ -1,5 +1,4 @@
 using Godot;
-using RPG;
 using System;
 
 enum ItemType { BUFF, DEBUFF };

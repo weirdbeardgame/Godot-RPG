@@ -1,14 +1,7 @@
 
-
-// Since this is defined after the namespace, it will always override the
-// global usings. So for example if you had global using System.Collections.Generic
-// This local using would override that. If it was defined before the line of the
-// namespace, this would not be the case.
-using Godot.Collections;
-
 public partial class StateMachine : Node
 {
-    Dictionary<string, NodePath> Nodes;
+    Godot.Collections.Dictionary<string, NodePath> Nodes;
 
     private State _oldState;
     private State _state;
@@ -22,7 +15,7 @@ public partial class StateMachine : Node
 
     public void AddState(State s, string name)
     {
-        Nodes ??= new Dictionary<string, NodePath>();
+        Nodes ??= new Godot.Collections.Dictionary<string, NodePath>();
 
         if (!Nodes.ContainsKey(name) && Nodes != null)
         {
