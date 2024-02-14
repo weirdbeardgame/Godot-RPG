@@ -1,4 +1,4 @@
-namespace RPG;
+
 
 
 public class NodeCommon<T> : IComparable<NodeCommon<T>>

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace RPG;
+
 
 // The idea would be to take the Player back to the other spot they entered or left from like a door
 // Or just take a Player to the associated level / screen that's attached to this exit.

@@ -1,8 +1,8 @@
 
-namespace RPG;
+
 public partial class Graph<T> where T : IComparable<T>
 {
-    private int _numElements;
+    private int _NumElements;
     public bool IsDirected;
 
     // 2d Cordinates, Data
@@ -19,5 +19,6 @@ public partial class Graph<T> where T : IComparable<T>
     {
         Edge<T> e = new Edge<T>(l, r);
         graph.Add(e);
+        _NumElements += 1;
     }
 }

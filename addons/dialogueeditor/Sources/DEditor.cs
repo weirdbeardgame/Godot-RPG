@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace RPG;
+
 
 [Tool]
 public partial class DEditor : GraphEdit

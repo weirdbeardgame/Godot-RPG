@@ -69,6 +69,11 @@ public partial class Inventory : Node
     [Export]
     Godot.Collections.Dictionary<string, ItemSlot> _ItemInv;
 
+    public static Action AddItemEvent;
+
+    public static int ItemAmtAdded;
+    public static Item ItemAdded;
+
     /*
     // Could do some maffs with player strength if so desired.
     int _MaxWeightCanCarry;
@@ -96,6 +101,7 @@ public partial class Inventory : Node
             {
                 _ItemInv.Add(ToAdd.ItemName, new ItemSlot(ToAdd));
                 // _CurrentInventoryWeight += _ItemInv[ToAdd].GetWeight;
+                AddItemEvent.Invoke();
             }
         }
         return false;

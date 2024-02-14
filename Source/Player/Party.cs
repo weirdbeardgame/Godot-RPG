@@ -1,4 +1,4 @@
-namespace RPG;
+
 
 public partial class Party : Node
 {

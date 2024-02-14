@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace RPG;
+
 
 [Tool]
 public partial class DNode : GraphNode

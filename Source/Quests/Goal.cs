@@ -3,6 +3,8 @@ using System;
 
 // Should probably make this a string for custom goal types
 
+
+
 public partial class Goal : Node
 {
     [Export]

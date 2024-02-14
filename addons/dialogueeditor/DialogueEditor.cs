@@ -2,7 +2,7 @@
 using Godot;
 using System;
 
-namespace RPG;
+
 
 [Tool]
 public partial class DialogueEditor : EditorPlugin

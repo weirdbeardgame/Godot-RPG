@@ -16,13 +16,4 @@ public partial class Event : Node
     public virtual void Stop()
     {
     }
-
-}
-
-public partial class GiveItemEvent : Event
-{
-    [Export]
-    Item ToGive;
-
-    public override void Play(Player p) => p.RecieveItem(ToGive);
 }

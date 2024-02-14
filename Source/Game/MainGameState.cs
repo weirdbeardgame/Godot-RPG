@@ -1,4 +1,4 @@
-namespace RPG;
+
 
 // Here be where normal game logic is processed
 public partial class MainGameState : State

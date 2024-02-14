@@ -2,7 +2,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace RPG;
+
 
 [System.Serializable]
 public class BinarySearchTree<T> where T : IComparable<T>

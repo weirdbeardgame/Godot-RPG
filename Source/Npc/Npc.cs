@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace RPG;
+
 
 public partial class Npc : Node2D
 {

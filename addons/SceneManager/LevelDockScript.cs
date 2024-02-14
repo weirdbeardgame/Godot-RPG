@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RPG;
+
 
 [Tool]
 public partial class LevelDockScript : Control

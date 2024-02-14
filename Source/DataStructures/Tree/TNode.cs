@@ -1,4 +1,4 @@
-namespace RPG;
+
 
 // Should make a common node type since this matches Tree logic. Graphs don't follow that persay
 // IComparable comes from NodeCommon, but Node Types can differ per structure. This will worry about tree root and position

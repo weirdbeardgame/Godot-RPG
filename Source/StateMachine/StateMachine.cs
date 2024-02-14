@@ -1,4 +1,4 @@
-namespace RPG;
+
 
 // Since this is defined after the namespace, it will always override the
 // global usings. So for example if you had global using System.Collections.Generic

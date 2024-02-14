@@ -2,7 +2,7 @@ using Godot;
 using System;
 using Godot.Collections;
 
-namespace RPG;
+
 
 public enum LevelType { DEFAULT, GRASS, ISLAND, ICE, WATER }
 

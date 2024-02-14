@@ -1,4 +1,4 @@
-namespace RPG;
+
 
 // A Class to be inherited from. Creatures are units stats.
 public partial class Creature : Node

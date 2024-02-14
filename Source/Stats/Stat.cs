@@ -1,6 +1,6 @@
 using System.Runtime.Intrinsics.Arm;
 
-namespace RPG;
+
 
 public partial class Stat : Resource
 {

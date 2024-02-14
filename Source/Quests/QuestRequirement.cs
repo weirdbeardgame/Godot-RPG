@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+
+
 public partial class QuestRequirement : Node
 {
     [Export]

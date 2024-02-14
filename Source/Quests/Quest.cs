@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+
+
 public partial class Quest : Resource
 {
     [Export]
@@ -17,6 +19,8 @@ public partial class Quest : Resource
 
     [Export]
     Variant _RequiredToStart;
+
+    StateMachine _StateMachine;
 
     [Export]
     Godot.Collections.Dictionary<string, Goal> _QuestGoals;

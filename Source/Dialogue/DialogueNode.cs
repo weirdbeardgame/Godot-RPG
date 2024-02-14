@@ -1,4 +1,4 @@
-namespace RPG;
+
 
 public enum NodeType { DIALOUGE, FLAG, CHOICE, EVENT }
 public enum NodeDirection { LEFT, RIGHT }
@@ -20,7 +20,7 @@ public partial class DialogueNode : IComparable<DialogueNode>
 
     public NodeType Type;
 
-    public int CompareTo(DialogueNode obj) => 
-        _id < obj._id ? -1 : 
-        _id > obj._id ?  1 : 0;
+    public int CompareTo(DialogueNode obj) =>
+        _id < obj._id ? -1 :
+        _id > obj._id ? 1 : 0;
 }

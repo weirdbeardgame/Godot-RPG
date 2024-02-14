@@ -1,4 +1,4 @@
-namespace RPG;
+
 
 public enum SlotType { LARM, RARM, BODY, HEAD }
 
