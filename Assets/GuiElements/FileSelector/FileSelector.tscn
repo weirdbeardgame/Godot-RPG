@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dvyf8he1onh3m"]
 
 [ext_resource type="Theme" uid="uid://dt868a8b5nouj" path="res://addons/SceneSelectTheme.tres" id="1_wii2a"]
-[ext_resource type="Script" path="res://addons/SceneManager/GuiElements/FileSelector.cs" id="1_x4plw"]
+[ext_resource type="Script" path="res://Assets/GuiElements/FileSelector/FileSelector.cs" id="1_x4plw"]
 
 [node name="FileSelector" type="Node2D"]
 script = ExtResource("1_x4plw")

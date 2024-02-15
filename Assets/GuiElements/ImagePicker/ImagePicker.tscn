@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw3jtcw4btesi"]
+
+[ext_resource type="PackedScene" uid="uid://dvyf8he1onh3m" path="res://Assets/GuiElements/FileSelector/FileSelector.tscn" id="1_3m1o0"]
+[ext_resource type="Script" path="res://Assets/GuiElements/ImagePicker/ImagePicker.cs" id="1_cwmt5"]
+
+[node name="ImagePicker" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cwmt5")
+
+[node name="ImageViewer" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 168.0
+offset_bottom = 176.0
+
+[node name="Background" type="ColorRect" parent="ImageViewer"]
+layout_mode = 0
+offset_left = 113.0
+offset_right = 281.0
+offset_bottom = 176.0
+
+[node name="FileSelector" parent="ImageViewer" instance=ExtResource("1_3m1o0")]
+position = Vector2(0, 184)

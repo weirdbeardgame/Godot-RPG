@@ -1,6 +1,4 @@
-using System.Runtime.Intrinsics.Arm;
-
-
+using Godot;
 
 public partial class Stat : Resource
 {
@@ -23,21 +21,23 @@ public partial class Stat : Resource
         _Stat = Stat;
     }
 
-    // Return name and Value
-
+    public float GetStat => _Stat;
     public string StatName => _StatName;
 
+    // Return name and Value
     public override string ToString() => _StatName + ": " + _Stat.ToString();
 
-    public float GetStat => _Stat;
-
-    public static Stat operator +(Stat s1, Stat s2) => new Stat(s1.StatName, (s1.GetStat + s2.GetStat));
-
-    public static Stat operator -(Stat s1, Stat s2) => new Stat(s1.StatName, (s1.GetStat - s2.GetStat));
-
+    // Set of Operators for Stat math
     public static bool operator >(Stat s1, Stat s2) => s1.GetStat > s2.GetStat;
 
     public static bool operator <(Stat s1, Stat s2) => s1.GetStat < s2.GetStat;
 
+    public static Stat operator +(Stat s1, Stat s2) => new Stat(s1.StatName, s1.GetStat + s2.GetStat);
+
+    public static Stat operator -(Stat s1, Stat s2) => new Stat(s1.StatName, s1.GetStat - s2.GetStat);
+
+    public static Stat operator /(Stat s1, Stat s2) => new Stat(s1.StatName, s1.GetStat / s2.GetStat);
+
+    public static Stat operator %(Stat s1, Stat s2) => new Stat(s1.StatName, s1.GetStat % s2.GetStat);
 }
 

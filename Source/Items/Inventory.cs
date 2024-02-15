@@ -4,7 +4,6 @@ using System.Linq;
 
 public partial class ItemSlot : Resource
 {
-
     [Export]
     int _MaxAllowed;
 
@@ -62,14 +61,19 @@ public partial class ItemSlot : Resource
 public partial class Inventory : Node
 {
     // To Check if Inv is full period
+    // Note, this is to be the total count of Items, not count of slots
+    // Though in some Games this could be the same
     [Export]
     int _InvMax;
     [Export]
     int _Amount;
+
     [Export]
     Godot.Collections.Dictionary<string, ItemSlot> _ItemInv;
 
-    public static Action AddItemEvent;
+    public static Action ItemAddedEvent;
+    public static Action UseItemEvent;
+    public static Action<Godot.Collections.Array<Item>> AddItemEvent;
 
     public static int ItemAmtAdded;
     public static Item ItemAdded;
@@ -86,27 +90,37 @@ public partial class Inventory : Node
     {
         base._Ready();
         _ItemInv = new Godot.Collections.Dictionary<string, ItemSlot>();
+        AddItemEvent += AddItem;
     }
 
-    public bool AddItem(Item ToAdd)
+    public void AddItem(Godot.Collections.Array<Item> ToAdd)
     {
         if (_Amount < _InvMax)
         {
-            if (_ItemInv.ContainsKey(ToAdd.ItemName))
+            ItemAdded = ToAdd[0];
+            ItemAmtAdded = ToAdd.Count;
+            foreach (var Item in ToAdd)
             {
-                _ItemInv[ToAdd.ItemName].Add(ToAdd);
-                return true;
-            }
-            else
-            {
-                _ItemInv.Add(ToAdd.ItemName, new ItemSlot(ToAdd));
-                // _CurrentInventoryWeight += _ItemInv[ToAdd].GetWeight;
-                AddItemEvent.Invoke();
+                if (_ItemInv.ContainsKey(Item.ItemName))
+                {
+                    _ItemInv[Item.ItemName].Add(Item);
+                    _Amount += 1;
+                }
+                else
+                {
+                    _ItemInv.Add(Item.ItemName, new ItemSlot(Item));
+                    _Amount += 1;
+                    // _CurrentInventoryWeight += _ItemInv[ToAdd].GetWeight;
+                    ItemAddedEvent.Invoke();
+                }
             }
         }
-        return false;
     }
 
-    public Item UseItem(string ItemName) => _ItemInv[ItemName].GetItem();
-
+    public Item UseItem(string ItemName)
+    {
+        // Amount is subtracted from, to lower the total count of items
+        _Amount -= 1;
+        return _ItemInv[ItemName].GetItem();
+    }
 }

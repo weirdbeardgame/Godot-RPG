@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/SceneManager/LevelDockScript.cs" id="1_66pb0"]
 [ext_resource type="PackedScene" uid="uid://c7be2p30te46n" path="res://addons/SceneManager/LevelSelectorButton.tscn" id="2_al8ik"]
 [ext_resource type="Theme" uid="uid://dt868a8b5nouj" path="res://addons/SceneSelectTheme.tres" id="3_4hn0p"]
-[ext_resource type="PackedScene" uid="uid://dvyf8he1onh3m" path="res://addons/SceneManager/GuiElements/FileSelector.tscn" id="3_5e68y"]
+[ext_resource type="PackedScene" uid="uid://dvyf8he1onh3m" path="res://Assets/GuiElements/FileSelector/FileSelector.tscn" id="3_5e68y"]
 
 [node name="LevelDock" type="Control"]
 layout_mode = 3
