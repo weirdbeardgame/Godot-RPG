@@ -86,6 +86,9 @@ public partial class Inventory : Node
     public bool TooHeavy => _CurrentInventoryWeight >= _MaxWeightCanCarry;
     */
 
+    public int InvMax => _InvMax;
+    public int Amount => _Amount;
+
     public override void _Ready()
     {
         base._Ready();
