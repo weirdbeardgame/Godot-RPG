@@ -2,32 +2,29 @@
 
 public partial class EquipSlot : Node
 {
-    private SlotType _Slot;
-    private string SlotName;
-    private bool HasEquipped;
-    private Equipable _Equipment;
+    private SlotType _slot;
+    private string _slotName;
+    private bool _hasEquipped;
+    private Equipable _equipment;
     public Equipable Equipped
     {
         get
         {
-            if (HasEquipped)
+            if (_hasEquipped)
             {
-                return _Equipment;
+                return _equipment;
             }
             return null;
         }
     }
 
-    public bool CanBeEquipped(Equipable e, JobSystem j)
-    {
-        return (e.Type == _Slot && e.Job == j);
-    }
+    public bool CanBeEquipped(Equipable e, JobSystem j) => e.Type == _slot && e.Job == j;
 
     public EquipSlot(SlotType s)
     {
-        _Slot = s;
-        HasEquipped = false;
-        SlotName = s.ToString();
+        _slot = s;
+        _hasEquipped = false;
+        _slotName = s.ToString();
     }
 
     public void Equip(Equipable e, JobSystem Job)
@@ -36,8 +33,8 @@ public partial class EquipSlot : Node
         // Mages wouldn't use a sword for instance, and you wouldn't have a helmet on your arm.
         if (CanBeEquipped(e, Job))
         {
-            _Equipment = e;
-            HasEquipped = true;
+            _equipment = e;
+            _hasEquipped = true;
         }
     }
 }

@@ -6,65 +6,39 @@ using System;
 public partial class Quest : Resource
 {
     [Export]
-    private bool _Active;
+    private bool _active;
 
     [Export]
-    private string _Name;
+    private string _name;
 
     [Export]
-    private string _Description;
+    private string _description;
 
-    [Export]
-    int _Amt;
+    StateMachine _stateMachine;
 
-    [Export]
-    Variant _RequiredToStart;
+    Dictionary<string, Goal> _questGoals;
+    List<QuestRequirement> _requirements;
 
-    StateMachine _StateMachine;
+    public bool IsActive => _active;
+    public string QuestName => _name;
+    public string QuestDescription => _description;
 
-    [Export]
-    Godot.Collections.Dictionary<string, Goal> _QuestGoals;
-    [Export]
-    Godot.Collections.Array<QuestRequirement> _Requirements;
-
-    public bool IsActive => _Active;
-    public string QuestName => _Name;
-    public string QuestDescription => _Description;
-
-
-    public Quest()
+    public Quest(string name, string desc)
     {
-
-    }
-
-    public Quest(string QName, string Descrip)
-    {
-        _Name = QName;
-        _Description = Descrip;
+        _name = name;
+        _description = desc;
     }
 
 
     public bool Start()
     {
-        if (!_Active)
-        {
-            foreach (var Required in _Requirements)
-            {
-                if (!Required.Check(_Amt, _RequiredToStart))
-                {
-                    return false;
-                }
-            }
-            _Active = true;
-        }
-
-        return _Active;
+        return _active;
     }
 
 
     public void Stop()
     {
-        _Active = false;
+        _active = false;
     }
 
 }

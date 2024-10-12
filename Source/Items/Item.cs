@@ -6,31 +6,31 @@ public enum Operator { ADD, SUBTRACT, DIVIDE, MODULO };
 public partial class Item : Resource
 {
     [Export]
-    int _ID;
+    private int _iD;
     [Export]
-    Operator _Operation;
+    private Operator _operation;
     [Export]
-    string _ItemName;
+    private string _itemName;
     [Export]
-    string _ItemDescription;
+    private string _itemDescription;
 
     [Export]
-    bool _Consumeable;
+    private bool _consumeable;
 
     // The Stats this item applies too.
     [Export]
-    Godot.Collections.Dictionary<string, Stat> _StatsAffected;
+    private Godot.Collections.Dictionary<string, Stat> _statsAffected;
 
     // Uncomment for weight based Inventory system
     // [Export]
     // int _ItemWeight;
     // public int ItemWeight => _ItemWeight;
 
-    public int ID => _ID;
-    public string ItemName => _ItemName;
-    public Operator Operation => _Operation;
-    public bool Consumeable => _Consumeable;
-    public string ItemDescription => _ItemDescription;
+    public int ID => _iD;
+    public string ItemName => _itemName;
+    public Operator Operation => _operation;
+    public bool Consumeable => _consumeable;
+    public string ItemDescription => _itemDescription;
 
 
 
@@ -39,14 +39,14 @@ public partial class Item : Resource
     {
         set
         {
-            _ID = value;
+            _iD = value;
         }
     }
     public Operator SetOperation
     {
         set
         {
-            _Operation = value;
+            _operation = value;
         }
     }
 
@@ -54,7 +54,7 @@ public partial class Item : Resource
     {
         set
         {
-            _ItemName = value;
+            _itemName = value;
         }
     }
 
@@ -62,7 +62,7 @@ public partial class Item : Resource
     {
         set
         {
-            _ItemDescription = value;
+            _itemDescription = value;
         }
     }
 
@@ -70,7 +70,7 @@ public partial class Item : Resource
     {
         set
         {
-            _StatsAffected = value;
+            _statsAffected = value;
         }
     }
 #endif
@@ -83,25 +83,25 @@ public partial class Item : Resource
     // Note that in this instance, ID will always be the max count
     public Item(int id, Operator itemType, string name, string desc)
     {
-        _ID = id;
-        _Operation = itemType;
-        _ItemName = name;
-        _ItemDescription = desc;
+        _iD = id;
+        _operation = itemType;
+        _itemName = name;
+        _itemDescription = desc;
     }
 
     // ToDo, add check if Buff or Debuff apply correctly. IE. Current stat is not too large or small
-    public virtual bool Use(ref Dictionary<string, Stat> Stats)
+    public virtual bool Use(ref Dictionary<string, Stat> stats)
     {
-        if (_Consumeable)
+        if (_consumeable)
         {
-            switch (_Operation)
+            switch (_operation)
             {
                 case Operator.ADD:
-                    foreach (var Stat in _StatsAffected)
+                    foreach (var stat in _statsAffected)
                     {
-                        if (Stats.ContainsKey(Stat.Key))
+                        if (stats.ContainsKey(stat.Key))
                         {
-                            Stats[Stat.Key] += Stat.Value;
+                            stats[stat.Key] += stat.Value;
                             return true;
                         }
                         return false;
@@ -109,11 +109,11 @@ public partial class Item : Resource
                     break;
 
                 case Operator.SUBTRACT:
-                    foreach (var Stat in _StatsAffected)
+                    foreach (var stat in _statsAffected)
                     {
-                        if (Stats.ContainsKey(Stat.Key))
+                        if (stats.ContainsKey(stat.Key))
                         {
-                            Stats[Stat.Key] -= Stat.Value;
+                            stats[stat.Key] -= stat.Value;
                             return true;
                         }
                         return false;
@@ -121,11 +121,11 @@ public partial class Item : Resource
                     break;
 
                 case Operator.DIVIDE:
-                    foreach (var Stat in _StatsAffected)
+                    foreach (var stat in _statsAffected)
                     {
-                        if (Stats.ContainsKey(Stat.Key))
+                        if (stats.ContainsKey(stat.Key))
                         {
-                            Stats[Stat.Key] /= Stat.Value;
+                            stats[stat.Key] /= stat.Value;
                             return true;
                         }
                         return false;
@@ -133,11 +133,11 @@ public partial class Item : Resource
                     break;
 
                 case Operator.MODULO:
-                    foreach (var Stat in _StatsAffected)
+                    foreach (var stat in _statsAffected)
                     {
-                        if (Stats.ContainsKey(Stat.Key))
+                        if (stats.ContainsKey(stat.Key))
                         {
-                            Stats[Stat.Key] %= Stat.Value;
+                            stats[stat.Key] %= stat.Value;
                             return true;
                         }
                         return false;

@@ -5,40 +5,40 @@ using System.Linq;
 public partial class ItemSlot : Resource
 {
     [Export]
-    int _MaxAllowed;
+    int _maxAllowed;
 
     [Export]
-    int _Amount;
+    int _amount;
 
     // Could be for a Weight based Inventory
     /*[Export]
-    int _SlotWeight;
-    int GetWeight => _SlotWeight;
+    private int _slotWeight;
+    private int GetWeight => _slotWeight;
     */
 
     // For Slot organizer types
-    // Vector2 _SlotSize;
-    // Vector2 _SlotPosition;
+    // private Vector2 _slotSize;
+    // private Vector2 _slotPosition;
 
-    [Export]
-    Godot.Collections.Array<Item> _Item;
+
+    private List<Item> _items;
 
     public ItemSlot(Item I)
     {
-        if (_Item == null)
+        if (_items == null)
         {
-            _Item = new Godot.Collections.Array<Item>();
+            _items = new List<Item>();
         }
-        _Item.Add(I);
-        _Amount += 1;
+        _items.Add(I);
+        _amount += 1;
     }
 
     public bool Add(Item I)
     {
-        if (_Amount < _MaxAllowed)
+        if (_amount < _maxAllowed)
         {
-            _Item.Add(I);
-            _Amount += 1;
+            _items.Add(I);
+            _amount += 1;
             return true;
         }
         return false;
@@ -46,11 +46,11 @@ public partial class ItemSlot : Resource
 
     public Item GetItem()
     {
-        if (_Amount > 0)
+        if (_amount > 0)
         {
-            _Amount -= 1;
-            Item I = _Item[0];
-            _Item.RemoveAt(0);
+            _amount -= 1;
+            Item I = _items[0];
+            _items.RemoveAt(0);
             return I;
         }
 
@@ -64,55 +64,55 @@ public partial class Inventory : Node
     // Note, this is to be the total count of Items, not count of slots
     // Though in some Games this could be the same
     [Export]
-    int _InvMax;
+    int _invMax;
     [Export]
-    int _Amount;
+    int _amount;
 
     [Export]
-    Godot.Collections.Dictionary<string, ItemSlot> _ItemInv;
+    Dictionary<string, ItemSlot> _itemInv;
 
     public static Action ItemAddedEvent;
     public static Action UseItemEvent;
-    public static Action<Godot.Collections.Array<Item>> AddItemEvent;
+    public static Action<List<Item>> AddItemEvent;
 
     public static int ItemAmtAdded;
     public static Item ItemAdded;
 
     /*
     // Could do some maffs with player strength if so desired.
-    int _MaxWeightCanCarry;
+    private int _maxWeightCanCarry;
     // Add all slots and the amount of items in them together!
-    int _CurrentInventoryWeight;
-    public bool TooHeavy => _CurrentInventoryWeight >= _MaxWeightCanCarry;
+    private int _currentInventoryWeight;
+    public bool TooHeavy => _currentInventoryWeight >= _maxWeightCanCarry;
     */
 
-    public int InvMax => _InvMax;
-    public int Amount => _Amount;
+    public int InvMax => _invMax;
+    public int Amount => _amount;
 
     public override void _Ready()
     {
         base._Ready();
-        _ItemInv = new Godot.Collections.Dictionary<string, ItemSlot>();
+        _itemInv = new Dictionary<string, ItemSlot>();
         AddItemEvent += AddItem;
     }
 
-    public void AddItem(Godot.Collections.Array<Item> ToAdd)
+    public void AddItem(List<Item> toAdd)
     {
-        if (_Amount < _InvMax)
+        if (_amount < _invMax)
         {
-            ItemAdded = ToAdd[0];
-            ItemAmtAdded = ToAdd.Count;
-            foreach (var Item in ToAdd)
+            ItemAdded = toAdd[0];
+            ItemAmtAdded = toAdd.Count;
+            foreach (var item in toAdd)
             {
-                if (_ItemInv.ContainsKey(Item.ItemName))
+                if (_itemInv.ContainsKey(item.ItemName))
                 {
-                    _ItemInv[Item.ItemName].Add(Item);
-                    _Amount += 1;
+                    _itemInv[item.ItemName].Add(item);
+                    _amount += 1;
                 }
                 else
                 {
-                    _ItemInv.Add(Item.ItemName, new ItemSlot(Item));
-                    _Amount += 1;
+                    _itemInv.Add(item.ItemName, new ItemSlot(item));
+                    _amount += 1;
                     // _CurrentInventoryWeight += _ItemInv[ToAdd].GetWeight;
                     ItemAddedEvent.Invoke();
                 }
@@ -123,7 +123,7 @@ public partial class Inventory : Node
     public Item UseItem(string ItemName)
     {
         // Amount is subtracted from, to lower the total count of items
-        _Amount -= 1;
-        return _ItemInv[ItemName].GetItem();
+        _amount -= 1;
+        return _itemInv[ItemName].GetItem();
     }
 }

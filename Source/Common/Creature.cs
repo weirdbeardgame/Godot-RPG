@@ -4,10 +4,10 @@
 public partial class Creature : Node
 {
     // Stats are objects that can be dynamically constructed and set!
-    protected Dictionary<string, Stat> Stats;
-    protected List<EquipSlot> Slots;
-    protected string CreatureName;
-    protected float Experience;
+    protected Dictionary<string, Stat> _stats;
+    protected List<EquipSlot> _slots;
+    protected string _creatureName;
+    protected float _experience;
 
     // Enemies and Players can be assigned a job.
     JobSystem Job;
@@ -21,10 +21,10 @@ public partial class Creature : Node
 
     public void CreateWeaponSlots()
     {
-        Slots ??= new List<EquipSlot>();
+        _slots ??= new List<EquipSlot>();
         for (int i = 0; i < 5; i++)
         {
-            Slots.Add(new EquipSlot((SlotType)i));
+            _slots.Add(new EquipSlot((SlotType)i));
         }
     }
 

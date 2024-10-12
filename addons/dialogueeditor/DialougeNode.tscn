@@ -6,7 +6,6 @@
 offset_right = 817.0
 offset_bottom = 500.0
 title = "Dialogue Node"
-comment = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)

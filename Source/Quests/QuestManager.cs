@@ -1,14 +1,12 @@
 using Godot;
 using System;
 
-
-
 [Tool]
 public partial class QuestManager : Node
 {
-    Dictionary<string, Quest> Quests;
+    private Dictionary<string, Quest> _quests;
 
-    Quest _ActiveQuest;
+    private Quest _activeQuest;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -19,26 +17,26 @@ public partial class QuestManager : Node
 
     public override void _EnterTree()
     {
-        Quests = new Dictionary<string, Quest>();
+        _quests = new Dictionary<string, Quest>();
     }
 
     public void NewQuest()
     {
-        Quest Q = new Quest("Quest " + Quests.Count.ToString(), "Default");
-        Quests.Add(Q.QuestName, Q);
+        Quest Q = new Quest("Quest " + _quests.Count.ToString(), "Default");
+        _quests.Add(Q.QuestName, Q);
     }
 #endif
 
     public bool ActivateQuest(string QuestName)
     {
         Quest Temp;
-        if ((Temp = Quests[QuestName]) != null)
+        if ((Temp = _quests[QuestName]) != null)
         {
-            if (_ActiveQuest != Temp)
+            if (_activeQuest != Temp)
             {
-                _ActiveQuest.Stop();
-                _ActiveQuest = Temp;
-                return _ActiveQuest.Start();
+                _activeQuest.Stop();
+                _activeQuest = Temp;
+                return _activeQuest.Start();
             }
         }
 

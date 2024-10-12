@@ -5,8 +5,8 @@ public enum EventTypes { CUTSCENE, GIVE, TAKE, DIALOG, PLAY_SOUND, FOLLOW_PLAYER
 
 public partial class Event : Node
 {
-    protected string EventName;
-    protected EventTypes EventType;
+    protected string _eventName;
+    protected EventTypes _eventType;
 
     public virtual void Play(Player p)
     {

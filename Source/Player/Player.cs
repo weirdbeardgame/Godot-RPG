@@ -10,7 +10,7 @@ public partial class Player : Creature
 
 	public void Equip(Equipable e)
 	{
-		foreach (var slot in Slots)
+		foreach (var slot in _slots)
 		{
 			if (slot.CanBeEquipped(e, e.Job))
 			{

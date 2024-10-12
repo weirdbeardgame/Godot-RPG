@@ -90,7 +90,7 @@ public partial class itemeditor : EditorPlugin
 
     public void NameEdit(string N) => CurSelected.SetItemName = N;
     public void DescEdit() => CurSelected.SetItemDescription = ItemDesc.Text;
-    public void UpdateImage(string P) => CurSelected.SetIconPath = P;
+    //public void UpdateImage(string P) => CurSelected.SetIconPath = P;
 
     public void Save_Button()
     {
