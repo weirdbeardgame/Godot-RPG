@@ -2,6 +2,8 @@ using Godot;
 using System;
 using Core.Items;
 
+namespace Core.Quests;
+
 partial class ItemCollectGoal : Goal
 {
     private Item _itemToCollect;

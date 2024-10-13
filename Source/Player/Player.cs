@@ -1,3 +1,8 @@
+using System;
+using System.Collections;
+using Core.Items;
+using Godot;
+
 
 
 public partial class Player : Creature

@@ -2,6 +2,8 @@ using Godot;
 using System;
 using Core.Items;
 
+namespace Core.Quests;
+
 public partial class Goal : Resource
 {
     [Export] protected string _name;

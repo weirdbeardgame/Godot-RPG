@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace Core.Quests;
+
 [Tool]
 public partial class QuestManager : Node
 {
@@ -41,10 +43,5 @@ public partial class QuestManager : Node
         }
 
         return false;
-    }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
     }
 }

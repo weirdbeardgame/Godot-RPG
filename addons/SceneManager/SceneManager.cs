@@ -8,7 +8,7 @@ using System.Linq;
 [Tool]
 public partial class SceneManager : EditorPlugin
 {
-    [Export] private static LevelCommon _CurrentScene;
+    private static LevelCommon _CurrentScene;
     public static Action ResetLevel;
     public static Action StartNewGame;
     public static Action<string, Player> ChangeScene;

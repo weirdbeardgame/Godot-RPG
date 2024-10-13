@@ -14,7 +14,6 @@ public partial class Inventory : Node
     [Export]
     int _amount;
 
-    [Export]
     Dictionary<string, ItemSlot> _itemInv;
 
     public static Action<string, Dictionary<string, Stat>> UseItem;

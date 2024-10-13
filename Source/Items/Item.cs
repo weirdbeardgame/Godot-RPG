@@ -23,7 +23,6 @@ public partial class Item : Resource
     private bool _consumeable;
 
     // The Stats this item applies too.
-    [Export]
     private Dictionary<string, Stat> _statsAffected;
 
     // Uncomment for weight based Inventory system

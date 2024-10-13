@@ -1,8 +1,7 @@
 using Godot;
 using System;
 
-
-
+namespace Core.Quests;
 
 [Tool]
 public partial class QuestEditor : Node

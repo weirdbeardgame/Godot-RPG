@@ -2,6 +2,7 @@
 using Godot;
 using System;
 using System.Linq;
+using Core.Items;
 
 [Tool]
 public partial class itemeditor : EditorPlugin
@@ -71,7 +72,7 @@ public partial class itemeditor : EditorPlugin
     public void NewItem_Button()
     {
         EditorItem item = ItemButton.Instantiate<EditorItem>();
-        Item toAdd = new Item(_Items.Count, Operator.ADD, "Item: " + _Items.Count, "Default");
+        Item toAdd = new Item(Operator.ADD, "Item: " + _Items.Count, "Default");
         item.CreateButton(toAdd.ItemName, toAdd);
         _Items.Add(toAdd.ItemName, item);
         CurSelected = toAdd;
