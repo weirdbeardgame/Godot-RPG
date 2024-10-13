@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Core.Items;
 
 public partial class Goal : Resource
 {

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Core.Items;
 
 partial class ItemCollectGoal : Goal
 {

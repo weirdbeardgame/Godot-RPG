@@ -8,8 +8,7 @@ public partial class ItemEditor : Control
     Button Save;
     Button NewItem;
 
-    [Export]
-    Godot.Collections.Dictionary<string, Item> _Items;
+    Dictionary<string, Item> _Items;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -20,12 +19,12 @@ public partial class ItemEditor : Control
         Save.Pressed += Save_Button;
         NewItem.Pressed += NewItem_Button;
 
-        _Items = new Godot.Collections.Dictionary<string, Item>();
+        _Items = new Dictionary<string, Item>();
     }
 
     public void NewItem_Button()
     {
-        Item ToAdd = new Item(Inv.Amount, Operator.ADD, "Item: " + Inv.Amount, "Default");
+        Item ToAdd = new Item(Operator.ADD, "Item: " + Inv.Amount, "Default");
         _Items.Add(ToAdd.ItemName, ToAdd);
     }
 

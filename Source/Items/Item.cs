@@ -1,16 +1,21 @@
 using Godot;
 using System;
 
+
+namespace Core.Items;
+
 public enum Operator { ADD, SUBTRACT, DIVIDE, MODULO };
 
 public partial class Item : Resource
 {
-    [Export]
-    private int _iD;
+    private string _id = new Guid().ToString();
+
     [Export]
     private Operator _operation;
+
     [Export]
     private string _itemName;
+
     [Export]
     private string _itemDescription;
 
@@ -19,14 +24,13 @@ public partial class Item : Resource
 
     // The Stats this item applies too.
     [Export]
-    private Godot.Collections.Dictionary<string, Stat> _statsAffected;
+    private Dictionary<string, Stat> _statsAffected;
 
     // Uncomment for weight based Inventory system
-    // [Export]
-    // int _ItemWeight;
-    // public int ItemWeight => _ItemWeight;
+    // private int _itemWeight;
+    // public int ItemWeight => _itemWeight;
 
-    public int ID => _iD;
+    public string ID => _id;
     public string ItemName => _itemName;
     public Operator Operation => _operation;
     public bool Consumeable => _consumeable;
@@ -35,13 +39,6 @@ public partial class Item : Resource
 
 
 #if TOOLS
-    public int SetID
-    {
-        set
-        {
-            _iD = value;
-        }
-    }
     public Operator SetOperation
     {
         set
@@ -66,7 +63,7 @@ public partial class Item : Resource
         }
     }
 
-    public Godot.Collections.Dictionary<string, Stat> SetStatsAffected
+    public Dictionary<string, Stat> SetStatsAffected
     {
         set
         {
@@ -81,16 +78,15 @@ public partial class Item : Resource
     }
 
     // Note that in this instance, ID will always be the max count
-    public Item(int id, Operator itemType, string name, string desc)
+    public Item(Operator itemType, string name, string desc)
     {
-        _iD = id;
         _operation = itemType;
         _itemName = name;
         _itemDescription = desc;
     }
 
     // ToDo, add check if Buff or Debuff apply correctly. IE. Current stat is not too large or small
-    public virtual bool Use(ref Dictionary<string, Stat> stats)
+    public virtual bool Use(Dictionary<string, Stat> stats)
     {
         if (_consumeable)
         {
