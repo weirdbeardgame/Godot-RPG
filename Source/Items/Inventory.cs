@@ -16,7 +16,7 @@ public partial class Inventory : Node
 
     Dictionary<string, ItemSlot> _itemInv;
 
-    public static Action<string, Dictionary<string, Stat>> UseItem;
+    public static Action<string> UseItem;
     public static Action<List<Item>> AddItem;
 
     public static int ItemAmtAdded;
@@ -63,10 +63,10 @@ public partial class Inventory : Node
         }
     }
 
-    public void Use(string itemUid, Dictionary<string, Stat> stats)
+    public void Use(string itemUid)
     {
         // Amount is subtracted from, to lower the total count of items
         _amount -= 1;
-        _itemInv[itemUid].GetItem().Use(stats);
+        _itemInv[itemUid].GetItem().Use();
     }
 }

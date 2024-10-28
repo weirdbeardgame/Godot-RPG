@@ -8,22 +8,14 @@ public enum Operator { ADD, SUBTRACT, DIVIDE, MODULO };
 
 public partial class Item : Resource
 {
+    protected string _itemName;
+    protected bool _consumeable;
+    protected Operator _operation;
+    protected string _itemDescription;
     private string _id = new Guid().ToString();
 
-    [Export]
-    private Operator _operation;
-
-    [Export]
-    private string _itemName;
-
-    [Export]
-    private string _itemDescription;
-
-    [Export]
-    private bool _consumeable;
-
     // The Stats this item applies too.
-    private Dictionary<string, Stat> _statsAffected;
+    protected Dictionary<string, Stat> _statsAffected;
 
     // Uncomment for weight based Inventory system
     // private int _itemWeight;
@@ -84,8 +76,13 @@ public partial class Item : Resource
         _itemDescription = desc;
     }
 
+    public virtual bool Use()
+    {
+        return false;
+    }
+
     // ToDo, add check if Buff or Debuff apply correctly. IE. Current stat is not too large or small
-    public virtual bool Use(Dictionary<string, Stat> stats)
+    /*public virtual bool Use(Dictionary<string, Stat> stats)
     {
         if (_consumeable)
         {
@@ -142,5 +139,5 @@ public partial class Item : Resource
             return true;
         }
         return false;
-    }
+    }*/
 }
