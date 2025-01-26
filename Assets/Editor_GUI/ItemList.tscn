@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://smgp544673md"]
+
+[ext_resource type="Theme" uid="uid://c472mxlqu0ucm" path="res://Assets/Editor_GUI/Themes/White_Panel_theme.tres" id="1_2dx51"]
+[ext_resource type="Theme" uid="uid://dltcx5jine88c" path="res://Assets/Editor_GUI/Themes/Button_Theme.tres" id="1_e25a3"]
+[ext_resource type="Script" path="res://Source/EditorGui/ItemList.cs" id="1_vnot3"]
+
+[node name="ItemList" type="SplitContainer"]
+anchors_preset = -1
+anchor_right = 0.477
+anchor_bottom = 0.785
+offset_right = -0.280029
+offset_bottom = 0.199982
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+vertical = true
+script = ExtResource("1_vnot3")
+
+[node name="ItemBox" type="Panel" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Items
+"
+theme = ExtResource("1_2dx51")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ItemBox"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemContainer" type="VBoxContainer" parent="ItemBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Add" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_e25a3")
+text = "Add
+"
+
+[node name="Remove" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_e25a3")
+text = "Remove"

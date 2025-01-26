@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bfkkhom5a2of3"]
+
+[node name="ContextMenu" type="PopupMenu"]
+size = Vector2i(300, 450)
+visible = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VScrollBar" type="VScrollBar" parent="ScrollContainer"]
+layout_mode = 2

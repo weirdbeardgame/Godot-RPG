@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfvdo7ujqcvca"]
+[gd_scene load_steps=4 format=3 uid="uid://bfvdo7ujqcvca"]
 
 [ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="1_3rnv2"]
-[ext_resource type="Theme" uid="uid://bj1ii2u3kdtcr" path="res://Assets/Theme/ButtonTheme.tres" id="1_nbjly"]
-[ext_resource type="FontFile" uid="uid://comg8d5fyu73n" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-Medium.ttf" id="2_w5gxa"]
+[ext_resource type="PackedScene" uid="uid://smgp544673md" path="res://Assets/Editor_GUI/ItemList.tscn" id="3_3o7m0"]
 [ext_resource type="FontFile" uid="uid://daudqpipaknfq" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-Light.ttf" id="3_cihr1"]
 
 [node name="Stats Editor" type="Control"]
@@ -20,32 +19,13 @@ offset_left = -4.0
 offset_right = 1149.0
 offset_bottom = 650.0
 
-[node name="Add" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 22.0
-offset_bottom = 32.0
-theme = ExtResource("1_nbjly")
-text = "+"
-
-[node name="Remove" type="Button" parent="."]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 1.0
-offset_right = 37.0
-offset_bottom = 32.0
-theme = ExtResource("1_nbjly")
-theme_override_fonts/font = ExtResource("2_w5gxa")
-text = "-"
-
 [node name="StatName" type="LineEdit" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0572917
-anchor_top = 0.0509259
-anchor_right = 0.118056
-anchor_bottom = 0.0987654
+anchor_left = 0.243056
+anchor_top = 0.0987654
+anchor_right = 0.30382
+anchor_bottom = 0.146605
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="StatName"]
@@ -55,7 +35,7 @@ offset_top = -8.0
 offset_right = 42.0
 offset_bottom = 32.0
 scale = Vector2(0.447418, 0.183432)
-theme_override_fonts/normal_font = ExtResource("3_cihr1")
+theme = ExtResource("1_3rnv2")
 theme_override_font_sizes/normal_font_size = 12
 text = "Name:
 "
@@ -64,10 +44,10 @@ fit_content = true
 [node name="BaseValue" type="LineEdit" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0590278
-anchor_top = 0.111111
-anchor_right = 0.119792
-anchor_bottom = 0.158951
+anchor_left = 0.319444
+anchor_top = 0.0972222
+anchor_right = 0.380209
+anchor_bottom = 0.145062
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="BaseValue"]
@@ -76,8 +56,37 @@ offset_left = 2.0
 offset_top = -8.0
 offset_right = 42.0
 offset_bottom = 32.0
-scale = Vector2(0.447418, 0.183432)
+scale = Vector2(0.487428, 0.183432)
+theme = ExtResource("1_3rnv2")
 theme_override_fonts/normal_font = ExtResource("3_cihr1")
 theme_override_font_sizes/normal_font_size = 12
 text = "Base Value:"
-fit_content = true
+scroll_active = false
+
+[node name="StatsList" parent="." instance=ExtResource("3_3o7m0")]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 80.0
+offset_right = -349.504
+offset_bottom = -68.68
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Add" parent="StatsList/HBoxContainer" index="0"]
+text = "+
+"
+
+[node name="Remove" parent="StatsList/HBoxContainer" index="1"]
+text = "-"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 62.0
+offset_right = 48.0
+offset_bottom = 102.0
+scale = Vector2(1.70161, 0.756147)
+theme = ExtResource("1_3rnv2")
+text = "Stats: "
+
+[editable path="StatsList"]

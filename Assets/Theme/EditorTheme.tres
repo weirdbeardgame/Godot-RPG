@@ -1,3 +1,14 @@
-[gd_resource type="Theme" format=3 uid="uid://cijnpag6p7end"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cijnpag6p7end"]
+
+[ext_resource type="FontFile" uid="uid://bddcuvs8lb50v" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-LightItalic.ttf" id="1_fjnbu"]
+[ext_resource type="FontFile" uid="uid://daudqpipaknfq" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-Light.ttf" id="2_2qh3q"]
 
 [resource]
+default_font = ExtResource("2_2qh3q")
+default_font_size = 12
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/colors/font_selected_color = Color(0, 0, 0, 0)
+RichTextLabel/colors/selection_color = Color(0.1, 0.1, 1, 0.8)
+RichTextLabel/fonts/italics_font = ExtResource("1_fjnbu")
+RichTextLabel/fonts/normal_font = ExtResource("2_2qh3q")

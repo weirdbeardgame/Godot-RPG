@@ -73,12 +73,12 @@ public partial class Stat : Resource
 
     public static bool operator <(Stat s1, Stat s2) => s1.GetStat < s2.GetStat;
 
-    public static Stat operator +(Stat s1, Stat s2) => new Stat(s1.StatName, s1.GetStat + s2.GetStat);
+    public static Stat operator +(Stat s1, Stat s2) => new(s1.StatName, s1.GetStat + s2.GetStat);
 
-    public static Stat operator -(Stat s1, Stat s2) => new Stat(s1.StatName, s1.GetStat - s2.GetStat);
+    public static Stat operator -(Stat s1, Stat s2) => new(s1.StatName, s1.GetStat - s2.GetStat);
 
-    public static Stat operator /(Stat s1, Stat s2) => new Stat(s1.StatName, s1.GetStat / s2.GetStat);
+    public static Stat operator /(Stat s1, Stat s2) => new(s1.StatName, s1.GetStat / s2.GetStat);
 
-    public static Stat operator %(Stat s1, Stat s2) => new Stat(s1.StatName, s1.GetStat % s2.GetStat);
+    public static Stat operator %(Stat s1, Stat s2) => new(s1.StatName, s1.GetStat % s2.GetStat);
 }
 

@@ -30,8 +30,6 @@ public partial class ItemList : Control
         Add = GetNode<Button>("HBoxContainer/Add");
         Remove = GetNode<Button>("HBoxContainer/Remove");
         _itemContainer = GetNode<VBoxContainer>("ItemBox/ScrollContainer/ItemContainer");
-
-        //s_IndexUpdate += LevelSelected;
     }
 
     public void AddItem(Button item)
@@ -42,16 +40,15 @@ public partial class ItemList : Control
             GD.Print(_items);
             _itemContainer.AddChild(_items.Last());
             _itemCount = _items.Count;
-            item.Pressed += () => LevelSelected(item.Text);
+            item.Pressed += () => ItemSelected(item.Text);
         }
     }
 
-    void LevelSelected(string name)
+    void ItemSelected(string name)
     {
         GD.Print(name);
         Button b = Contains(name);
         _currentIndex = _items.FindIndex(b => b.Text == name);
-
         s_IndexUpdate(_currentIndex);
     }
 
