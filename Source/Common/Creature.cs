@@ -4,7 +4,7 @@
 public partial class Creature : Node
 {
     // Stats are objects that can be dynamically constructed and set!
-    protected Dictionary<string, Stat> _stats;
+    protected Dictionary<string, StatData> _stats;
     protected List<EquipSlot> _slots;
     protected string _creatureName;
     protected float _experience;

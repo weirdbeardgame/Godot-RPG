@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bj1ii2u3kdtcr"]
+
+[ext_resource type="FontFile" uid="uid://ddb3b5vtr6y42" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-SemiBold.ttf" id="1_vddin"]
+
+[resource]
+Button/fonts/font = ExtResource("1_vddin")

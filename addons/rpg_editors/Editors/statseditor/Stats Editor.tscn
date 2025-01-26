@@ -1,0 +1,186 @@
+[gd_scene load_steps=13 format=3 uid="uid://bfvdo7ujqcvca"]
+
+[ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="1_3rnv2"]
+[ext_resource type="Script" uid="uid://cvwk63jvkvs3o" path="res://addons/rpg_editors/Editors/statseditor/StatsEditor.cs" id="2_7yk62"]
+[ext_resource type="FontFile" uid="uid://daudqpipaknfq" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-Light.ttf" id="3_cihr1"]
+[ext_resource type="Theme" uid="uid://bj1ii2u3kdtcr" path="res://Assets/Theme/ButtonTheme.tres" id="4_2l41k"]
+[ext_resource type="Theme" uid="uid://dltcx5jine88c" path="res://Assets/Editor_GUI/Themes/Button_Theme.tres" id="5_p0iqt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5cgb"]
+bg_color = Color(0.148487, 0.171768, 0.201333, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p38lh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2216y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q0myr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g4klu"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_khsh0"]
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ujy6q"]
+
+[node name="Stats" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 5.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_3rnv2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_r5cgb")
+script = ExtResource("2_7yk62")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 295.0
+offset_top = 90.0
+offset_right = 566.0
+offset_bottom = 330.0
+
+[node name="StatNameLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/background = SubResource("StyleBoxEmpty_p38lh")
+text = "Name:
+"
+fit_content = true
+
+[node name="StatName" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="StatLable" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/normal_font = ExtResource("3_cihr1")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/background = SubResource("StyleBoxEmpty_2216y")
+text = "Stat:
+"
+fit_content = true
+
+[node name="Stat" type="SpinBox" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 0.0
+metadata/_edit_use_anchors_ = true
+
+[node name="MaxStatLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_cihr1")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/background = SubResource("StyleBoxEmpty_q0myr")
+text = "Max Stat:
+"
+fit_content = true
+
+[node name="MaxStat" type="SpinBox" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 0.0
+metadata/_edit_use_anchors_ = true
+
+[node name="StatsList" type="ItemList" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 69.0
+offset_right = 251.0
+offset_bottom = 511.0
+
+[node name="StatsListLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 20.0
+offset_right = 145.0
+offset_bottom = 60.0
+theme = ExtResource("1_3rnv2")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 25
+theme_override_styles/background = SubResource("StyleBoxEmpty_g4klu")
+bbcode_enabled = true
+text = "[b]Stats:[/b]"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+offset_left = 3.0
+offset_top = 511.0
+offset_right = 250.0
+offset_bottom = 521.0
+theme_override_styles/separator = SubResource("StyleBoxLine_khsh0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 520.0
+offset_right = 243.0
+offset_bottom = 573.0
+
+[node name="NewStat" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Create New Stat"
+
+[node name="RemoveStat" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Remove Stat"
+
+[node name="Save" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Save Stats"
+
+[node name="StatNamePanel" type="PopupPanel" parent="."]
+title = "Enter Stat Name"
+initial_position = 2
+size = Vector2i(200, 150)
+theme = ExtResource("1_3rnv2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StatNamePanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 196.0
+offset_bottom = 441.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="StatNamePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_ujy6q")
+text = "Enter Stat Name:"
+fit_content = true
+
+[node name="StatName" type="LineEdit" parent="StatNamePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StatNamePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Ok" type="Button" parent="StatNamePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_2l41k")
+text = "OK"
+
+[node name="Cancel" type="Button" parent="StatNamePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_p0iqt")
+text = "Cancel"

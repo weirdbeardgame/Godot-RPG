@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://jx2hhdqkp74w"]
 
 [ext_resource type="Theme" uid="uid://dt868a8b5nouj" path="res://addons/SceneSelectTheme.tres" id="1_ggk8h"]
-[ext_resource type="Script" path="res://Source/Quests/Editor_UI/QuestEditor.cs" id="1_kfxgc"]
+[ext_resource type="Script" uid="uid://bkdq23eausro8" path="res://Source/Quests/Editor_UI/QuestEditor.cs" id="1_kfxgc"]
 
 [node name="QuestWindow" type="Node2D"]
 script = ExtResource("1_kfxgc")

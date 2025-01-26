@@ -1,0 +1,16 @@
+{
+  "Potion": {
+    "ID": "c4be3ac9-9eff-4571-8463-05f80ac31046",
+    "ItemName": "Potion",
+    "Operation": 0,
+    "Consumeable": false,
+    "ItemDescription": "Heals 50 points"
+  },
+  "Hi Potion": {
+    "ID": "c15a2433-77ed-47b0-b576-6bb206f1b23e",
+    "ItemName": "Hi Potion",
+    "Operation": 0,
+    "Consumeable": false,
+    "ItemDescription": "Heals 100 Points of Health"
+  }
+}

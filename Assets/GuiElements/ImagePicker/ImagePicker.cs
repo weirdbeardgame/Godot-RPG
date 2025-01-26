@@ -17,7 +17,8 @@ public partial class ImagePicker : Control
 
     public void Open(string RootFolder = "", string[] FileFilters = null)
     {
-        _FileSelector.Open(RootFolder, FileFilters);
+        _FileSelector.Init(RootFolder, FileFilters);
+        _FileSelector.Open();
         _ImagePath = _FileSelector.Path;
 
         _ImageViwer.Texture = ResourceLoader.Load<Texture2D>(_ImagePath);

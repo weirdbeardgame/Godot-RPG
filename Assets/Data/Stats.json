@@ -1,0 +1,20 @@
+{
+  "Health": {
+    "ID": "0b32f489-d581-4a10-a2ff-42e5105b6f6c",
+    "MaxStat": 9999,
+    "Stat": 100,
+    "StatName": "Health"
+  },
+  "Speed": {
+    "ID": "cfddc3e5-8bb5-412e-88ee-b10d75cf80b5",
+    "MaxStat": 9999,
+    "Stat": 200,
+    "StatName": "Speed"
+  },
+  "Magic": {
+    "ID": "258e7be7-2efb-4a63-b1f8-4734c7d8c145",
+    "MaxStat": 99999,
+    "Stat": 300,
+    "StatName": "Magic"
+  }
+}
