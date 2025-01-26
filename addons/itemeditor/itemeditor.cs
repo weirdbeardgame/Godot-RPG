@@ -107,7 +107,7 @@ public partial class itemeditor : EditorPlugin
     public override Texture2D _GetPluginIcon()
     {
         // Must return some kind of Texture for the icon.
-        return GetEditorInterface().GetEditorTheme().GetIcon("Node", "EditorIcons");
+        return EditorInterface.Singleton.GetEditorTheme().GetIcon("Node", "EditorIcons");
     }
 }
 #endif

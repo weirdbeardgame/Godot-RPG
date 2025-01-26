@@ -7,7 +7,7 @@ using System.Text.Json;
 public partial class StatsEditor : EditorPlugin
 {
 	private Dictionary<string, Stat> _stats;
-	private Stat _newStat;
+	private Stat _currentStat;
 	private LineEdit _statName;
 
 	public override void _EnterTree()
@@ -16,16 +16,46 @@ public partial class StatsEditor : EditorPlugin
 
 		_stats = new Dictionary<string, Stat>();
 		PackedScene StatsScene = ResourceLoader.Load<PackedScene>("res://addons/statseditor/Stats Editor.tscn");
+		var instance = StatsScene.Instantiate<Control>();
+		EditorInterface.Singleton.GetEditorMainScreen().AddChild(instance);
+	}
+
+	public void New()
+	{
+		if (!_stats.ContainsKey(_statName.Text))
+		{
+			_currentStat = new Stat(_statName.Text, 1000);
+			_stats.Add(_currentStat.StatName, _currentStat);
+		}
+	}
+
+	public void Remove(string name) => _stats.Remove(name);
+
+
+	public void SetStat(float value)
+	{
+		if (value >= 0 && value <= _currentStat.MaxStat)
+		{
+			_currentStat.GetStat = value;
+		}
+	}
+
+	public void SetMaxStat(float value)
+	{
+		if (value >= 0)
+		{
+			_currentStat.MaxStat = value;
+		}
 	}
 
 	public void Save()
 	{
-
+		// Jsssonnnn!!
 	}
 
 	public void Load()
 	{
-
+		// Look Vegeta, more Json stuff.
 	}
 
 	public override void _ExitTree()

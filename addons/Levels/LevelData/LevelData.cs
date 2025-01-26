@@ -10,6 +10,8 @@ namespace Levels
         public LevelState LevelState { get; set; }
         public int MaximumAmountOfEnimies { get; set; }
 
+        // List<Enemy> EnemiesToSpawn;
+
         public LevelData()
         {
             Unlocked = true;

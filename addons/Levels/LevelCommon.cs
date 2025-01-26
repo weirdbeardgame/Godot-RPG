@@ -24,24 +24,6 @@ namespace Levels
 
         [Export] Resource audioFile;
 
-        bool unlocked;
-        bool complete;
-
-        public bool isComplete
-        {
-            get
-            {
-                return complete;
-            }
-        }
-
-        public bool isUnlocked
-        {
-            get
-            {
-                return unlocked;
-            }
-        }
 
         public virtual void EnterLevel()
         {
@@ -58,7 +40,6 @@ namespace Levels
 
         public void CompleteLevel()
         {
-            complete = true;
             ExitLevel();
         }
 
