@@ -1,25 +1,27 @@
 using Godot;
 using System;
 
-
-
-public partial class SubLevelChanger : Area2D
+namespace Levels
 {
-    SceneManager scenes;
-    Level currentLevel;
 
-    [Export]
-    string subLevel;
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public partial class SubLevelChanger : Area2D
     {
-        scenes = (SceneManager)GetNode("/root/GameManager/SceneManager");
-        currentLevel = (Level)SceneManager.CurrentScene;
-    }
+        SceneManager scenes;
+        Level currentLevel;
 
-    public void Teleport(object body)
-    {
+        [Export]
+        string subLevel;
 
+        // Called when the node enters the scene tree for the first time.
+        public override void _Ready()
+        {
+            scenes = (SceneManager)GetNode("/root/GameManager/SceneManager");
+            currentLevel = (Level)SceneManager.Manager.CurrentScene;
+        }
+
+        public void Teleport(object body)
+        {
+
+        }
     }
 }

@@ -31,10 +31,8 @@ public partial class itemeditor : EditorPlugin
         PanelInstance = ItemEditorControlScene.Instantiate<Control>();
 
         ItemButton = ResourceLoader.Load<PackedScene>("res://Assets/GuiElements/EditorItem/EditorItem.tscn");
-
         ItemContainer = PanelInstance.GetNode<BoxContainer>("Editor/Items/ItemContainer");
-
-        GetEditorInterface().GetEditorMainScreen().AddChild(PanelInstance);
+        EditorInterface.Singleton.GetEditorMainScreen().AddChild(PanelInstance);
 
         // Hide the main panel. Very much required.
         _MakeVisible(false);

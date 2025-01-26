@@ -3,124 +3,116 @@ using System;
 using Godot.Collections;
 
 
-
-public enum LevelType { DEFAULT, GRASS, ISLAND, ICE, WATER }
-
-[Tool]
-public partial class LevelCommon : Node
+namespace Levels
 {
-    [Export]
-    public string LevelName;
-
-    protected Player Player;
-
-    AudioStreamPlayer backgroundPlayer;
-
-    [Export] Resource audioFile;
-
-    [Export] protected LevelType type;
-
-    bool unlocked;
-    bool complete;
-
-    public bool isComplete
+    public partial class LevelCommon : Node
     {
-        get
+        [Export]
+        public string LevelName;
+
+        // Used for Pausing
+        bool _isActive;
+
+        public Camera2D Camera;
+
+        public ILevelData Data { get; protected set; }
+
+        protected Player Player;
+        protected void SetIsActive(bool state) => _isActive = state;
+
+        AudioStreamPlayer _backgroundPlayer;
+
+        [Export] Resource audioFile;
+
+        bool unlocked;
+        bool complete;
+
+        public bool isComplete
         {
-            return complete;
+            get
+            {
+                return complete;
+            }
         }
-    }
 
-    public bool isUnlocked
-    {
-        get
+        public bool isUnlocked
         {
-            return unlocked;
+            get
+            {
+                return unlocked;
+            }
         }
-    }
 
-    public LevelType LevelType
-    {
-        get
+        public virtual void EnterLevel()
         {
-            return type;
+            _backgroundPlayer = (AudioStreamPlayer)GetNode("BackgroundAudio");
+            CreateAudioStream();
+            SetIsActive(true);
         }
-    }
 
-    public virtual void EnterLevel(Player p)
-    {
-        // Audioooooo
-        backgroundPlayer = (AudioStreamPlayer)GetNode("BackgroundAudio");
-
-        // This is the case where the player is not in the scene yet but he exists.
-        if (p != null && Player == null)
+        public void CreateAudioStream()
         {
-            Player = p;
+            _backgroundPlayer.Stream = GD.Load<AudioStream>(audioFile.ResourcePath);
+            _backgroundPlayer.Play();
         }
-        // The player is already in the scene, this is a level reset.
-        else if ((Player = (Player)GetNode("Player")) != null)
+
+        public void CompleteLevel()
         {
-            GD.Print("Player Found");
+            complete = true;
+            ExitLevel();
         }
-    }
 
-    public void CreateAudioStream()
-    {
-        backgroundPlayer.Stream = GD.Load<AudioStream>(audioFile.ResourcePath);
-        backgroundPlayer.Play();
-    }
+        public virtual void Update()
+        {
 
-    public void CompleteLevel()
-    {
-        complete = true;
-        ExitLevel();
-    }
+        }
 
-    public virtual void Update()
-    {
+        public virtual void FixedUpdate()
+        {
 
-    }
+        }
 
-    public virtual void FixedUpdate()
-    {
-
-    }
-
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-        // Since these are Tool scripts IE. Allowed to run in the editor, we need to ensure logic that's borked outside the editor doesn't run
+        public override void _Process(double delta)
+        {
+            base._Process(delta);
+            // Since these are Tool scripts IE. Allowed to run in the editor, we need to ensure logic that's borked outside the editor doesn't run
 #if !(TOOLS)
         Update();
 #endif
-    }
+        }
 
-    public override void _PhysicsProcess(double delta)
-    {
-        base._PhysicsProcess(delta);
+        public override void _PhysicsProcess(double delta)
+        {
+            base._PhysicsProcess(delta);
 #if !(TOOLS)
         FixedUpdate();
 #endif
 
-    }
+        }
 
-    public virtual void ExitLevel()
-    {
+        public virtual void ExitLevel()
+        {
 
-    }
+        }
 
-    public virtual void ResetLevel()
-    {
+        public virtual void CalledDefferedExitLevel()
+        {
 
-    }
+        }
 
-    public virtual void EnterSubLevel(Player Player, Level parent)
-    {
+        public virtual void ResetLevel()
+        {
 
-    }
+        }
 
-    public virtual void ExitSubLevel()
-    {
+        public virtual void EnterSubLevel(Player Player, SubLevel parent)
+        {
 
+        }
+
+        public virtual void ExitSubLevel()
+        {
+
+        }
     }
 }

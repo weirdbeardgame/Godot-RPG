@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bj1ii2u3kdtcr"]
+
+[ext_resource type="FontFile" uid="uid://comg8d5fyu73n" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-Medium.ttf" id="1_o4nt2"]
+
+[resource]
+Button/fonts/font = ExtResource("1_o4nt2")

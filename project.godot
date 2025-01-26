@@ -20,7 +20,7 @@ project/assembly_name="RPG"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogueeditor/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

@@ -1,128 +1,165 @@
+#if TOOLS
 using Godot;
-using System;
-using System.Collections.Generic;
+using Levels;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Linq;
-
-
+using System.IO;
 
 [Tool]
 public partial class LevelDockScript : Control
 {
-    SceneManager SceneManager;
-    FileDialog Dialog;
-
-    Button AddSceneButton;
-    Button NewSceneButton;
-
-    FileSelector PlayerRef;
-    FileSelector NewGameScene;
-
-    [Export]
-    PackedScene SceneButton;
-
-    List<LevelSelectorButton> SceneChanger;
-
-    string CurrentScene;
-    List<string> SceneNames;
-
-    VBoxContainer Container;
+    private Button _save;
+    private Button _refresh;
+    private Button _newLevelButton;
+    private int _currentIndex;
+    private FileDialog _dialog;
+    private FileSelector _playerRef;
+    private ItemList _levelSelector;
+    private PackedScene _sceneButton;
+    private FileSelector _newGameScene;
+    private SceneManagerPlugin _sceneManagerPlugin;
+    private SceneManager _sceneManager;
 
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public void Init()
     {
-        Dialog = GetNode<FileDialog>("Panel/FileDialog");
-        SceneManager = SceneManager.Manager;
+        _dialog = GetNode<FileDialog>("FileDialog");
+        _sceneManager = SceneManager.Manager;
+        _sceneManagerPlugin = new SceneManagerPlugin();
+        _save = GetNode<Button>("HBoxContainer/Save");
+        _refresh = GetNode<Button>("HBoxContainer/Refresh");
+        _newLevelButton = GetNode<Button>("HBoxContainer/NewLevel");
 
-        PlayerRef = GetNode<FileSelector>("PlayerRef");
-        PlayerRef.BrowseButton.Pressed += SelectPlayerRefrence_Button;
-        PlayerRef.FileSelected += SetPlayerRefrence;
-        if (SceneManager.Manager.PlayerRef != null)
+        _save.Pressed += Save_Button;
+        _refresh.Pressed += Refresh_Button;
+        _newLevelButton.Pressed += NewLevel_Button;
+
+        _playerRef = GetNode<FileSelector>("FilePickerContainer/PlayerRef");
+        _playerRef.BrowseButton.Pressed += SelectPlayerRefrence_Button;
+        _playerRef.FileSelected += SetPlayerRefrence;
+        if (_sceneManager.PackedPlayer != null)
         {
-            PlayerRef.SetPathField(SceneManager.Manager.PlayerRef.ResourcePath);
+            _playerRef.SetPathField(_sceneManager.PackedPlayer.ResourcePath);
         }
 
-        NewGameScene = GetNode<FileSelector>("NewGameScene");
-        NewGameScene.BrowseButton.Pressed += SetNewGameScene_Button;
-        NewGameScene.FileSelected += SetNewGameScene;
-        if (SceneManager.Manager.NewGameScene != null)
+        _sceneButton = ResourceLoader.Load<PackedScene>("addons/SceneManager/LevelSelectorButton.tscn");
+
+        _newGameScene = GetNode<FileSelector>("FilePickerContainer/NewGameScene");
+        _newGameScene.BrowseButton.Pressed += SetNewGameScene_Button;
+        _newGameScene.FileSelected += SetNewGameScene;
+        if (_sceneManager.NewGameScene != null)
         {
-            NewGameScene.SetPathField(SceneManager.Manager.NewGameScene.ResourcePath);
+            _newGameScene.SetPathField(_sceneManager.NewGameScene.ResourcePath);
         }
 
-        AddSceneButton = GetNode<Button>("Panel/AddScene");
-        NewSceneButton = GetNode<Button>("Panel/NewScene");
+        _levelSelector = GetNode<ItemList>("VBoxContainer/ItemList");
+        _levelSelector.Add.Pressed += AddScene_Button;
+        _levelSelector.Remove.Pressed += RemoveScene_Button;
 
-        AddSceneButton.Pressed += AddScene_Button;
-        NewSceneButton.Pressed += NewScene_Button;
-
-        Dialog.FileSelected += AddScene;
-
-        Container = GetNode<VBoxContainer>("Panel/ScrollContainer/VBoxContainer");
-
-        SceneChanger = new List<LevelSelectorButton>();
-        SceneNames = new List<string>();
+        _dialog.FileSelected += AddScene;
+        ItemList.s_IndexUpdate += UpdateIndex;
+        _sceneManagerPlugin.ManagerRefresh += UpdateList;
 
         UpdateList();
     }
 
     void AddScene_Button()
     {
-        Dialog.Popup();
-    }
-
-    void AddScene(string path)
-    {
-        GD.Print("Path: " + path);
-        PackedScene Scene = (PackedScene)ResourceLoader.Load(path);
-        if (SceneManager.Add(Scene))
-        {
-            GD.Print("Scene Added");
-            UpdateList();
-        }
-    }
-
-    void SetNewGameScene_Button() => NewGameScene.Open("Assets/resources/Levels/Scenes", new string[] { "*.tscn" });
-    void SetNewGameScene() => SceneManager.SetNewGameScene(NewGameScene.Path);
-
-    void SelectPlayerRefrence_Button() => PlayerRef.Open();
-    void SetPlayerRefrence() => SceneManager.SetPlayerRef(PlayerRef.Path);
-
-    void NewScene_Button()
-    {
-        SceneManager.New();
-        // ToDo: Level editor right after lads
-    }
-
-    void ChangeScene()
-    {
-
+        _dialog.Popup();
     }
 
     void RemoveScene_Button()
     {
-        SceneManager.Remove(CurrentScene);
+        DirAccess.RemoveAbsolute($"res://Assets/resources/Levels/Scenes/{_levelSelector.Items[_currentIndex].Text}.tscn");
+        DirAccess.RemoveAbsolute($"res://Assets/resources/Levels/LevelData/{_levelSelector.Items[_currentIndex].Text}.json");
+        _sceneManagerPlugin.Remove(_levelSelector.Items[_currentIndex].Text);
+        _levelSelector.RemoveItem(_levelSelector.Items[_currentIndex]);
+    }
+
+    void AddScene(string path)
+    {
+        var scene = (PackedScene)ResourceLoader.Load(path);
+        var level = scene.Instantiate<LevelCommon>();
+        if (_sceneManagerPlugin.Add(level.LevelName, scene))
+        {
+            GD.Print($"Scene Added {level.LevelName}");
+            UpdateList();
+        }
+    }
+
+    void Save_Button() => _sceneManager.Save();
+    void Refresh_Button() => _sceneManagerPlugin.Refresh();
+    void SelectPlayerRefrence_Button() => _playerRef.Open();
+    void SetPlayerRefrence() => _sceneManagerPlugin.SetPlayerRef(_playerRef.Path);
+    void SetNewGameScene() => _sceneManagerPlugin.SetNewGameScene(_newGameScene.Path);
+    void SetNewGameScene_Button() => _newGameScene.Open("Assets/resources/Levels/Scenes", new string[] { "*.tscn" });
+
+    void UpdateIndex(int i)
+    {
+        _currentIndex = i;
+        _sceneManagerPlugin.ChangeSceneInEditor(_sceneManagerPlugin.SceneNames[_currentIndex]);
     }
 
     void UpdateList()
     {
-        if (SceneManager.SceneNames != null)
+        if (_sceneManagerPlugin.SceneNames != null)
         {
-            if (SceneNames != SceneManager.SceneNames && SceneManager.SceneNames.Count > 0)
+            if (_sceneManagerPlugin.SceneNames.Count() > 0)
             {
-                SceneNames = SceneManager.SceneNames;
-                foreach (var scene in SceneNames)
+                foreach (var scene in _sceneManagerPlugin.SceneNames)
                 {
-                    LevelSelectorButton SelectorButton = SceneButton.Instantiate<LevelSelectorButton>();
-                    SelectorButton.CreateButton(scene);
-                    SceneChanger.Add(SelectorButton);
-                    Container.AddChild(SelectorButton);
+                    if (_levelSelector.Contains(scene) == null)
+                    {
+                        Button selectorButton = _sceneButton.Instantiate<Button>();
+                        selectorButton.Text = scene;
+                        _levelSelector.AddItem(selectorButton);
+                    }
                 }
+            }
+
+            if (_levelSelector.ItemCount > _sceneManagerPlugin.SceneNames.Count())
+            {
+                CallDeferred(nameof(RemoveDeferred));
             }
         }
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    public PackedScene CreateLevel()
     {
+        var scene = new Level();
+        scene.LevelName = $"Level {_sceneManager.LevelCount + 1}";
+        scene.Name = scene.LevelName;
+        var TileMap = new TileMapLayer();
+        TileMap.Name = "Layer";
+        scene.AddChild(TileMap);
+        TileMap.Owner = scene;
+        var packedLevel = new PackedScene();
+        packedLevel.Pack(scene);
+        packedLevel.ResourceName = scene.LevelName;
+        packedLevel.ResourcePath = $"res://Assets/resources/Levels/Scenes/{scene.LevelName}.tscn";
+        ResourceSaver.Save(packedLevel, $"res://Assets/resources/Levels/Scenes/{scene.LevelName}.tscn");
+        return packedLevel;
+    }
+
+    public void NewLevel_Button()
+    {
+        var scene = CreateLevel();
+        _sceneManagerPlugin.Add(scene.ResourceName, scene);
+        _sceneManager.Save();
+        UpdateList();
+        _sceneManagerPlugin.ChangeSceneInEditor(scene.ResourceName);
+    }
+
+    void RemoveDeferred()
+    {
+        // Need to remove da buttn
+        var removeList = _levelSelector.Items.Where(item => !_sceneManagerPlugin.SceneNames.Any(item2 => item2 == item.Text));
+
+        foreach (var item in removeList)
+        {
+            _levelSelector.RemoveItem(item);
+        }
     }
 }
+#endif

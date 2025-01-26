@@ -10,6 +10,8 @@ public partial class QuestManager : Node
 
     private Quest _activeQuest;
 
+    public Quest ActiveQuest => _activeQuest;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -41,7 +43,9 @@ public partial class QuestManager : Node
                 return _activeQuest.Start();
             }
         }
-
         return false;
     }
+
+    public void DeactivateQuest() => _activeQuest.Stop();
+
 }

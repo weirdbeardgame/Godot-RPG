@@ -4,7 +4,7 @@ using System;
 namespace Core.Quests;
 
 [Tool]
-public partial class QuestEditor : Node
+public partial class QuestEditor : EditorPlugin
 {
     Button _NewQuest;
     QuestManager _Manager;

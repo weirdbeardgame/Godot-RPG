@@ -1,50 +1,82 @@
 using Godot;
 using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
-
-
+using Levels;
+using System.Text.Json;
 
 [Tool]
-public partial class SceneManager : EditorPlugin
+public partial class SceneManager : Node
 {
-    private static LevelCommon _CurrentScene;
     public static Action ResetLevel;
     public static Action StartNewGame;
     public static Action<string, Player> ChangeScene;
     public static Action<PackedScene, Player, Exit> ChangeSceneWithExit;
 
+    private LevelCommon currentScene;
+    private JsonWrapper _json = new JsonWrapper();
+    private string _sceneManagerPath = "res://SceneManagerData.json";
+
+    public SceneManagerData ManagerData;
+    public int LevelCount => ManagerData.Levels.Count;
     public PackedScene NewGameScene => ManagerData.NewGameScene;
-    public PackedScene PlayerRef => ManagerData.PlayerRef;
+    public PackedScene PackedPlayer => ManagerData.PackedPlayer;
 
-    Control EditorDock;
-    static SceneManagerData ManagerData;
+    // Because Plugin exists outside the SceneTree, we create our own _Tree or refrence to one.
+    private static SceneTree s_tree;
 
-    [Export]
-    string SceneManagerPath = "res://SceneManagerData.tres";
+    private Player playerRef;
 
-    // Because Plugin exists outside the SceneTree, we create our own Tree or refrence to one.
-    SceneTree Tree;
-
-    public static LevelCommon CurrentScene
+    public Player ActivePlayerRef
     {
         get
         {
-            return _CurrentScene;
+            if (playerRef == null)
+            {
+                playerRef = ManagerData.CreatePlayer();
+            }
+            return playerRef;
+        }
+        set
+        {
+            playerRef = value;
         }
     }
 
-    private static SceneManager _SceneManager;
+    private static SceneManager s_sceneManager;
+    public static new SceneTree GetTree() => s_tree;
+    public LevelCommon CurrentScene => currentScene;
+
+    public bool Save()
+    {
+        if (!_json.Write(_sceneManagerPath, ManagerData))
+        {
+            GD.PrintErr("Failed to save Scene Manager");
+            return false;
+        }
+        return true;
+    }
+
+    public bool Load()
+    {
+        if (!_json.Read(_sceneManagerPath, ref ManagerData))
+        {
+            GD.PrintErr("Failed to save Scene Manager");
+            return false;
+        }
+        return true;
+    }
 
     public static SceneManager Manager
     {
         get
         {
-            if (_SceneManager == null)
+            if (s_sceneManager == null)
             {
-                _SceneManager = new SceneManager();
+                s_sceneManager = new SceneManager();
             }
-            return _SceneManager;
+            return s_sceneManager;
         }
     }
 
@@ -53,40 +85,49 @@ public partial class SceneManager : EditorPlugin
     // As such _Ready will not be called.
     public void Init(SceneTree T)
     {
-        Tree = new SceneTree();
+        s_tree = new SceneTree();
         StartNewGame += NewGame;
         ChangeScene += SwitchLevel;
         ChangeSceneWithExit += LoadSubScene;
         ResetLevel += Reset;
-        Tree = T;
-        if (ResourceLoader.Exists(SceneManagerPath))
+        s_tree = T;
+
+        if (Load())
         {
-            ManagerData = ResourceLoader.Load<Resource>(SceneManagerPath) as SceneManagerData;
+            playerRef = ManagerData.CreatePlayer();
         }
     }
 
-    void Reset() => CurrentScene.ResetLevel();
-
-    public Player CreatePlayer() => ManagerData.CreatePlayer();
-
+    void Reset() => currentScene.ResetLevel();
     public void DestroyPlayer(Player p) => p.Dispose();
-
     public void LoadSubScene(PackedScene subscene, Player p, Exit exit) => CallDeferred(nameof(CallDeferredSub), subscene.Instantiate<LevelCommon>(), p);
 
+    public bool CreateManagerData()
+    {
+        if (!ResourceLoader.Exists(_sceneManagerPath))
+        {
+            GD.Print("No SceneManager Data!");
+            ManagerData = new SceneManagerData();
+        }
+        else
+        {
+            if (!Load())
+            {
+                throw new Exception("Unable to load SceneManager!");
+            }
+        }
+        return false;
+    }
 
     // Play level changing animation.
     // Load new scene and set it as current
-    public void SwitchLevel(string scene, Player Player)
+    public void SwitchLevel(string scene, Player player)
     {
-        if (CurrentScene is LevelCommon)
-        {
-            _CurrentScene = (LevelCommon)Tree.CurrentScene;
-        }
-
+        // This is what's passing instance of player across scenes!!!
+        ActivePlayerRef = player;
         if (ManagerData.Levels.ContainsKey(scene))
         {
-            LevelCommon sceneToLoad = ManagerData.Level(scene);
-            CallDeferred(nameof(CallDefferedSwitch), sceneToLoad, Player, (int)sceneToLoad.LevelType);
+            Switch(ManagerData.Level(scene), ref currentScene);
         }
         else
         {
@@ -94,109 +135,38 @@ public partial class SceneManager : EditorPlugin
         }
     }
 
-#if TOOLS
-
-    // Initialization of the plugin goes here.
-    public override void _EnterTree()
-    {
-        base._EnterTree();
-        GD.Print("EnterTree");
-
-        if (!ResourceLoader.Exists(SceneManagerPath))
-        {
-            GD.Print("No SceneManager Data!");
-            ManagerData = new SceneManagerData();
-        }
-        else
-        {
-            var temp = ResourceLoader.Load<Resource>(SceneManagerPath);
-            GD.Print(temp.GetType());
-            ManagerData = (SceneManagerData)temp;
-        }
-
-        EditorDock = GD.Load<PackedScene>("res://addons/SceneManager/LevelDock.tscn").Instantiate<Control>();
-        AddControlToDock(DockSlot.LeftUl, EditorDock);
-    }
-
-    public bool Add(PackedScene Scene) => ManagerData.Add(Scene);
-
-    public void Remove(string SceneName) => ManagerData.Remove(SceneName);
-
-    public void SetPlayerRef(string path) => ManagerData.SetPlayerRef(path);
-
-    public void SetNewGameScene(string sceneName) => ManagerData.SetNewGameScene(sceneName);
-
-    // TODO: Actually implement this. This is to generate a brand new scene and add it to the SceneManager.
-    // This needs to open the inbuilt Level Editor!
-    public bool New()
-    {
-
-        return false;
-    }
-
-    public List<string> SceneNames
-    {
-        get
-        {
-            if (ManagerData != null && ManagerData.Levels != null)
-            {
-                return ManagerData.Levels.Keys.ToList<string>();
-            }
-            return null;
-        }
-    }
-
-    public void ChangeSceneInEditor(string SceneName)
-    {
-        if (ManagerData.Levels != null)
-        {
-            EditorInterface.Singleton.OpenSceneFromPath(ManagerData.Levels[SceneName].ResourcePath);
-        }
-    }
-
-    public override void _ExitTree()
-    {
-        StartNewGame -= NewGame;
-        ChangeScene -= SwitchLevel;
-        ChangeSceneWithExit -= LoadSubScene;
-        ResetLevel -= Reset;
-
-        RemoveControlFromDocks(EditorDock);
-        EditorDock.Free();
-        GD.Print(ResourceSaver.Save(ManagerData, SceneManagerPath));
-    }
-#endif
-
     public LevelCommon GetLevel(string LevelName)
     {
-        return ManagerData.Level(LevelName);
+        if (ManagerData.Levels.ContainsKey(LevelName))
+        {
+            return ManagerData.Level(LevelName);
+        }
+        return null;
     }
 
-    void CallDeferredSub(SubLevel toLoad, Player Player, LevelType type)
+    void CallDeferredSub(SubLevel toLoad, Player Player)
     {
-        CurrentScene.ExitLevel();
-        Tree.Root.RemoveChild(CurrentScene);
-        //activeSubScene = toLoad;
-        //Tree.Root.AddChild(activeSubScene);
-        //activeSubScene.EnterLevel(Player, type);
+        currentScene.ExitLevel();
+        currentScene.EnterSubLevel(Player, toLoad);
     }
 
-    void CallDefferedSwitch(LevelCommon toLoad, Player Player, LevelType type)
+    void Switch(LevelCommon toLoad, ref LevelCommon current)
     {
-        if (CurrentScene != null)
+        using var title = s_tree.Root.GetNodeOrNull<TitleScreen>("TitleScreen");
+
+        if (current != null)
         {
-            CurrentScene.ExitLevel();
-            Tree.Root.RemoveChild(CurrentScene);
-            CurrentScene.Free();
+            s_tree.Root.RemoveChild(current);
+            current.QueueFree();
         }
-        else
+        else if (title != null)
         {
-            Tree.Root.QueueFree();
+            s_tree.Root.RemoveChild(title);
         }
-        _CurrentScene = toLoad;
-        Tree.Root.AddChild(CurrentScene);
-        Tree.CurrentScene = _CurrentScene;
-        _CurrentScene.EnterLevel(Player);
+        current = toLoad;
+        s_tree.Root.AddChild(current);
+        s_tree.CurrentScene = current;
+        current.EnterLevel();
     }
 
     void NewGame()
