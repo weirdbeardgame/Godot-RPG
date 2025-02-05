@@ -12,6 +12,7 @@ offset_right = -0.280029
 offset_bottom = 0.199982
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 1.83953)
 size_flags_horizontal = 6
 size_flags_vertical = 6
 vertical = true
@@ -27,11 +28,8 @@ theme = ExtResource("1_2dx51")
 [node name="ScrollContainer" type="ScrollContainer" parent="ItemBox"]
 clip_contents = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 111.0
+offset_bottom = 508.0
 
 [node name="ItemContainer" type="VBoxContainer" parent="ItemBox/ScrollContainer"]
 layout_mode = 2

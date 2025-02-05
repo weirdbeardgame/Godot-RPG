@@ -18,10 +18,6 @@ config/icon="res://icon.svg"
 
 project/assembly_name="RPG"
 
-[editor_plugins]
-
-enabled=PackedStringArray()
-
 [input]
 
 ui_left={

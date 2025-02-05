@@ -11,15 +11,17 @@ public partial class StatsEditor : EditorPlugin
 	private LineEdit _statName;
 	private ItemList _statsList;
 
+	private Button _add;
+	private Button _remove;
+
+	private JsonWrapper _json = new JsonWrapper();
+
 	public override void _EnterTree()
 	{
-		// Initialization of the plugin goes here.
-
 		_stats = new Dictionary<string, Stat>();
 		_statsList = GetNode<ItemList>("StatsList");
-		PackedScene StatsScene = ResourceLoader.Load<PackedScene>("res://addons/statseditor/Stats Editor.tscn");
-		var instance = StatsScene.Instantiate<Control>();
-		EditorInterface.Singleton.GetEditorMainScreen().AddChild(instance);
+		_add = _statsList.GetNode<Button>("HBoxContainer/Add");
+		_remove = _statsList.GetNode<Button>("HBoxContainer/Remove");
 	}
 
 	public void New()
@@ -52,11 +54,19 @@ public partial class StatsEditor : EditorPlugin
 	public void Save()
 	{
 		// Jsssonnnn!!
+		if (!_json.Write("res://StatsData.json", _stats))
+		{
+			GD.PrintErr("Save Failed!");
+		}
 	}
 
 	public void Load()
 	{
 		// Look Vegeta, more Json stuff.
+		if (!_json.Read("res://StatsData.json", ref _stats))
+		{
+			GD.PrintErr("Failed to parse Stats!");
+		}
 	}
 
 	public override void _ExitTree()

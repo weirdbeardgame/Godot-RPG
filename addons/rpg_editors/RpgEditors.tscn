@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3mtijxwdmclo"]
+
+[ext_resource type="PackedScene" uid="uid://nvunvcqfdctx" path="res://addons/rpg_editors/Editors/itemeditor/Item Editor.tscn" id="1_8vvug"]
+[ext_resource type="PackedScene" uid="uid://bfvdo7ujqcvca" path="res://addons/rpg_editors/Editors/statseditor/Stats Editor.tscn" id="1_at6td"]
+
+[node name="RpgEditors" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Stats" parent="TabContainer" instance=ExtResource("1_at6td")]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Players" type="Panel" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Items" parent="TabContainer" instance=ExtResource("1_8vvug")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Enemies" type="Panel" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3

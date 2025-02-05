@@ -27,15 +27,6 @@ public partial class itemeditor : EditorPlugin
     // Called when the node enters the scene tree for the first time.
     public override void _EnterTree()
     {
-        PackedScene ItemEditorControlScene = ResourceLoader.Load<PackedScene>("res://addons/itemeditor/Item Editor.tscn");
-        PanelInstance = ItemEditorControlScene.Instantiate<Control>();
-
-        ItemButton = ResourceLoader.Load<PackedScene>("res://Assets/GuiElements/EditorItem/EditorItem.tscn");
-        ItemContainer = PanelInstance.GetNode<BoxContainer>("Editor/Items/ItemContainer");
-        EditorInterface.Singleton.GetEditorMainScreen().AddChild(PanelInstance);
-
-        // Hide the main panel. Very much required.
-        _MakeVisible(false);
 
         Save = PanelInstance.GetNode<Button>("Editor/Save");
         NewItem = PanelInstance.GetNode<Button>("Editor/New Item");
