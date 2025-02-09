@@ -4,13 +4,12 @@ using System;
 using System.Text.Json;
 
 [Tool]
-public partial class StatsEditor : EditorPlugin
+public partial class StatsEditor : Control
 {
 	private Dictionary<string, Stat> _stats;
 	private Stat _currentStat;
 	private LineEdit _statName;
 	private ItemList _statsList;
-
 	private Button _add;
 	private Button _remove;
 	private JsonWrapper _json = new JsonWrapper();
@@ -19,8 +18,14 @@ public partial class StatsEditor : EditorPlugin
 	{
 		_stats = new Dictionary<string, Stat>();
 		_statsList = GetNode<ItemList>("StatsList");
-		_add = _statsList.GetNode<Button>("HBoxContainer/Add");
-		_remove = _statsList.GetNode<Button>("HBoxContainer/Remove");
+		_statName = GetNode<LineEdit>("VBoxContainer/StatName");
+		_add = GetNode<Button>("HBoxContainer/AddStat");
+		_remove = GetNode<Button>("HBoxContainer/RemoveStat");
+
+
+		_add.Pressed += New;
+		//_remove.Pressed += Remove;
+
 	}
 
 	public void New()

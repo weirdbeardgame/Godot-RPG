@@ -17,7 +17,6 @@ public partial class SceneManagerPlugin : EditorPlugin
 		base._EnterTree();
 		GD.Print("EnterTree");
 
-
 		_sceneManager.CreateManagerData();
 
 		EditorInterface.Singleton.GetResourceFilesystem().FilesystemChanged += _sceneManager.ManagerData.Refresh;

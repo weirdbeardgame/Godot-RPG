@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfvdo7ujqcvca"]
+[gd_scene load_steps=4 format=3 uid="uid://bfvdo7ujqcvca"]
 
 [ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="1_3rnv2"]
+[ext_resource type="Script" path="res://addons/rpg_editors/Editors/statseditor/StatsEditor.cs" id="2_7yk62"]
 [ext_resource type="FontFile" uid="uid://daudqpipaknfq" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-Light.ttf" id="3_cihr1"]
 
 [node name="Stats" type="Panel"]
@@ -12,6 +13,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_3rnv2")
+script = ExtResource("2_7yk62")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -22,14 +24,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.151276, 0.151276, 0.151276, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 295.0
 offset_top = 90.0
 offset_right = 566.0
 offset_bottom = 330.0
 
-[node name="StatNameLabel" type="RichTextLabel" parent="Background/VBoxContainer"]
+[node name="StatNameLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_3rnv2")
 theme_override_font_sizes/normal_font_size = 20
@@ -37,12 +39,12 @@ text = "Name:
 "
 fit_content = true
 
-[node name="StatName" type="LineEdit" parent="Background/VBoxContainer"]
+[node name="StatName" type="LineEdit" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="StatLable" type="RichTextLabel" parent="Background/VBoxContainer"]
+[node name="StatLable" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("1_3rnv2")
@@ -52,12 +54,12 @@ text = "Stat:
 "
 fit_content = true
 
-[node name="Stat" type="LineEdit" parent="Background/VBoxContainer"]
+[node name="Stat" type="LineEdit" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="MaxStatLabel" type="RichTextLabel" parent="Background/VBoxContainer"]
+[node name="MaxStatLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_3rnv2")
 theme_override_fonts/normal_font = ExtResource("3_cihr1")
@@ -66,19 +68,19 @@ text = "Max Stat:
 "
 fit_content = true
 
-[node name="MaxStat" type="LineEdit" parent="Background/VBoxContainer"]
+[node name="MaxStat" type="LineEdit" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="Stats" type="ItemList" parent="Background"]
+[node name="StatsList" type="ItemList" parent="."]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 69.0
 offset_right = 251.0
 offset_bottom = 511.0
 
-[node name="StatsListLabel" type="RichTextLabel" parent="Background"]
+[node name="StatsListLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
 offset_left = 5.0
 offset_top = 20.0
@@ -88,24 +90,24 @@ theme = ExtResource("1_3rnv2")
 theme_override_font_sizes/normal_font_size = 20
 text = "Stats: "
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Background"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 520.0
 offset_right = 243.0
 offset_bottom = 573.0
 
-[node name="AddStat" type="Button" parent="Background/HBoxContainer"]
+[node name="AddStat" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Add Stat"
 
-[node name="RemoveStat" type="Button" parent="Background/HBoxContainer"]
+[node name="RemoveStat" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove Stat"
 
-[node name="Save" type="Button" parent="Background/HBoxContainer"]
+[node name="Save" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Save"
