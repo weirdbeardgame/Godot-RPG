@@ -13,7 +13,6 @@ public partial class StatsEditor : EditorPlugin
 
 	private Button _add;
 	private Button _remove;
-
 	private JsonWrapper _json = new JsonWrapper();
 
 	public override void _EnterTree()
@@ -26,10 +25,16 @@ public partial class StatsEditor : EditorPlugin
 
 	public void New()
 	{
+		if (string.IsNullOrEmpty(_statName.Text))
+		{
+			_statName.Text = $"Stat: {_stats.Count}";
+		}
+
 		if (!_stats.ContainsKey(_statName.Text))
 		{
 			_currentStat = new Stat(_statName.Text, 1000);
 			_stats.Add(_currentStat.StatName, _currentStat);
+			_statsList.AddItem(_currentStat.StatName);
 		}
 	}
 

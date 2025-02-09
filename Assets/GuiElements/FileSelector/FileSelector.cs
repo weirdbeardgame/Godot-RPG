@@ -31,9 +31,9 @@ public partial class FileSelector : Node
     public override void _EnterTree()
     {
         Dialog = GetNode<FileDialog>("FileDialog");
-        BrowseButton = GetNode<Button>("Browse");
+        BrowseButton = GetNode<Button>("HBoxContainer/Browse");
         label = GetNode<RichTextLabel>("SelectLabel");
-        PathField = GetNode<RichTextLabel>("PathLabel");
+        PathField = GetNode<RichTextLabel>("HBoxContainer/PathLabel");
     }
 
     public bool IsOpen() => Dialog.Visible;

@@ -13,6 +13,8 @@ public partial class LevelDockScript : Control
     private Button _refresh;
     private Button _newLevelButton;
     private int _currentIndex;
+    private Vector2 _currentPosition;
+
     private FileDialog _dialog;
     private FileSelector _playerRef;
     private ItemList _levelSelector;
@@ -54,11 +56,11 @@ public partial class LevelDockScript : Control
         }
 
         _levelSelector = GetNode<ItemList>("VBoxContainer/ItemList");
-        _levelSelector.Add.Pressed += AddScene_Button;
-        _levelSelector.Remove.Pressed += RemoveScene_Button;
+        //_levelSelector.Add.Pressed += AddScene_Button;
+        //_levelSelector.Remove.Pressed += RemoveScene_Button;
 
         _dialog.FileSelected += AddScene;
-        ItemList.s_IndexUpdate += UpdateIndex;
+        //ItemList.s_IndexUpdate += UpdateIndex;
         _sceneManagerPlugin.ManagerRefresh += UpdateList;
 
         UpdateList();
@@ -71,10 +73,10 @@ public partial class LevelDockScript : Control
 
     void RemoveScene_Button()
     {
-        DirAccess.RemoveAbsolute($"res://Assets/resources/Levels/Scenes/{_levelSelector.Items[_currentIndex].Text}.tscn");
-        DirAccess.RemoveAbsolute($"res://Assets/resources/Levels/LevelData/{_levelSelector.Items[_currentIndex].Text}.json");
-        _sceneManagerPlugin.Remove(_levelSelector.Items[_currentIndex].Text);
-        _levelSelector.RemoveItem(_levelSelector.Items[_currentIndex]);
+        DirAccess.RemoveAbsolute($"res://Assets/resources/Levels/Scenes/{_levelSelector.GetItemText(_currentIndex)}.tscn");
+        DirAccess.RemoveAbsolute($"res://Assets/resources/Levels/LevelData/{_levelSelector.GetItemText(_currentIndex)}.json");
+        _sceneManagerPlugin.Remove(_levelSelector.GetItemText(_currentIndex));
+        _levelSelector.RemoveItem(_currentIndex);
     }
 
     void AddScene(string path)
@@ -109,12 +111,7 @@ public partial class LevelDockScript : Control
             {
                 foreach (var scene in _sceneManagerPlugin.SceneNames)
                 {
-                    if (_levelSelector.Contains(scene) == null)
-                    {
-                        Button selectorButton = _sceneButton.Instantiate<Button>();
-                        selectorButton.Text = scene;
-                        _levelSelector.AddItem(selectorButton);
-                    }
+                    _levelSelector.AddItem(scene);
                 }
             }
 
@@ -153,13 +150,6 @@ public partial class LevelDockScript : Control
 
     void RemoveDeferred()
     {
-        // Need to remove da buttn
-        var removeList = _levelSelector.Items.Where(item => !_sceneManagerPlugin.SceneNames.Any(item2 => item2 == item.Text));
-
-        foreach (var item in removeList)
-        {
-            _levelSelector.RemoveItem(item);
-        }
     }
 }
 #endif

@@ -8,10 +8,17 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 34.0
+offset_right = 48.0
+offset_bottom = 103.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="."]
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +26,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Stats" parent="TabContainer" instance=ExtResource("1_at6td")]
 layout_mode = 2

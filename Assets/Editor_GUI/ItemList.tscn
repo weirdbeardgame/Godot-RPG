@@ -5,16 +5,13 @@
 [ext_resource type="Script" path="res://Source/EditorGui/ItemList.cs" id="1_vnot3"]
 
 [node name="ItemList" type="SplitContainer"]
-anchors_preset = -1
-anchor_right = 0.477
-anchor_bottom = 0.785
-offset_right = -0.280029
-offset_bottom = 0.199982
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 1.83953)
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 3
+split_offset = 290
 vertical = true
 script = ExtResource("1_vnot3")
 
@@ -26,23 +23,22 @@ tooltip_text = "Items
 theme = ExtResource("1_2dx51")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ItemBox"]
-clip_contents = false
-layout_mode = 1
-offset_right = 111.0
-offset_bottom = 508.0
+layout_mode = 0
 
 [node name="ItemContainer" type="VBoxContainer" parent="ItemBox/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 2
+size_flags_vertical = 3
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+size_flags_vertical = 10
 
 [node name="Add" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 8
 theme = ExtResource("1_e25a3")
 text = "Add
 "
@@ -50,5 +46,6 @@ text = "Add
 [node name="Remove" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 8
 theme = ExtResource("1_e25a3")
 text = "Remove"

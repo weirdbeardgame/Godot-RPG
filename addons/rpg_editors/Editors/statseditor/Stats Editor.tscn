@@ -1,101 +1,111 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfvdo7ujqcvca"]
+[gd_scene load_steps=3 format=3 uid="uid://bfvdo7ujqcvca"]
 
 [ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="1_3rnv2"]
-[ext_resource type="PackedScene" uid="uid://smgp544673md" path="res://Assets/Editor_GUI/ItemList.tscn" id="3_3o7m0"]
 [ext_resource type="FontFile" uid="uid://daudqpipaknfq" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-Light.ttf" id="3_cihr1"]
 
 [node name="Stats" type="Panel"]
-offset_left = -8.0
-offset_top = 16.0
-offset_right = 1145.0
-offset_bottom = 666.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_3rnv2")
 
-[node name="StatsList" parent="." instance=ExtResource("3_3o7m0")]
+[node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
-offset_left = 8.0
-offset_top = 80.0
-offset_right = -349.504
-offset_bottom = -68.68
-grow_horizontal = 1
-grow_vertical = 1
-scale = Vector2(0.880001, 0.879531)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.151276, 0.151276, 0.151276, 1)
 
-[node name="Add" parent="StatsList/HBoxContainer" index="0"]
-text = "+
-"
-
-[node name="Remove" parent="StatsList/HBoxContainer" index="1"]
-text = "-"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 2
-offset_left = 8.0
-offset_top = 62.0
-offset_right = 48.0
-offset_bottom = 102.0
-scale = Vector2(1.30161, 0.676147)
-theme = ExtResource("1_3rnv2")
-text = "Stats: "
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-clip_contents = true
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
 layout_mode = 0
-offset_left = 208.0
-offset_top = 80.0
-offset_right = 320.0
-offset_bottom = 181.0
-alignment = 2
+offset_left = 295.0
+offset_top = 90.0
+offset_right = 566.0
+offset_bottom = 330.0
 
-[node name="Stat" type="LineEdit" parent="VBoxContainer"]
+[node name="StatNameLabel" type="RichTextLabel" parent="Background/VBoxContainer"]
 layout_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Stat"]
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.367438, 0.285541)
 theme = ExtResource("1_3rnv2")
-theme_override_fonts/normal_font = ExtResource("3_cihr1")
-theme_override_font_sizes/normal_font_size = 12
-text = "Stat:
-"
-scroll_active = false
-autowrap_mode = 2
-
-[node name="MaxStat" type="LineEdit" parent="VBoxContainer"]
-layout_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/MaxStat"]
-layout_mode = 0
-offset_top = -5.0
-offset_right = 40.0
-offset_bottom = 35.0
-scale = Vector2(0.367438, 0.285541)
-theme = ExtResource("1_3rnv2")
-theme_override_fonts/normal_font = ExtResource("3_cihr1")
-theme_override_font_sizes/normal_font_size = 12
-text = "Max Stat:
-"
-scroll_active = false
-autowrap_mode = 2
-
-[node name="StatName" type="LineEdit" parent="VBoxContainer"]
-layout_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/StatName"]
-layout_mode = 0
-offset_left = -0.00051856
-offset_top = -7.99998
-offset_right = 39.9995
-offset_bottom = 32.0
-scale = Vector2(0.383021, 0.228102)
-theme = ExtResource("1_3rnv2")
-theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/normal_font_size = 20
 text = "Name:
 "
 fit_content = true
 
-[editable path="StatsList"]
+[node name="StatName" type="LineEdit" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="StatLable" type="RichTextLabel" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_3rnv2")
+theme_override_fonts/normal_font = ExtResource("3_cihr1")
+theme_override_font_sizes/normal_font_size = 20
+text = "Stat:
+"
+fit_content = true
+
+[node name="Stat" type="LineEdit" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="MaxStatLabel" type="RichTextLabel" parent="Background/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_3rnv2")
+theme_override_fonts/normal_font = ExtResource("3_cihr1")
+theme_override_font_sizes/normal_font_size = 20
+text = "Max Stat:
+"
+fit_content = true
+
+[node name="MaxStat" type="LineEdit" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats" type="ItemList" parent="Background"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 69.0
+offset_right = 251.0
+offset_bottom = 511.0
+
+[node name="StatsListLabel" type="RichTextLabel" parent="Background"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 20.0
+offset_right = 145.0
+offset_bottom = 60.0
+theme = ExtResource("1_3rnv2")
+theme_override_font_sizes/normal_font_size = 20
+text = "Stats: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 520.0
+offset_right = 243.0
+offset_bottom = 573.0
+
+[node name="AddStat" type="Button" parent="Background/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add Stat"
+
+[node name="RemoveStat" type="Button" parent="Background/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove Stat"
+
+[node name="Save" type="Button" parent="Background/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save"
