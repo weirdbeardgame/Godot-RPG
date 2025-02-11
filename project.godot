@@ -20,7 +20,7 @@ project/assembly_name="RPG"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/rpg_editors/plugin.cfg")
+enabled=PackedStringArray("res://addons/rpg_editors/plugin.cfg", "res://addons/zylann.editor_debugger/plugin.cfg")
 
 [input]
 

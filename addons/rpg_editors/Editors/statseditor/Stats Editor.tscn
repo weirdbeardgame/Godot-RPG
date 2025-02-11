@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfvdo7ujqcvca"]
+[gd_scene load_steps=12 format=3 uid="uid://bfvdo7ujqcvca"]
 
 [ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="1_3rnv2"]
 [ext_resource type="Script" path="res://addons/rpg_editors/Editors/statseditor/StatsEditor.cs" id="2_7yk62"]
@@ -6,7 +6,20 @@
 [ext_resource type="Theme" uid="uid://bj1ii2u3kdtcr" path="res://Assets/Theme/ButtonTheme.tres" id="4_2l41k"]
 [ext_resource type="Theme" uid="uid://dltcx5jine88c" path="res://Assets/Editor_GUI/Themes/Button_Theme.tres" id="5_p0iqt"]
 
-[node name="Stats" type="Panel" node_paths=PackedStringArray("_statsList", "_statName", "_maxStat", "_add", "_remove", "_save")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5cgb"]
+bg_color = Color(0.148487, 0.171768, 0.201333, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p38lh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2216y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q0myr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g4klu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ujy6q"]
+
+[node name="Stats" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,25 +32,8 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_3rnv2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_r5cgb")
 script = ExtResource("2_7yk62")
-_currentIndex = 0
-_currentPosition = Vector2(0, 0)
-_statsList = NodePath("StatsList")
-_statName = NodePath("VBoxContainer/StatName")
-_stat = null
-_maxStat = NodePath("VBoxContainer/MaxStat")
-_add = NodePath("HBoxContainer/AddStat")
-_remove = NodePath("HBoxContainer/RemoveStat")
-_save = NodePath("HBoxContainer/Save")
-
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.152358, 0.155672, 0.190657, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -48,8 +44,8 @@ offset_bottom = 330.0
 
 [node name="StatNameLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_3rnv2")
 theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/background = SubResource("StyleBoxEmpty_p38lh")
 text = "Name:
 "
 fit_content = true
@@ -62,9 +58,9 @@ metadata/_edit_use_anchors_ = true
 [node name="StatLable" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme = ExtResource("1_3rnv2")
 theme_override_fonts/normal_font = ExtResource("3_cihr1")
 theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/background = SubResource("StyleBoxEmpty_2216y")
 text = "Stat:
 "
 fit_content = true
@@ -77,9 +73,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="MaxStatLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_3rnv2")
 theme_override_fonts/normal_font = ExtResource("3_cihr1")
 theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/background = SubResource("StyleBoxEmpty_q0myr")
 text = "Max Stat:
 "
 fit_content = true
@@ -96,6 +92,10 @@ offset_left = 2.0
 offset_top = 69.0
 offset_right = 251.0
 offset_bottom = 511.0
+item_count = 3
+item_0/text = "Health"
+item_1/text = "Speed"
+item_2/text = "Magic"
 
 [node name="StatsListLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
@@ -105,6 +105,7 @@ offset_right = 145.0
 offset_bottom = 60.0
 theme = ExtResource("1_3rnv2")
 theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/background = SubResource("StyleBoxEmpty_g4klu")
 text = "Stats: "
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -132,7 +133,7 @@ text = "Save"
 [node name="StatNamePanel" type="PopupPanel" parent="."]
 title = "Enter Stat Name"
 initial_position = 2
-size = Vector2i(300, 200)
+size = Vector2i(300, 343)
 theme = ExtResource("1_3rnv2")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="StatNamePanel"]
@@ -141,14 +142,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 296.0
+offset_bottom = 339.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="StatNamePanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_ujy6q")
 text = "Enter Stat Name:"
 fit_content = true
 

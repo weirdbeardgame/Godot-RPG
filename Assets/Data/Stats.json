@@ -1,17 +1,17 @@
 {
   "Health": {
-    "MaxStat": 9999,
-    "Stat": 100,
-    "StatName": "Health"
+	"MaxStat": 9999,
+	"Stat": 100,
+	"StatName": "Health"
   },
   "Speed": {
-    "MaxStat": 9999,
-    "Stat": 200,
-    "StatName": "Speed"
+	"MaxStat": 9999,
+	"Stat": 200,
+	"StatName": "Speed"
   },
   "Magic": {
-    "MaxStat": 9999,
-    "Stat": 300,
-    "StatName": "Magic"
+	"MaxStat": 9999,
+	"Stat": 300,
+	"StatName": "Magic"
   }
 }

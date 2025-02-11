@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3mtijxwdmclo"]
+[gd_scene load_steps=4 format=3 uid="uid://d3mtijxwdmclo"]
 
 [ext_resource type="PackedScene" uid="uid://nvunvcqfdctx" path="res://addons/rpg_editors/Editors/itemeditor/Item Editor.tscn" id="1_8vvug"]
 [ext_resource type="PackedScene" uid="uid://bfvdo7ujqcvca" path="res://addons/rpg_editors/Editors/statseditor/Stats Editor.tscn" id="1_at6td"]
+[ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="1_d1oa0"]
 
 [node name="RpgEditors" type="Control"]
 layout_mode = 3
@@ -16,9 +17,9 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("1_d1oa0")
 
 [node name="TabContainer" type="TabContainer" parent="."]
-z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,6 +41,7 @@ metadata/_tab_index = 1
 [node name="Items" parent="TabContainer" instance=ExtResource("1_8vvug")]
 visible = false
 layout_mode = 2
+_Items = {}
 metadata/_tab_index = 2
 
 [node name="Enemies" type="Panel" parent="TabContainer"]

@@ -69,6 +69,16 @@ public partial class StatsEditor : Control
 		if (Load())
 		{
 			Refresh();
+			_statsList.Select(0);
+			_currentIndex = 0;
+
+			if (_currentStat != _stats[_statsList.GetItemText(_currentIndex)])
+			{
+				_currentStat = _stats[_statsList.GetItemText(_currentIndex)];
+				_statName.Text = _currentStat.StatName;
+				_stat.Value = _currentStat.Stat;
+				_maxStat.Value = _currentStat.MaxStat;
+			}
 		}
 
 	}
@@ -113,7 +123,16 @@ public partial class StatsEditor : Control
 
 	void OkButtonPressed() => CreateNewStat();
 	void CancelButtonPressed() => _statNamePanel.Hide();
-	void OnStatNameUpdate(string val) => _currentStat.StatName = val;
+	void OnStatNameUpdate(string val)
+	{
+		var old = _currentStat.StatName;
+		_currentStat.StatName = val;
+
+		_stats.Remove(old);
+		_stats.Add(_currentStat.StatName, _currentStat);
+		Refresh();
+	}
+
 	void OnStatUpdate(double val) => _currentStat.Stat = (float)val;
 	void OnMaxStatUpdate(double val) => _currentStat.MaxStat = (float)val;
 	public void RemoveButton() => Remove(_statName.Text);
@@ -154,6 +173,7 @@ public partial class StatsEditor : Control
 
 	public void Refresh()
 	{
+		_statsList.Clear();
 		foreach (var stat in _stats)
 		{
 			_statsList.AddItem(stat.Key);
