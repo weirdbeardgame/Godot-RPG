@@ -15,7 +15,7 @@ public partial class StatsEditor : Control
 
 	// Properties for _stats
 	private StatData _currentStat;
-	[JsonConverter(typeof(DictionaryStatJsonConverter))] private Dictionary<string, StatData> _stats = new();
+	private Dictionary<string, StatData> _stats = new();
 
 	private LineEdit _statName;
 	private SpinBox _stat;

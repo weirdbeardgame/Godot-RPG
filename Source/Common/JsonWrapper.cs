@@ -16,6 +16,12 @@ public class JsonWrapper
             return false;
         }
 
+        var dir = DirAccess.Open("res://Assets/Data");
+        if (dir == null)
+        {
+            DirAccess.MakeDirRecursiveAbsolute("res://Assets/Data");
+        }
+
         using var file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
         file.StoreString(_jsonData);
 
@@ -148,71 +154,33 @@ public class DictionaryPackedSceneJsonConverter : JsonConverter<Dictionary<strin
     }
 }
 
-
-public class DictionaryStatJsonConverter : JsonConverter<Dictionary<string, StatData>>
+public sealed class JsonConverterGuid : System.Text.Json.Serialization.JsonConverter<Guid>
 {
-
-    private readonly JsonConverter<StatData> _statConverter;
-
-    public DictionaryStatJsonConverter(JsonSerializerOptions options)
+    public override Guid Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        _statConverter = (JsonConverter<StatData>)options.GetConverter(typeof(Dictionary<string, StatData>));
+        if (reader.TryGetGuid(out Guid value))
+        {
+            Console.WriteLine("guid");
+            return value;
+        }
+
+        var str = reader.GetString();
+        if (!string.IsNullOrEmpty(str))
+        {
+            Console.WriteLine("string");
+            return Guid.Parse(str);
+        }
+        throw new FormatException("The JSON value is not in a supported Guid format.");
+    }
+
+    public override void Write(Utf8JsonWriter writer, Guid value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(value.ToString());
     }
 
     public override bool CanConvert(Type typeToConvert)
     {
-        return typeToConvert == typeof(Dictionary<string, StatData>);
+        return typeToConvert == typeof(Guid);
     }
 
-    public override Dictionary<string, StatData> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        var data = new Dictionary<string, StatData>();
-        while (reader.Read())
-        {
-            if (reader.TokenType == JsonTokenType.EndObject)
-            {
-                return data;
-            }
-
-            var name = reader.GetString();
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new JsonException("NO SCENE MANAGER DATA");
-            }
-
-            reader.Read();
-
-            var StatData = _statConverter.Read(ref reader, typeToConvert, options);
-            data.Add(name, StatData);
-        }
-        var assembly = typeof(JsonSerializerOptions).Assembly;
-        var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
-        var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
-        clearCacheMethod?.Invoke(null, new object?[] { null });
-        return data;
-    }
-
-    public override void Write(Utf8JsonWriter writer, Dictionary<string, StatData> value, JsonSerializerOptions options)
-    {
-        if (value is null)
-        {
-            writer.WriteNullValue();
-        }
-        else
-        {
-            writer.WriteStartObject();
-            foreach (var item in value)
-            {
-                writer.WritePropertyName(item.Key);
-                JsonSerializer.Serialize(writer, item.Value, options);
-            }
-            writer.WriteEndObject();
-        }
-        var assembly = typeof(JsonSerializerOptions).Assembly;
-        var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
-        var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
-        clearCacheMethod?.Invoke(null, new object?[] { null });
-    }
 }
-

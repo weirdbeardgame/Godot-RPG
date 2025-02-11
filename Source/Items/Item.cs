@@ -1,18 +1,19 @@
 using Godot;
 using System;
+using System.Text.Json.Serialization;
 
 
 namespace Core.Items;
 
 public enum Operator { ADD, SUBTRACT, DIVIDE, MODULO };
 
-public partial class Item : Resource
+public partial class Item
 {
     protected string _itemName;
     protected bool _consumeable;
     protected Operator _operation;
     protected string _itemDescription;
-    private string _id = new Guid().ToString();
+    [JsonConverter(typeof(JsonConverterGuid))] public Guid ID { get; set; }
 
     // The Stats this item applies too.
     protected Dictionary<string, StatData> _statsAffected;
@@ -21,13 +22,36 @@ public partial class Item : Resource
     // private int _itemWeight;
     // public int ItemWeight => _itemWeight;
 
-    public string ID => _id;
-    public string ItemName => _itemName;
+    public string ItemName
+    {
+#if TOOLS
+        set
+        {
+            _itemName = value;
+        }
+#endif
+        get
+        {
+            return _itemName;
+        }
+    }
+
     public Operator Operation => _operation;
     public bool Consumeable => _consumeable;
-    public string ItemDescription => _itemDescription;
+    public string ItemDescription
+    {
 
-
+#if TOOLS
+        set
+        {
+            _itemDescription = value;
+        }
+#endif
+        get
+        {
+            return _itemDescription;
+        }
+    }
 
 #if TOOLS
     public Operator SetOperation
@@ -74,6 +98,7 @@ public partial class Item : Resource
         _operation = itemType;
         _itemName = name;
         _itemDescription = desc;
+        ID = Guid.NewGuid();
     }
 
     public virtual bool Use()

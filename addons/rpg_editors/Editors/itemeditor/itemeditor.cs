@@ -1,77 +1,156 @@
 #if TOOLS
 using Godot;
 using System;
-using System.Linq;
+using System.Text.Json;
 using Core.Items;
 
 [Tool]
-public partial class itemeditor : Control
+public partial class itemeditor : Panel
 {
-    Button Save;
-    Button NewItem;
-    LineEdit ItemName;
-    LineEdit ItemDesc;
-    ImagePicker ItemIcon;
+    Button _save;
+    Button _newItem;
 
-    [Export]
-    Godot.Collections.Dictionary<string, EditorItem> _Items;
-    List<string> ItemNames;
+    // Popup Panel:
+    PopupPanel _itemNamePanel;
+    LineEdit _panelItemName;
+    Button _okButton;
+    Button _cancelButton;
 
-    Item CurSelected;
+    // Item List Properties:
+    ItemList _itemList;
+    int _currentIndex;
+    Vector2 _currentPosition;
 
-    BoxContainer ItemContainer;
-    PackedScene ItemButton;
+    LineEdit _itemName;
+    LineEdit _itemDesc;
+
+    private Dictionary<string, Item> _items;
+    Item _currentItem;
+
+    JsonWrapper json;
+    DirAccess dirAccess;
 
     // Called when the node enters the scene tree for the first time.
     public override void _EnterTree()
     {
+        json = new JsonWrapper();
+        _save = GetNode<Button>("VSplitContainer/ItemListButtons/Save");
+        _newItem = GetNode<Button>("VSplitContainer/ItemListButtons/NewItem");
+        _itemName = GetNode<LineEdit>("Control/VBoxContainer/ItemNameField");
+        _itemDesc = GetNode<LineEdit>("Control/VBoxContainer/Description");
+        _itemList = GetNode<ItemList>("VSplitContainer/Items");
 
-        //Save = PanelInstance.GetNode<Button>("Save");
-        NewItem = GetNode<Button>("VSplitContainer/ItemListButtons/AddItem");
-        ItemName = GetNode<LineEdit>("Control/VBoxContainer/ItemNameField");
-        ItemDesc = GetNode<LineEdit>("Control/VBoxContainer/Description");
-        //ItemIcon = GetNode<ImagePicker>("Control/VSplitContainer/ItemIcon");
+        // Popup Panel:
+        _itemNamePanel = GetNode<PopupPanel>("ItemNamePanel");
+        _panelItemName = _itemNamePanel.GetNode<LineEdit>("VBoxContainer/ItemName");
+        _okButton = _itemNamePanel.GetNode<Button>("VBoxContainer/HBoxContainer/Ok");
+        _cancelButton = _itemNamePanel.GetNode<Button>("VBoxContainer/HBoxContainer/Cancel");
 
-        //Save.Pressed += Save_Button;
-        //NewItem.Pressed += NewItem_Button;
+        _save.Pressed += Save_Button;
+        _newItem.Pressed += NewItem_Button;
 
-        ItemName.TextChanged += NameEdit;
-        ItemDesc.TextChanged += DescEdit;
-        //ItemIcon.ImageChanged += UpdateImage;
+        _itemName.TextChanged += NameEdit;
+        _itemDesc.TextChanged += DescEdit;
+        _itemList.ItemClicked += ItemSelected;
 
-        _Items = new Godot.Collections.Dictionary<string, EditorItem>();
+        _okButton.Pressed += OkButtonPressed;
+        _cancelButton.Pressed += CancelButtonPressed;
+
+        _items = new Dictionary<string, Item>();
+
+        if (Load())
+        {
+            Refresh();
+            _currentIndex = 0;
+            UpdateFields();
+        }
+    }
+
+    public void ItemSelected(long idx, Vector2 pos, long mouse_btn)
+    {
+        _currentIndex = (int)idx;
+        _currentPosition = pos;
+        UpdateFields();
+    }
+
+    void UpdateFields()
+    {
+        if (_currentItem == null)
+        {
+            _currentItem = new Item();
+        }
+        if (_currentItem != _items[_itemList.GetItemText(_currentIndex)])
+        {
+            _currentItem = _items[_itemList.GetItemText(_currentIndex)];
+            _itemName.Text = _currentItem.ItemName;
+            _itemDesc.Text = _currentItem.ItemDescription;
+        }
     }
 
     public void NewItem_Button()
     {
-        EditorItem item = ItemButton.Instantiate<EditorItem>();
-        Item toAdd = new Item(Operator.ADD, "Item: " + _Items.Count, "Default");
-        item.CreateButton(toAdd.ItemName, toAdd);
-        _Items.Add(toAdd.ItemName, item);
-        CurSelected = toAdd;
-
-        ItemContainer.AddChild(item);
-        UpdateItemList();
+        _panelItemName.Text = string.Empty;
+        _itemNamePanel.Popup();
     }
 
-    void UpdateItemList()
+    void CreateNewItem()
     {
-        if (ItemNames != null && ItemNames != _Items.Keys.ToList<string>())
+        Item toAdd = new Item(Operator.ADD, "Default", "Default");
+        if (string.IsNullOrEmpty(_panelItemName.Text))
         {
-            ItemNames = _Items.Keys.ToList<string>();
+            _panelItemName.Text = "Item: " + _items.Count;
+        }
+
+        toAdd.ItemName = _panelItemName.Text;
+        _items.Add(toAdd.ItemName, toAdd);
+        _itemList.AddItem(toAdd.ItemName);
+        _itemNamePanel.Hide();
+    }
+
+    public void Refresh()
+    {
+        _itemList.Clear();
+        foreach (var item in _items)
+        {
+            _itemList.AddItem(item.Key);
         }
     }
 
-    public void NameEdit(string N) => CurSelected.SetItemName = N;
-    public void DescEdit(string desc) => CurSelected.SetItemDescription = desc;
-    //public void UpdateImage(string P) => CurSelected.SetIconPath = P;
+    void OkButtonPressed() => CreateNewItem();
+    void CancelButtonPressed() => _itemNamePanel.Hide();
+
+    void NameEdit(string val)
+    {
+        var old = _currentItem.ItemName;
+        _currentItem.ItemName = val;
+        _items.Remove(old);
+        _items.Add(_currentItem.ItemName, _currentItem);
+        Refresh();
+    }
+
+    public void DescEdit(string desc) => _currentItem.SetItemDescription = desc;
 
     public void Save_Button()
     {
-        foreach (var Item in _Items)
-        {
-            ResourceSaver.Save(Item.Value.Object, "Res://Data/Items/" + Item.Key + ".tres");
-        }
+        json.Write("res://Assets/Data/Items.json", _items);
+    }
+
+    public bool Load() => json.Read("res://Assets/Data/Items.json", ref _items);
+
+    public override void _ExitTree()
+    {
+        _itemList.Clear();
+        _items.Clear();
+        _save.Pressed -= Save_Button;
+        _newItem.Pressed -= NewItem_Button;
+
+        _itemName.TextChanged -= NameEdit;
+        _itemDesc.TextChanged -= DescEdit;
+        _itemList.ItemClicked -= ItemSelected;
+
+        _okButton.Pressed -= OkButtonPressed;
+        _cancelButton.Pressed -= CancelButtonPressed;
+        base._ExitTree();
     }
 }
 #endif

@@ -1,5 +1,5 @@
 using Godot;
-using System;
+using System.Text.Json.Serialization;
 
 public partial class StatData
 {
@@ -9,7 +9,8 @@ public partial class StatData
     private string _statName;
     //private Buff _buff;
 
-    public Guid ID;
+    [JsonConverter(typeof(JsonConverterGuid))] public Guid ID { get; set; }
+
 
     public StatData()
     {

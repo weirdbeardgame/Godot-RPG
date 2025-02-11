@@ -1,16 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://nvunvcqfdctx"]
+[gd_scene load_steps=9 format=3 uid="uid://nvunvcqfdctx"]
 
 [ext_resource type="Theme" uid="uid://dt868a8b5nouj" path="res://addons/SceneSelectTheme.tres" id="1_jkd0v"]
-[ext_resource type="Script" path="res://addons/rpg_editors/Editors/itemeditor/itemeditor.cs" id="2_6foqw"]
-[ext_resource type="PackedScene" uid="uid://dw3jtcw4btesi" path="res://Assets/GuiElements/ImagePicker/ImagePicker.tscn" id="2_xg5pd"]
+[ext_resource type="Script" path="res://addons/rpg_editors/Editors/itemeditor/itemeditor.cs" id="2_mwemt"]
 [ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="3_yfkvj"]
 [ext_resource type="Theme" uid="uid://bj1ii2u3kdtcr" path="res://Assets/Theme/ButtonTheme.tres" id="4_4ujdx"]
+[ext_resource type="Theme" uid="uid://dltcx5jine88c" path="res://Assets/Editor_GUI/Themes/Button_Theme.tres" id="5_poa4y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5485x"]
 bg_color = Color(0.980392, 0.980392, 0.980392, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ks85"]
 bg_color = Color(0.95158, 0.95158, 0.95158, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tupca"]
 
 [node name="Items" type="Panel"]
 clip_contents = true
@@ -24,7 +26,7 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_yfkvj")
-script = ExtResource("2_6foqw")
+script = ExtResource("2_mwemt")
 
 [node name="Editor" type="ColorRect" parent="."]
 layout_mode = 1
@@ -64,28 +66,40 @@ offset_bottom = 648.0
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("3_yfkvj")
+item_count = 2
+item_0/text = "Potion"
+item_1/text = "Hi Potion"
 
 [node name="ItemListButtons" type="HBoxContainer" parent="VSplitContainer"]
 layout_mode = 2
 
-[node name="AddItem" type="Button" parent="VSplitContainer/ItemListButtons"]
+[node name="NewItem" type="Button" parent="VSplitContainer/ItemListButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("4_4ujdx")
-text = "Add"
+text = "New Item
+"
 
 [node name="RemoveItem" type="Button" parent="VSplitContainer/ItemListButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("4_4ujdx")
 text = "Remove"
 
+[node name="Save" type="Button" parent="VSplitContainer/ItemListButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save"
+
 [node name="Control" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 403.0
-offset_top = 46.0
-offset_right = 1146.0
-offset_bottom = 645.0
+layout_mode = 1
+anchor_left = 0.35
+anchor_top = 0.039
+anchor_right = 0.994
+anchor_bottom = 1.0
+offset_left = -0.200012
+offset_top = -0.272001
+offset_right = 8.91199
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.998019, 1)
 
 [node name="Background" type="ColorRect" parent="Control"]
@@ -132,6 +146,7 @@ size_flags_vertical = 0
 theme = ExtResource("1_jkd0v")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_5485x")
+text = "Potion"
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -144,19 +159,45 @@ layout_mode = 2
 theme = ExtResource("1_jkd0v")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_8ks85")
+text = "Heals 50 points"
 
-[node name="VSplitContainer" type="VSplitContainer" parent="Control"]
-layout_mode = 0
-offset_left = 34.0
-offset_top = 249.0
-offset_right = 489.0
-offset_bottom = 568.0
+[node name="ItemNamePanel" type="PopupPanel" parent="."]
+size = Vector2i(640, 480)
 
-[node name="Icon Label" type="RichTextLabel" parent="Control/VSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ItemNamePanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 636.0
+offset_bottom = 476.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ItemNamePanel/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 16
-text = "Item Icon:"
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_tupca")
+text = "Enter New Item Name:"
 fit_content = true
 
-[node name="ItemIcon" parent="Control/VSplitContainer" instance=ExtResource("2_xg5pd")]
+[node name="ItemName" type="LineEdit" parent="ItemNamePanel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 2
+placeholder_text = "Item:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ItemNamePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Ok" type="Button" parent="ItemNamePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_4ujdx")
+text = "OK"
+
+[node name="Cancel" type="Button" parent="ItemNamePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_poa4y")
+text = "Cancel"
