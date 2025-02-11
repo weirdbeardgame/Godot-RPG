@@ -4,7 +4,7 @@ public enum SlotType { LARM, RARM, BODY, HEAD }
 
 public partial class Equipable : Node
 {
-    protected Dictionary<string, Stat> _weaponStats;
+    protected Dictionary<string, StatData> _weaponStats;
     protected string _weaponName;
     protected int _weaponID;
     private Sprite2D _icon;

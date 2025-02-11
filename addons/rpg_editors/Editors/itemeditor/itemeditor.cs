@@ -5,12 +5,12 @@ using System.Linq;
 using Core.Items;
 
 [Tool]
-public partial class itemeditor : EditorPlugin
+public partial class itemeditor : Control
 {
     Button Save;
     Button NewItem;
     LineEdit ItemName;
-    TextEdit ItemDesc;
+    LineEdit ItemDesc;
     ImagePicker ItemIcon;
 
     [Export]
@@ -20,42 +20,26 @@ public partial class itemeditor : EditorPlugin
     Item CurSelected;
 
     BoxContainer ItemContainer;
-    Control PanelInstance;
     PackedScene ItemButton;
-
 
     // Called when the node enters the scene tree for the first time.
     public override void _EnterTree()
     {
 
-        Save = PanelInstance.GetNode<Button>("Editor/Save");
-        NewItem = PanelInstance.GetNode<Button>("Editor/New Item");
-        ItemName = PanelInstance.GetNode<LineEdit>("Editor/ItemNameField");
-        ItemDesc = PanelInstance.GetNode<TextEdit>("Editor/Description");
-        //ItemIcon = (ImagePicker)PanelInstance.GetNode<Control>("Editor/ItemIcon");
+        //Save = PanelInstance.GetNode<Button>("Save");
+        NewItem = GetNode<Button>("VSplitContainer/ItemListButtons/AddItem");
+        ItemName = GetNode<LineEdit>("Control/VBoxContainer/ItemNameField");
+        ItemDesc = GetNode<LineEdit>("Control/VBoxContainer/Description");
+        //ItemIcon = GetNode<ImagePicker>("Control/VSplitContainer/ItemIcon");
 
-        Save.Pressed += Save_Button;
-        NewItem.Pressed += NewItem_Button;
+        //Save.Pressed += Save_Button;
+        //NewItem.Pressed += NewItem_Button;
 
         ItemName.TextChanged += NameEdit;
         ItemDesc.TextChanged += DescEdit;
         //ItemIcon.ImageChanged += UpdateImage;
 
         _Items = new Godot.Collections.Dictionary<string, EditorItem>();
-    }
-
-
-    public override bool _HasMainScreen()
-    {
-        return true;
-    }
-
-    public override void _MakeVisible(bool visible)
-    {
-        if (PanelInstance != null)
-        {
-            PanelInstance.Visible = visible;
-        }
     }
 
     public void NewItem_Button()
@@ -79,7 +63,7 @@ public partial class itemeditor : EditorPlugin
     }
 
     public void NameEdit(string N) => CurSelected.SetItemName = N;
-    public void DescEdit() => CurSelected.SetItemDescription = ItemDesc.Text;
+    public void DescEdit(string desc) => CurSelected.SetItemDescription = desc;
     //public void UpdateImage(string P) => CurSelected.SetIconPath = P;
 
     public void Save_Button()
@@ -88,17 +72,6 @@ public partial class itemeditor : EditorPlugin
         {
             ResourceSaver.Save(Item.Value.Object, "Res://Data/Items/" + Item.Key + ".tres");
         }
-    }
-
-    public override string _GetPluginName()
-    {
-        return "Items Editor";
-    }
-
-    public override Texture2D _GetPluginIcon()
-    {
-        // Must return some kind of Texture for the icon.
-        return EditorInterface.Singleton.GetEditorTheme().GetIcon("Node", "EditorIcons");
     }
 }
 #endif

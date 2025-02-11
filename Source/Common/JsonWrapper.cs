@@ -1,5 +1,4 @@
-using Godot;
-using System;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -20,6 +19,11 @@ public class JsonWrapper
         using var file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
         file.StoreString(_jsonData);
 
+        var assembly = typeof(JsonSerializerOptions).Assembly;
+        var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
+        var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
+        clearCacheMethod?.Invoke(null, new object?[] { null });
+
         return true;
     }
 
@@ -36,9 +40,13 @@ public class JsonWrapper
                 GD.PrintErr("Failed to Read!");
                 return false;
             }
-
+            var assembly = typeof(JsonSerializerOptions).Assembly;
+            var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
+            var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
+            clearCacheMethod?.Invoke(null, new object?[] { null });
             return true;
         }
+
 
         return false;
     }
@@ -63,12 +71,20 @@ public class PackedSceneJsonConverter : JsonConverter<PackedScene>
         var path = reader.GetString();
         packed = ResourceLoader.Load<PackedScene>(path);
 
+        var assembly = typeof(JsonSerializerOptions).Assembly;
+        var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
+        var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
+        clearCacheMethod?.Invoke(null, new object?[] { null });
         return packed!;
     }
 
     public override void Write(Utf8JsonWriter writer, PackedScene value, JsonSerializerOptions options)
     {
         JsonSerializer.Serialize(writer, value.ResourcePath, options);
+        var assembly = typeof(JsonSerializerOptions).Assembly;
+        var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
+        var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
+        clearCacheMethod?.Invoke(null, new object?[] { null });
     }
 }
 
@@ -101,6 +117,10 @@ public class DictionaryPackedSceneJsonConverter : JsonConverter<Dictionary<strin
             var packed = ResourceLoader.Load<PackedScene>(reader.GetString());
             data.Add(name!, packed);
         }
+        var assembly = typeof(JsonSerializerOptions).Assembly;
+        var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
+        var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
+        clearCacheMethod?.Invoke(null, new object?[] { null });
         return data;
     }
 
@@ -120,5 +140,79 @@ public class DictionaryPackedSceneJsonConverter : JsonConverter<Dictionary<strin
             }
             writer.WriteEndObject();
         }
+
+        var assembly = typeof(JsonSerializerOptions).Assembly;
+        var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
+        var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
+        clearCacheMethod?.Invoke(null, new object?[] { null });
     }
 }
+
+
+public class DictionaryStatJsonConverter : JsonConverter<Dictionary<string, StatData>>
+{
+
+    private readonly JsonConverter<StatData> _statConverter;
+
+    public DictionaryStatJsonConverter(JsonSerializerOptions options)
+    {
+        _statConverter = (JsonConverter<StatData>)options.GetConverter(typeof(Dictionary<string, StatData>));
+    }
+
+    public override bool CanConvert(Type typeToConvert)
+    {
+        return typeToConvert == typeof(Dictionary<string, StatData>);
+    }
+
+    public override Dictionary<string, StatData> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        var data = new Dictionary<string, StatData>();
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonTokenType.EndObject)
+            {
+                return data;
+            }
+
+            var name = reader.GetString();
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new JsonException("NO SCENE MANAGER DATA");
+            }
+
+            reader.Read();
+
+            var StatData = _statConverter.Read(ref reader, typeToConvert, options);
+            data.Add(name, StatData);
+        }
+        var assembly = typeof(JsonSerializerOptions).Assembly;
+        var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
+        var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
+        clearCacheMethod?.Invoke(null, new object?[] { null });
+        return data;
+    }
+
+    public override void Write(Utf8JsonWriter writer, Dictionary<string, StatData> value, JsonSerializerOptions options)
+    {
+        if (value is null)
+        {
+            writer.WriteNullValue();
+        }
+        else
+        {
+            writer.WriteStartObject();
+            foreach (var item in value)
+            {
+                writer.WritePropertyName(item.Key);
+                JsonSerializer.Serialize(writer, item.Value, options);
+            }
+            writer.WriteEndObject();
+        }
+        var assembly = typeof(JsonSerializerOptions).Assembly;
+        var updateHandlerType = assembly.GetType("System.Text.Json.JsonSerializerOptionsUpdateHandler");
+        var clearCacheMethod = updateHandlerType?.GetMethod("ClearCache", BindingFlags.Static | BindingFlags.Public);
+        clearCacheMethod?.Invoke(null, new object?[] { null });
+    }
+}
+

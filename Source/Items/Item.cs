@@ -15,7 +15,7 @@ public partial class Item : Resource
     private string _id = new Guid().ToString();
 
     // The Stats this item applies too.
-    protected Dictionary<string, Stat> _statsAffected;
+    protected Dictionary<string, StatData> _statsAffected;
 
     // Uncomment for weight based Inventory system
     // private int _itemWeight;
@@ -54,7 +54,7 @@ public partial class Item : Resource
         }
     }
 
-    public Dictionary<string, Stat> SetStatsAffected
+    public Dictionary<string, StatData> SetStatsAffected
     {
         set
         {
@@ -82,7 +82,7 @@ public partial class Item : Resource
     }
 
     // ToDo, add check if Buff or Debuff apply correctly. IE. Current stat is not too large or small
-    /*public virtual bool Use(Dictionary<string, Stat> stats)
+    /*public virtual bool Use(Dictionary<string, StatData> stats)
     {
         if (_consumeable)
         {

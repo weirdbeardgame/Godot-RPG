@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://nvunvcqfdctx"]
+[gd_scene load_steps=8 format=3 uid="uid://nvunvcqfdctx"]
 
 [ext_resource type="Theme" uid="uid://dt868a8b5nouj" path="res://addons/SceneSelectTheme.tres" id="1_jkd0v"]
+[ext_resource type="Script" path="res://addons/rpg_editors/Editors/itemeditor/itemeditor.cs" id="2_6foqw"]
 [ext_resource type="PackedScene" uid="uid://dw3jtcw4btesi" path="res://Assets/GuiElements/ImagePicker/ImagePicker.tscn" id="2_xg5pd"]
 [ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="3_yfkvj"]
 [ext_resource type="Theme" uid="uid://bj1ii2u3kdtcr" path="res://Assets/Theme/ButtonTheme.tres" id="4_4ujdx"]
@@ -16,9 +17,14 @@ clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -4.0
+offset_right = -1.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_yfkvj")
+script = ExtResource("2_6foqw")
 
 [node name="Editor" type="ColorRect" parent="."]
 layout_mode = 1
@@ -28,7 +34,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.00449, 1)
-color = Color(0.113725, 0.113725, 0.113725, 1)
+color = Color(0.263383, 0.295127, 0.340888, 1)
 
 [node name="Items_Label" type="Label" parent="."]
 layout_mode = 2
@@ -49,33 +55,26 @@ text = "Item Editor
 "
 horizontal_alignment = 1
 
-[node name="Items" type="ItemList" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.093
-anchor_right = 0.265
-anchor_bottom = 0.819
-offset_left = 0.392
-offset_top = -0.264
-offset_right = -0.280029
-offset_bottom = 0.287964
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+layout_mode = 0
+offset_right = 351.0
+offset_bottom = 648.0
+
+[node name="Items" type="ItemList" parent="VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme = ExtResource("3_yfkvj")
 
-[node name="ItemListButtons" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 539.0
-offset_right = 163.0
-offset_bottom = 594.0
+[node name="ItemListButtons" type="HBoxContainer" parent="VSplitContainer"]
+layout_mode = 2
 
-[node name="AddItem" type="Button" parent="ItemListButtons"]
+[node name="AddItem" type="Button" parent="VSplitContainer/ItemListButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_4ujdx")
 text = "Add"
 
-[node name="RemoveItem" type="Button" parent="ItemListButtons"]
+[node name="RemoveItem" type="Button" parent="VSplitContainer/ItemListButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_4ujdx")
@@ -97,16 +96,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-color = Color(0.306923, 0.306923, 0.306923, 1)
+color = Color(0.188095, 0.248138, 0.308349, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.992
 anchor_bottom = 0.23
+offset_top = 2.0
 offset_right = -0.0560303
-offset_bottom = 0.229996
+offset_bottom = 17.23
 grow_vertical = 2
+
+[node name="EffectLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Effect Type: "
+fit_content = true
+
+[node name="Effect Types" type="OptionButton" parent="Control/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "HEALING"
+popup/item_1/text = "DAMAGING"
+popup/item_1/id = 1
 
 [node name="ItemName" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -120,7 +133,7 @@ theme = ExtResource("1_jkd0v")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_5485x")
 
-[node name="DescriptionLable" type="RichTextLabel" parent="Control/VBoxContainer"]
+[node name="DescriptionLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
 layout_mode = 2
 text = "Item Description:"
 fit_content = true
@@ -132,28 +145,18 @@ theme = ExtResource("1_jkd0v")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_8ks85")
 
-[node name="Icon Label" type="RichTextLabel" parent="Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.174
-anchor_top = 0.316
-anchor_right = 0.322
-anchor_bottom = 0.382
-offset_left = -0.0259399
-offset_top = -0.284012
-offset_right = 0.0100555
-offset_bottom = 0.181976
+[node name="VSplitContainer" type="VSplitContainer" parent="Control"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 249.0
+offset_right = 489.0
+offset_bottom = 568.0
+
+[node name="Icon Label" type="RichTextLabel" parent="Control/VSplitContainer"]
+layout_mode = 2
 theme_override_font_sizes/normal_font_size = 16
 text = "Item Icon:"
 fit_content = true
 
-[node name="ImagePicker" parent="." instance=ExtResource("2_xg5pd")]
-layout_mode = 1
-anchor_left = 0.378
-anchor_top = 0.264
-anchor_right = 0.75
-anchor_bottom = 0.671
-offset_left = 7.54398
-offset_top = 97.928
-offset_right = 7.99994
-offset_bottom = 98.192
+[node name="ItemIcon" parent="Control/VSplitContainer" instance=ExtResource("2_xg5pd")]
+layout_mode = 2

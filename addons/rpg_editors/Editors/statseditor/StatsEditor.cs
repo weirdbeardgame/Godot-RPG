@@ -1,55 +1,132 @@
 #if TOOLS
 using Godot;
 using System;
-using System.Text.Json;
+using System.Linq;
+using System.Text.Json.Serialization;
+
 
 [Tool]
 public partial class StatsEditor : Control
 {
-	private Dictionary<string, Stat> _stats;
-	private Stat _currentStat;
-	private LineEdit _statName;
+	// Properties for Item List
+	private int _currentIndex;
+	private Vector2 _currentPosition;
 	private ItemList _statsList;
+
+	// Properties for _stats
+	private StatData _currentStat;
+	[JsonConverter(typeof(DictionaryStatJsonConverter))] private Dictionary<string, StatData> _stats = new();
+
+	private LineEdit _statName;
+	private SpinBox _stat;
+	private SpinBox _maxStat;
+
 	private Button _add;
 	private Button _remove;
-	private JsonWrapper _json = new JsonWrapper();
+	private Button _save;
+
+	// PopUp Panel:
+	private PopupPanel _statNamePanel;
+	private LineEdit _newStatNameEdit;
+	private Button _okButton;
+	private Button _cancelButton;
+
+	JsonWrapper json = new JsonWrapper();
+
+	const string _filePath = "res://Assets/Data/Stats.json";
 
 	public override void _EnterTree()
 	{
-		_stats = new Dictionary<string, Stat>();
+		_currentStat = new StatData();
 		_statsList = GetNode<ItemList>("StatsList");
 		_statName = GetNode<LineEdit>("VBoxContainer/StatName");
 		_add = GetNode<Button>("HBoxContainer/AddStat");
+		_save = GetNode<Button>("HBoxContainer/Save");
 		_remove = GetNode<Button>("HBoxContainer/RemoveStat");
+		_stat = GetNode<SpinBox>("VBoxContainer/Stat");
+		_maxStat = GetNode<SpinBox>("VBoxContainer/MaxStat");
 
+		// PopUp Panel
+		_statNamePanel = GetNode<PopupPanel>("StatNamePanel");
+		_newStatNameEdit = _statNamePanel.GetNode<LineEdit>("VBoxContainer/StatName");
+		_okButton = _statNamePanel.GetNode<Button>("VBoxContainer/HBoxContainer/Ok");
+		_cancelButton = _statNamePanel.GetNode<Button>("VBoxContainer/HBoxContainer/Cancel");
+
+		_statName.TextChanged += OnStatNameUpdate;
+		_statsList.ItemClicked += ItemSelected;
+		_stat.ValueChanged += OnStatUpdate;
+		_maxStat.ValueChanged += OnMaxStatUpdate;
 
 		_add.Pressed += New;
-		//_remove.Pressed += Remove;
+		_remove.Pressed += RemoveButton;
+		_save.Pressed += Save;
+
+		// PopUp Panel Events
+		_okButton.Pressed += OkButtonPressed;
+		_cancelButton.Pressed += CancelButtonPressed;
+
+
+		if (Load())
+		{
+			Refresh();
+		}
 
 	}
 
 	public void New()
 	{
-		if (string.IsNullOrEmpty(_statName.Text))
-		{
-			_statName.Text = $"Stat: {_stats.Count}";
-		}
+		_newStatNameEdit.Text = string.Empty;
+		_statNamePanel.Popup();
+	}
 
-		if (!_stats.ContainsKey(_statName.Text))
+	public void ItemSelected(long idx, Vector2 pos, long mouse_btn)
+	{
+		_currentIndex = (int)idx;
+		_currentPosition = pos;
+
+		// Update UI here
+
+		if (_currentStat != _stats[_statsList.GetItemText(_currentIndex)])
 		{
-			_currentStat = new Stat(_statName.Text, 1000);
-			_stats.Add(_currentStat.StatName, _currentStat);
-			_statsList.AddItem(_currentStat.StatName);
+			_currentStat = _stats[_statsList.GetItemText(_currentIndex)];
+			_statName.Text = _currentStat.StatName;
+			_stat.Value = _currentStat.Stat;
+			_maxStat.Value = _currentStat.MaxStat;
 		}
 	}
 
-	public void Remove(string name) => _stats.Remove(name);
+	public void CreateNewStat()
+	{
+		if (string.IsNullOrEmpty(_newStatNameEdit.Text))
+		{
+			_newStatNameEdit.Text = $"StatData: {_stats.Count}";
+		}
+		if (!_stats.ContainsKey(_newStatNameEdit.Text))
+		{
+			var newStat = new StatData(_newStatNameEdit.Text, 0);
+			_stats.Add(newStat.StatName, newStat);
+			_statsList.AddItem(newStat.StatName);
+		}
 
+		_statNamePanel.Hide();
+	}
+
+	void OkButtonPressed() => CreateNewStat();
+	void CancelButtonPressed() => _statNamePanel.Hide();
+	void OnStatNameUpdate(string val) => _currentStat.StatName = val;
+	void OnStatUpdate(double val) => _currentStat.Stat = (float)val;
+	void OnMaxStatUpdate(double val) => _currentStat.MaxStat = (float)val;
+	public void RemoveButton() => Remove(_statName.Text);
+	public void Remove(string name)
+	{
+		_statsList.RemoveItem(_currentIndex);
+		_stats.Remove(name);
+	}
 	public void SetStat(float value)
 	{
 		if (value >= 0 && value <= _currentStat.MaxStat)
 		{
-			_currentStat.GetStat = value;
+			_currentStat.Stat = value;
 		}
 	}
 
@@ -63,19 +140,23 @@ public partial class StatsEditor : Control
 
 	public void Save()
 	{
-		// Jsssonnnn!!
-		if (!_json.Write("res://StatsData.json", _stats))
+		if (!json.Write(_filePath, _stats))
 		{
-			GD.PrintErr("Save Failed!");
+			GD.PrintErr("JSON Failed to write");
 		}
 	}
 
-	public void Load()
+	public bool Load()
 	{
 		// Look Vegeta, more Json stuff.
-		if (!_json.Read("res://StatsData.json", ref _stats))
+		return json.Read(_filePath, ref _stats);
+	}
+
+	public void Refresh()
+	{
+		foreach (var stat in _stats)
 		{
-			GD.PrintErr("Failed to parse Stats!");
+			_statsList.AddItem(stat.Key);
 		}
 	}
 
@@ -83,6 +164,14 @@ public partial class StatsEditor : Control
 	{
 		// Clean-up of the plugin goes here.
 		_stats = null;
+
+		_statName.TextChanged -= OnStatNameUpdate;
+		_statsList.ItemClicked -= ItemSelected;
+		_stat.ValueChanged -= OnStatUpdate;
+		_maxStat.ValueChanged -= OnMaxStatUpdate;
+
+		_add.Pressed -= New;
+		_remove.Pressed -= RemoveButton;
 	}
 }
 #endif

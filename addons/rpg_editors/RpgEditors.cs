@@ -32,16 +32,20 @@ public partial class RpgEditors : EditorPlugin
 
 	public override void _MakeVisible(bool visible)
 	{
-
+		if (MainPanelInstance != null)
+		{
+			MainPanelInstance.Visible = visible;
+		}
 	}
 
 	public override string _GetPluginName()
 	{
-		return "Rpg_Editor";
+		return "Rpg Editors";
 	}
 
 	public override Texture2D _GetPluginIcon()
 	{
+		// Must return some kind of Texture for the icon.
 		return EditorInterface.Singleton.GetEditorTheme().GetIcon("Node", "EditorIcons");
 	}
 }
