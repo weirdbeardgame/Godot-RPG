@@ -1,0 +1,204 @@
+[gd_scene load_steps=9 format=3 uid="uid://nvunvcqfdctx"]
+
+[ext_resource type="Theme" uid="uid://dt868a8b5nouj" path="res://addons/SceneSelectTheme.tres" id="1_jkd0v"]
+[ext_resource type="Script" uid="uid://ctgiloy76ud7b" path="res://addons/rpg_editors/Editors/itemeditor/ItemEditor.cs" id="2_mwemt"]
+[ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="3_yfkvj"]
+[ext_resource type="Theme" uid="uid://bj1ii2u3kdtcr" path="res://Assets/Theme/ButtonTheme.tres" id="4_4ujdx"]
+[ext_resource type="Theme" uid="uid://dltcx5jine88c" path="res://Assets/Editor_GUI/Themes/Button_Theme.tres" id="5_poa4y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5485x"]
+bg_color = Color(0.980392, 0.980392, 0.980392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ks85"]
+bg_color = Color(0.95158, 0.95158, 0.95158, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tupca"]
+
+[node name="Items" type="Panel"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -4.0
+offset_right = -1.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_yfkvj")
+script = ExtResource("2_mwemt")
+
+[node name="Editor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.00449, 1)
+color = Color(0.263383, 0.295127, 0.340888, 1)
+
+[node name="Items_Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 24.0
+offset_right = 147.0
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Items: "
+
+[node name="Title" type="Label" parent="."]
+z_index = 1
+layout_mode = 0
+offset_right = 1144.0
+offset_bottom = 31.0
+text = "Item Editor
+"
+horizontal_alignment = 1
+
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+layout_mode = 0
+offset_right = 351.0
+offset_bottom = 648.0
+
+[node name="Items" type="ItemList" parent="VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_yfkvj")
+
+[node name="ItemListButtons" type="HBoxContainer" parent="VSplitContainer"]
+layout_mode = 2
+
+[node name="NewItem" type="Button" parent="VSplitContainer/ItemListButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "New Item
+"
+
+[node name="RemoveItem" type="Button" parent="VSplitContainer/ItemListButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove"
+
+[node name="Save" type="Button" parent="VSplitContainer/ItemListButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.35
+anchor_top = 0.039
+anchor_right = 0.994
+anchor_bottom = 1.0
+offset_left = -0.200012
+offset_top = -0.272001
+offset_right = 8.91199
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.998019, 1)
+
+[node name="Background" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+color = Color(0.188095, 0.248138, 0.308349, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.992
+anchor_bottom = 0.23
+offset_top = 2.0
+offset_right = -0.0560303
+offset_bottom = 17.23
+grow_vertical = 2
+
+[node name="EffectLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Effect Type: "
+fit_content = true
+
+[node name="Effect Types" type="OptionButton" parent="Control/VBoxContainer"]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "HEALING"
+popup/item_0/id = 0
+popup/item_1/text = "DAMAGING"
+popup/item_1/id = 1
+
+[node name="ItemName" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Item Name: "
+
+[node name="ItemNameField" type="LineEdit" parent="Control/VBoxContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_jkd0v")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_5485x")
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Item Description:"
+fit_content = true
+
+[node name="Description" type="LineEdit" parent="Control/VBoxContainer"]
+z_index = 1
+layout_mode = 2
+theme = ExtResource("1_jkd0v")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_8ks85")
+
+[node name="ItemNamePanel" type="PopupPanel" parent="."]
+size = Vector2i(250, 101)
+theme = ExtResource("3_yfkvj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ItemNamePanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 246.0
+offset_bottom = 534.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ItemNamePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("3_yfkvj")
+theme_override_styles/background = SubResource("StyleBoxEmpty_tupca")
+text = "Enter New Item Name:"
+fit_content = true
+
+[node name="ItemName" type="LineEdit" parent="ItemNamePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("3_yfkvj")
+placeholder_text = "Item:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ItemNamePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Ok" type="Button" parent="ItemNamePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_4ujdx")
+text = "OK"
+
+[node name="Cancel" type="Button" parent="ItemNamePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_poa4y")
+text = "Cancel"

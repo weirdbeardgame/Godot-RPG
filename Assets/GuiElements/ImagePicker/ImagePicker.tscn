@@ -1,23 +1,51 @@
 [gd_scene load_steps=3 format=3 uid="uid://dw3jtcw4btesi"]
 
 [ext_resource type="PackedScene" uid="uid://dvyf8he1onh3m" path="res://Assets/GuiElements/FileSelector/FileSelector.tscn" id="1_3m1o0"]
-[ext_resource type="Script" path="res://Assets/GuiElements/ImagePicker/ImagePicker.cs" id="1_cwmt5"]
+[ext_resource type="Script" uid="uid://bve5ui7dd145n" path="res://Assets/GuiElements/ImagePicker/ImagePicker.cs" id="1_cwmt5"]
 
 [node name="ImagePicker" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchor_right = 0.375
+anchor_bottom = 0.407
+offset_right = -3.00003
+offset_bottom = 0.264008
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_cwmt5")
 
-[node name="ImageViewer" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 168.0
-offset_bottom = 176.0
+[node name="FileSelector" parent="." instance=ExtResource("1_3m1o0")]
+layout_mode = 2
+anchors_preset = 0
+anchor_top = 0.879
+anchor_right = 1.056
+anchor_bottom = 1.03
+offset_top = -0.056015
+offset_right = -0.0239868
+offset_bottom = 0.0799866
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+metadata/_edit_use_anchors_ = true
 
-[node name="Background" type="ColorRect" parent="ImageViewer"]
-layout_mode = 0
-offset_left = 113.0
-offset_right = 281.0
-offset_bottom = 176.0
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -126.5
+offset_top = 12.0
+offset_right = 137.5
+offset_bottom = 212.0
+grow_horizontal = 2
 
-[node name="FileSelector" parent="ImageViewer" instance=ExtResource("1_3m1o0")]
-position = Vector2(0, 184)
+[node name="ImageViewer" type="TextureRect" parent="Background"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3

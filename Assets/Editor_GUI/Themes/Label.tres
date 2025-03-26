@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bxkyrw078lnht"]
+
+[ext_resource type="FontFile" uid="uid://j3xtbq17w3ti" path="res://Assets/resources/Fonts/static/OpenSans/OpenSans-Bold.ttf" id="1_e6l8v"]
+[ext_resource type="FontFile" uid="uid://5m7bfitrhwvr" path="res://Assets/resources/Fonts/static/OpenSans/OpenSans-BoldItalic.ttf" id="2_8ekyl"]
+[ext_resource type="FontFile" uid="uid://cwx7ulyfr81o7" path="res://Assets/resources/Fonts/static/OpenSans/OpenSans-Italic.ttf" id="3_cg1rl"]
+[ext_resource type="FontFile" uid="uid://comg8d5fyu73n" path="res://Assets/resources/Fonts/static/OpenSans/OpenSans-Medium.ttf" id="4_ork8d"]
+[ext_resource type="FontFile" uid="uid://b1b8w127bnraa" path="res://Assets/resources/Fonts/static/OpenSans/OpenSans-Regular.ttf" id="5_ldaln"]
+
+[resource]
+Label/fonts/font = ExtResource("1_e6l8v")
+RichTextLabel/fonts/bold_font = ExtResource("1_e6l8v")
+RichTextLabel/fonts/bold_italics_font = ExtResource("2_8ekyl")
+RichTextLabel/fonts/italics_font = ExtResource("3_cg1rl")
+RichTextLabel/fonts/mono_font = ExtResource("4_ork8d")
+RichTextLabel/fonts/normal_font = ExtResource("5_ldaln")
