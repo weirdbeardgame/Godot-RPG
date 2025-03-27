@@ -1,9 +1,6 @@
 #if TOOLS
 using Godot;
-using System;
-using System.Linq;
-using System.Text.Json.Serialization;
-
+using Godot.Collections;
 
 [Tool]
 public partial class StatsEditor : Control
@@ -15,7 +12,7 @@ public partial class StatsEditor : Control
 
     // Properties for _stats
     private StatData _currentStat;
-    private Dictionary<string, StatData> _stats = new();
+    [Export] private Godot.Collections.Dictionary<string, StatData> _stats { get; set; }
 
     private LineEdit _statName;
     private SpinBox _stat;
@@ -30,14 +27,12 @@ public partial class StatsEditor : Control
     private LineEdit _newStatNameEdit;
     private Button _okButton;
     private Button _cancelButton;
-
-    JsonWrapper json = new JsonWrapper();
-
-    const string _filePath = "res://Assets/Data/Stats.json";
+    const string _filePath = "res://Assets/Data/Stats.tscn";
 
     public override void _EnterTree()
     {
         _currentStat = new StatData();
+        _stats = new Godot.Collections.Dictionary<string, StatData>();
         _statsList = GetNode<ItemList>("StatsList");
         _statName = GetNode<LineEdit>("VBoxContainer/StatName");
         _createNewStat = GetNode<Button>("HBoxContainer/NewStat");
@@ -48,9 +43,9 @@ public partial class StatsEditor : Control
 
         // PopUp Panel
         _statNamePanel = GetNode<PopupPanel>("StatNamePanel");
-        _newStatNameEdit = _statNamePanel.GetNode<LineEdit>("VBoxContainer/StatName");
-        _okButton = _statNamePanel.GetNode<Button>("VBoxContainer/HBoxContainer/Ok");
-        _cancelButton = _statNamePanel.GetNode<Button>("VBoxContainer/HBoxContainer/Cancel");
+        _newStatNameEdit = _statNamePanel.GetNode<LineEdit>("Control/VBoxContainer/StatName");
+        _okButton = _statNamePanel.GetNode<Button>("Control/VBoxContainer/HBoxContainer/Ok");
+        _cancelButton = _statNamePanel.GetNode<Button>("Control/VBoxContainer/HBoxContainer/Cancel");
 
         _statName.TextChanged += OnStatNameUpdate;
         _statsList.ItemClicked += ItemSelected;
@@ -66,7 +61,7 @@ public partial class StatsEditor : Control
         _cancelButton.Pressed += CancelButtonPressed;
 
 
-        if (Load())
+        /*if (Load())
         {
             Refresh();
             _statsList.Select(0);
@@ -79,7 +74,7 @@ public partial class StatsEditor : Control
                 _stat.Value = _currentStat.Stat;
                 _maxStat.Value = _currentStat.MaxStat;
             }
-        }
+        }*/
     }
 
     public void New()
@@ -106,6 +101,7 @@ public partial class StatsEditor : Control
 
     public void CreateNewStat()
     {
+        GD.Print("Stat Create");
         if (string.IsNullOrEmpty(_newStatNameEdit.Text))
         {
             _newStatNameEdit.Text = $"StatData: {_stats.Count}";
@@ -158,17 +154,20 @@ public partial class StatsEditor : Control
 
     public void Save()
     {
-        if (!json.Write(_filePath, _stats))
+        foreach (var stat in _stats)
         {
-            GD.PrintErr("JSON Failed to write");
+            if (ResourceSaver.Save(stat.Value, _filePath) != Error.Ok)
+            {
+                GD.PrintErr("JSON Failed to write");
+            }
         }
     }
 
-    public bool Load()
+    /*public bool Load()
     {
         // Look Vegeta, more Json stuff.
         return json.Read(_filePath, ref _stats);
-    }
+    }*/
 
     public void Refresh()
     {

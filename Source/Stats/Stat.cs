@@ -1,7 +1,7 @@
 using Godot;
-using System.Text.Json.Serialization;
 
-public partial class StatData
+[Tool]
+public partial class StatData : Resource
 {
 
     private float _maxStat;
