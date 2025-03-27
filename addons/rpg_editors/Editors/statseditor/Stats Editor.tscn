@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfvdo7ujqcvca"]
+[gd_scene load_steps=14 format=3 uid="uid://bfvdo7ujqcvca"]
 
 [ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="1_3rnv2"]
 [ext_resource type="Script" uid="uid://cvwk63jvkvs3o" path="res://addons/rpg_editors/Editors/statseditor/StatsEditor.cs" id="2_7yk62"]
@@ -8,6 +8,8 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5cgb"]
 bg_color = Color(0.148487, 0.171768, 0.201333, 1)
+
+[sub_resource type="CSharpScript" id="CSharpScript_43oib"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p38lh"]
 
@@ -37,6 +39,7 @@ size_flags_vertical = 3
 theme = ExtResource("1_3rnv2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_r5cgb")
 script = ExtResource("2_7yk62")
+_stats = Dictionary[String, SubResource("CSharpScript_43oib")]({})
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -145,41 +148,53 @@ text = "Save Stats"
 [node name="StatNamePanel" type="PopupPanel" parent="."]
 title = "Enter Stat Name"
 initial_position = 2
-size = Vector2i(200, 150)
+size = Vector2i(200, 120)
+visible = true
 theme = ExtResource("1_3rnv2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="StatNamePanel"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Control" type="Control" parent="StatNamePanel"]
+layout_mode = 3
+anchors_preset = 0
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 196.0
-offset_bottom = 441.0
+offset_bottom = 116.0
+focus_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StatNamePanel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 
-[node name="RichTextLabel" type="RichTextLabel" parent="StatNamePanel/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="StatNamePanel/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_ujy6q")
 text = "Enter Stat Name:"
 fit_content = true
 
-[node name="StatName" type="LineEdit" parent="StatNamePanel/VBoxContainer"]
+[node name="StatName" type="LineEdit" parent="StatNamePanel/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StatNamePanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="StatNamePanel/Control/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 10
 
-[node name="Ok" type="Button" parent="StatNamePanel/VBoxContainer/HBoxContainer"]
+[node name="Ok" type="Button" parent="StatNamePanel/Control/VBoxContainer/HBoxContainer"]
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_2l41k")
 text = "OK"
 
-[node name="Cancel" type="Button" parent="StatNamePanel/VBoxContainer/HBoxContainer"]
+[node name="Cancel" type="Button" parent="StatNamePanel/Control/VBoxContainer/HBoxContainer"]
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_p0iqt")
