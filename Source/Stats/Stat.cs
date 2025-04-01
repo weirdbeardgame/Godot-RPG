@@ -7,6 +7,7 @@ public partial class StatData : Resource
     private float _maxStat;
     private float _stat;
     private string _statName;
+
     //private Buff _buff;
 
     public Guid ID { get; set; }

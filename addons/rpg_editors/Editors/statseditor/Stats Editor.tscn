@@ -24,14 +24,12 @@ color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ujy6q"]
 
-[node name="Stats" type="Panel"]
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Stats" type="Panel" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 2.0
-offset_right = 5.0
-offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -41,14 +39,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_r5cgb")
 script = ExtResource("2_7yk62")
 _stats = Dictionary[String, SubResource("CSharpScript_43oib")]({})
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats"]
 layout_mode = 0
 offset_left = 295.0
 offset_top = 90.0
 offset_right = 566.0
 offset_bottom = 330.0
 
-[node name="StatNameLabel" type="RichTextLabel" parent="VBoxContainer"]
+[node name="StatNameLabel" type="RichTextLabel" parent="Stats/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 20
 theme_override_styles/background = SubResource("StyleBoxEmpty_p38lh")
@@ -56,12 +54,12 @@ text = "Name:
 "
 fit_content = true
 
-[node name="StatName" type="LineEdit" parent="VBoxContainer"]
+[node name="StatName" type="LineEdit" parent="Stats/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="StatLable" type="RichTextLabel" parent="VBoxContainer"]
+[node name="StatLable" type="RichTextLabel" parent="Stats/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/normal_font = ExtResource("3_cihr1")
@@ -71,13 +69,13 @@ text = "Stat:
 "
 fit_content = true
 
-[node name="Stat" type="SpinBox" parent="VBoxContainer"]
+[node name="Stat" type="SpinBox" parent="Stats/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 max_value = 0.0
 metadata/_edit_use_anchors_ = true
 
-[node name="MaxStatLabel" type="RichTextLabel" parent="VBoxContainer"]
+[node name="MaxStatLabel" type="RichTextLabel" parent="Stats/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("3_cihr1")
 theme_override_font_sizes/normal_font_size = 20
@@ -86,20 +84,20 @@ text = "Max Stat:
 "
 fit_content = true
 
-[node name="MaxStat" type="SpinBox" parent="VBoxContainer"]
+[node name="MaxStat" type="SpinBox" parent="Stats/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 max_value = 0.0
 metadata/_edit_use_anchors_ = true
 
-[node name="StatsList" type="ItemList" parent="."]
+[node name="StatsList" type="ItemList" parent="Stats"]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 69.0
 offset_right = 251.0
 offset_bottom = 511.0
 
-[node name="StatsListLabel" type="RichTextLabel" parent="."]
+[node name="StatsListLabel" type="RichTextLabel" parent="Stats"]
 layout_mode = 2
 offset_left = 5.0
 offset_top = 20.0
@@ -112,7 +110,7 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_g4klu")
 bbcode_enabled = true
 text = "[b]Stats:[/b]"
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="HSeparator" type="HSeparator" parent="Stats"]
 layout_mode = 2
 offset_left = 3.0
 offset_top = 511.0
@@ -120,39 +118,38 @@ offset_right = 250.0
 offset_bottom = 521.0
 theme_override_styles/separator = SubResource("StyleBoxLine_khsh0")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="Stats"]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 520.0
 offset_right = 243.0
 offset_bottom = 573.0
 
-[node name="NewStat" type="Button" parent="HBoxContainer"]
+[node name="NewStat" type="Button" parent="Stats/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Create New Stat"
 
-[node name="RemoveStat" type="Button" parent="HBoxContainer"]
+[node name="RemoveStat" type="Button" parent="Stats/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Remove Stat"
 
-[node name="Save" type="Button" parent="HBoxContainer"]
+[node name="Save" type="Button" parent="Stats/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Save Stats"
 
-[node name="StatNamePanel" type="PopupPanel" parent="."]
+[node name="StatNamePanel" type="PopupPanel" parent="Stats"]
 title = "Enter Stat Name"
 initial_position = 2
 size = Vector2i(200, 120)
-visible = true
 theme = ExtResource("1_3rnv2")
 
-[node name="Control" type="Control" parent="StatNamePanel"]
+[node name="Control" type="Control" parent="Stats/StatNamePanel"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 4.0
@@ -161,7 +158,7 @@ offset_right = 196.0
 offset_bottom = 116.0
 focus_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="StatNamePanel/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/StatNamePanel/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -171,29 +168,29 @@ grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="RichTextLabel" type="RichTextLabel" parent="StatNamePanel/Control/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Stats/StatNamePanel/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_ujy6q")
 text = "Enter Stat Name:"
 fit_content = true
 
-[node name="StatName" type="LineEdit" parent="StatNamePanel/Control/VBoxContainer"]
+[node name="StatName" type="LineEdit" parent="Stats/StatNamePanel/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StatNamePanel/Control/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Stats/StatNamePanel/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 
-[node name="Ok" type="Button" parent="StatNamePanel/Control/VBoxContainer/HBoxContainer"]
+[node name="Ok" type="Button" parent="Stats/StatNamePanel/Control/VBoxContainer/HBoxContainer"]
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_2l41k")
 text = "OK"
 
-[node name="Cancel" type="Button" parent="StatNamePanel/Control/VBoxContainer/HBoxContainer"]
+[node name="Cancel" type="Button" parent="Stats/StatNamePanel/Control/VBoxContainer/HBoxContainer"]
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
