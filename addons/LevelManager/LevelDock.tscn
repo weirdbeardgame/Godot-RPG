@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b83bphqctou8s" path="res://addons/LevelManager/LevelDockScript.cs" id="1_66pb0"]
 [ext_resource type="Theme" uid="uid://5q220lv5g1ke" path="res://Assets/Editor_GUI/Themes/EditorTheme.tres" id="1_ejouf"]
-[ext_resource type="FontFile" uid="uid://roa48v2ap6fm" path="res://Assets/resources/Fonts/OpenSans-Light.ttf" id="4_degp0"]
+[ext_resource type="FontFile" uid="uid://cjwbsk3uisdcs" path="res://Assets/Resources/Fonts/OpenSans.tres" id="4_degp0"]
 [ext_resource type="Theme" uid="uid://dltcx5jine88c" path="res://Assets/Editor_GUI/Themes/Button_Theme.tres" id="5_l86uh"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ycvli"]
@@ -126,12 +126,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_l86uh")
 text = "New Level"
-
-[node name="NewLevelSelect" type="Button" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("5_l86uh")
-text = "New Hub World"
 
 [node name="RemoveLevel" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2

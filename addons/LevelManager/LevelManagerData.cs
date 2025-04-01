@@ -10,7 +10,7 @@ public partial class LevelManagerData : Resource
 {
     private Godot.Collections.Dictionary<string, long> _levels { get; set; } // Contain's _levels, _levels are defined as LevelCommon
     public string CurrentLevel { get; set; }
-    public string NewGameScene { get; set; } // What scene starts when newgame on title screen
+    [Export] public string NewGameScene { get; set; } // What scene starts when newgame on title screen
     public int Count => _levels.Count;
     public LevelManagerData() => _levels = new Godot.Collections.Dictionary<string, long>();
     public LevelManagerData(Godot.Collections.Dictionary<string, long> lev) => _levels = lev;
@@ -25,7 +25,7 @@ public partial class LevelManagerData : Resource
 
 #if TOOLS
 
-    public Godot.Collections.Dictionary<string, long> Levels { get => _levels; }
+    [Export] public Godot.Collections.Dictionary<string, long> Levels { get => _levels; private set { _levels = value; } }
 
     public bool Add(string levelName, long uid)
     {
