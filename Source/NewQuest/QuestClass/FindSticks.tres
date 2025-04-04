@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=2 format=3 uid="uid://doy0asc8s8t10"]
+
+[ext_resource type="Script" uid="uid://cw6e47ika21rh" path="res://Source/NewQuest/QuestClass/Quest.cs" id="1_n5cvk"]
+
+[resource]
+script = ExtResource("1_n5cvk")
+Title = ""
+ImgPath = ""
+Description = ""
+AlternateDescription = ""
+Hint = ""
+ToStart = Array[Object]([])
+OnStarted = Array[Object]([])
+ToComplete = Array[Object]([])
+OnCompleted = Array[Object]([])
+ToFailForever = Array[Object]([])
+OnFailed = Array[Object]([])
+CommentTitle1 = ""
+CommentDetail1 = ""
+CommentTitle2 = ""
+CommentDetail2 = ""
+CommentTitle3 = ""
+CommentDetail3 = ""
+metadata/_custom_type_script = "uid://cw6e47ika21rh"
