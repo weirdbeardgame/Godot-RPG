@@ -16,7 +16,7 @@ public partial class LevelManager : Node
 
 
     private LevelCommon _currentLevel;
-    private string _levelManagerPath = "res://Assets/Data/LevelManagerData.json";
+    private string _levelManagerPath = "res://Assets/Data/LevelManagerData.tres";
     private LevelManagerData _managerData;
 
     public int LevelCount => _managerData.Count;

@@ -12,9 +12,11 @@ public partial class LevelDockScript : Panel
     private Button _save;
     private Button _refresh;
     private Button _newLevelButton;
+    private RichTextLabel _pathLable;
+
     private List<string> _names = new();
     private LevelManagerData _managerData;
-    private string _levelManagerPath = "res://Assets/Data/LevelManagerData.tscn";
+    private string _levelManagerPath = "res://Assets/Data/LevelManagerData.tres";
 
     // ItemList Properties
     private ItemList _levelList;
@@ -46,10 +48,14 @@ public partial class LevelDockScript : Panel
         _levelList.ItemClicked += ItemClicked;
         _removeLevelButton.Pressed += Remove;
 
+        _pathLable = GetNode<RichTextLabel>("FilePickerContainer/FilePickerBackground/VBoxContainer/DataFilePath");
+        _pathLable.Text = "Manager Data: " + _levelManagerPath;
+
         _save.Pressed += Save;
         _refresh.Pressed += RefreshUI;
         _newLevelButton.Pressed += NewLevel_Button;
         _newGameLevelSelector = GetNode<OptionButton>("FilePickerContainer/FilePickerBackground/VBoxContainer/NewGameLevel");
+        _newGameLevelSelector.Select(-1);
         _newGameLevelSelector.ItemSelected += SetNewGameLevelInLevelManager;
 
         if (!Load())
@@ -125,8 +131,7 @@ public partial class LevelDockScript : Panel
             if (ResourceUid.HasId(entry.Value))
             {
                 var packed = ResourceLoader.Load<PackedScene>(ResourceUid.GetIdPath(entry.Value));
-                var temp = packed.Instantiate<Node2D>();
-                var tempLev = temp.GetNode<LevelCommon>("SubViewportContainer/SubViewport/Level");
+                var temp = packed.Instantiate<LevelCommon>();
 
                 if (temp == null)
                 {
@@ -134,7 +139,7 @@ public partial class LevelDockScript : Panel
                     return false;
                 }
 
-                _newGameLevelSelector.AddItem(tempLev.LevelName);
+                _newGameLevelSelector.AddItem(temp.LevelName);
                 _names.Add(entry.Key);
             }
             else
@@ -149,6 +154,13 @@ public partial class LevelDockScript : Panel
 
     public void Save()
     {
+        var dir = DirAccess.Open("res://Assets");
+
+        if (!dir.DirExists("res://Assets/Data"))
+        {
+            dir.MakeDirRecursive("res://Assets/Data");
+        }
+
         var err = ResourceSaver.Save(_managerData, _levelManagerPath);
         if (err != Error.Ok)
         {
@@ -161,18 +173,20 @@ public partial class LevelDockScript : Panel
         _levelList.Clear();
         _newGameLevelSelector.Clear();
 
-        GD.Print("Levels Count: " + _managerData.Levels.Count);
-        GD.Print("Guids Count: " + _names.Count);
         foreach (var Level in _managerData.Levels)
         {
             if (ResourceUid.HasId(Level.Value))
             {
                 var packed = ResourceLoader.Load<PackedScene>(ResourceUid.GetIdPath(Level.Value));
-                var temp = packed.Instantiate<Node2D>();
-                var tempLev = temp.GetNode<LevelCommon>("SubViewportContainer/SubViewport/Level");
+                var temp = packed.Instantiate<LevelCommon>(); ;
 
-                _levelList.AddItem(tempLev.LevelName);
-                _newGameLevelSelector.AddItem(tempLev.LevelName);
+                _levelList.AddItem(temp.LevelName);
+                _newGameLevelSelector.AddItem(temp.LevelName);
+                if (_newGameLevelSelector.ItemCount == 1)
+                {
+                    // To ensure first item is selectable
+                    _newGameLevelSelector.Select(-1);
+                }
             }
         }
     }
@@ -225,7 +239,7 @@ public partial class LevelDockScript : Panel
     public void CreateLevel(string path)
     {
         var name = Path.GetFileNameWithoutExtension(path);
-        var level = new LevelCommon(name);
+        var level = new Level(name);
 
         level.ID = Guid.NewGuid();
         var packedLevel = new PackedScene();
