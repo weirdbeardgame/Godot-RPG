@@ -8,7 +8,7 @@ public partial class ExperienceReward : Reward
     [Export] public string CharacterStat = "PlayerStat";
     [Export] public float Experience;
 
-    public override void PerformOutcome()
+    public override void GiveReward()
     {
         // CharacterStat.exp += Experience
         // a better approach would be to use a dedicated utility class to handle similar game logic consistently across the project

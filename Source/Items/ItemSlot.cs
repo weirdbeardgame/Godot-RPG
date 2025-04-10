@@ -18,7 +18,7 @@ public partial class ItemSlot : Resource
     private int GetWeight => _slotWeight;
     */
 
-    // For Slot organizer types
+    // For Slot organizer types, Resident Evil style
     // private Vector2 _slotSize;
     // private Vector2 _slotPosition;
 

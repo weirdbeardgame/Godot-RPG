@@ -1,44 +1,36 @@
 using Godot;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Core.Quests;
 
+[GlobalClass]
 public partial class Quest : Resource
 {
-    [Export]
-    private bool _active;
-
-    [Export]
-    private string _name;
-
-    [Export]
-    private string _description;
-
-    StateMachine _stateMachine;
-
-    Dictionary<string, Goal> _questGoals;
-    List<QuestRequirement> _requirements;
-
-    public bool IsActive => _active;
-    public string QuestName => _name;
-    public string QuestDescription => _description;
-
-    public Quest(string name, string desc)
-    {
-        _name = name;
-        _description = desc;
-    }
+    [ExportGroup("Quest Details")]
+    [Export] public string Title;
+    [Export] public string ImgPath;
+    [ExportSubgroup("Extra Details")]
+    [Export(PropertyHint.MultilineText)] public string Description;
+    [Export(PropertyHint.MultilineText)] public string AlternateDescription;
+    [Export] public string Hint;
 
 
-    public bool Start()
-    {
-        return _active;
-    }
+    [ExportGroup("Quest Actions")]
+    [Export] public Godot.Collections.Array<Condition> ToStart;
+    [Export] public Godot.Collections.Array<Reward> OnStarted;
+    [Export] public Godot.Collections.Array<Condition> ToComplete;
+    [Export] public Godot.Collections.Array<Reward> OnCompleted;
+    [Export] public Godot.Collections.Array<Condition> ToFailForever;
+    [Export] public Godot.Collections.Array<Reward> OnFailed;
 
 
-    public void Stop()
-    {
-        _active = false;
-    }
-
+    [ExportGroup("Developer Notes")]
+    [Export] public string CommentTitle1;
+    [Export(PropertyHint.MultilineText)] public string CommentDetail1;
+    [Export] public string CommentTitle2;
+    [Export(PropertyHint.MultilineText)] public string CommentDetail2;
+    [Export] public string CommentTitle3;
+    [Export(PropertyHint.MultilineText)] public string CommentDetail3;
 }

@@ -1,15 +1,18 @@
 using Godot;
 using System;
+using Core.Items;
+
 
 [GlobalClass]
 public partial class ItemCheck : Condition
 {
-    private enum CheckType{Exists, NotExists}
+    private enum CheckType { Exists, NotExists }
     [Export] CheckType Type = CheckType.Exists;
 
-    // Placeholder below, later should use resource exports instead
-    [Export] public string CharacterInventory; 
-    [Export] public string Item;
+    // Placeholder below, later should use resource export instead when inventory is implemented
+    [Export] public string CharacterInventory;
+
+    [Export] public Item RequiredItem;
 
 
     public override bool CheckCondition()
