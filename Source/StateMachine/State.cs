@@ -20,9 +20,9 @@ public partial class State : Node
     {
     }
 
-    public virtual Vector2 GetInput()
+    public virtual Vector3 GetInput()
     {
-        return Vector2.Zero;
+        return Vector3.Zero;
     }
 
     public virtual void Update(double delta)
