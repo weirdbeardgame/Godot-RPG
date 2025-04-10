@@ -1,11 +1,9 @@
 
 public partial class StateMachine : Node
 {
-    Godot.Collections.Dictionary<string, NodePath> Nodes;
-
+    private Godot.Collections.Dictionary<string, NodePath> _nodes;
     private State _oldState;
     private State _state;
-
     public State CurrentState => _state;
 
     // Called when the node enters the scene tree for the first time.
@@ -15,11 +13,11 @@ public partial class StateMachine : Node
 
     public void AddState(State s, string name)
     {
-        Nodes ??= new Godot.Collections.Dictionary<string, NodePath>();
+        _nodes ??= new Godot.Collections.Dictionary<string, NodePath>();
 
-        if (!Nodes.ContainsKey(name) && Nodes != null)
+        if (!_nodes.ContainsKey(name) && _nodes != null)
         {
-            Nodes.Add(name, s.GetPath());
+            _nodes.Add(name, s.GetPath());
         }
         else
         {
@@ -27,9 +25,9 @@ public partial class StateMachine : Node
         }
     }
 
-    public void InitState(string defaultState)
+    public void InitDefaultState(string stateName)
     {
-        _state = (State)GetNode(Nodes[defaultState]);
+        _state = (State)GetNode(_nodes[stateName]);
         _state.Start();
     }
 
@@ -40,7 +38,7 @@ public partial class StateMachine : Node
             if (_state.StateName != newState)
             {
                 _oldState = _state;
-                _state = (State)GetNode(Nodes[newState]);
+                _state = (State)GetNode(_nodes[newState]);
                 _oldState?.Stop();
                 _state.Start();
             }
@@ -56,7 +54,7 @@ public partial class StateMachine : Node
     // Take the current _state and restart it's logic, IE. You're going to double jump!
     public void ResetState()
     {
-        var stateTemp = GetNode<State>(Nodes[CurrentState.StateName]);
+        var stateTemp = GetNode<State>(_nodes[CurrentState.StateName]);
         _state.Stop();
         _state = null;
         _state = stateTemp;
