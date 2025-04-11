@@ -1,3 +1,4 @@
+using Core.Quests;
 using Godot;
 using GodotPlugins.Game;
 using System;
@@ -23,20 +24,24 @@ public partial class MainQuestUi : Control
 
     public override void _Ready()
     {
-        UpdateQuestText();
+        UpdateQuestUI(new Quest());
+    }
 
-        // Debugging
+    private void UpdateQuestUI(Quest quest) 
+    {  
+        // Testing Logic
+        quest.Title = "My Custom Quest";
+        TitleLabel.Text = quest.Title;
+
+        for (int i = 0; i < 4; i++) { AddConditionControl(); }
+
         UpdateQuestConditions();
     }
 
-    private void UpdateQuestText() {  }
-    private void AddConditionTextControl()
+    private void AddConditionControl()
     {
         Control newControl = (Control)ConditionTextControl.Instantiate();
         AllConditionsControl.AddChild(newControl);
-
-        newControl.Size = new Vector2(0,0);
-        newControl.Position = new Vector2(0,0);
     }
 
     private float GetTotalConditionControlLength()
