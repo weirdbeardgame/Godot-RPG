@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Diagnostics;
-using System.Xml.Resolvers;
 
 public partial class Hud : CanvasLayer
 {
@@ -51,8 +50,7 @@ public partial class Hud : CanvasLayer
     {
         foreach(Panel panel in Previews)
         {
-            panel.Hide();
-            // probably should queuefree() instead
+            panel.QueueFree();
         } 
     }
 }

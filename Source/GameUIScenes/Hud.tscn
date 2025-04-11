@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dujj8c2n3m8fq"]
 
 [ext_resource type="Script" uid="uid://dysvlyjwn7mw4" path="res://Source/GameUIScenes/Hud.cs" id="1_kaqrk"]
-[ext_resource type="PackedScene" uid="uid://dypbv71bswcme" path="res://Source/GameUIScenes/MainQuestUI.tscn" id="2_wnuho"]
+[ext_resource type="PackedScene" uid="uid://dypbv71bswcme" path="res://Source/GameUIScenes/QuestUI/MainQuestUI.tscn" id="2_wnuho"]
 
 [node name="Hud" type="CanvasLayer" node_paths=PackedStringArray("MarkerQuestUI", "Previews")]
 script = ExtResource("1_kaqrk")

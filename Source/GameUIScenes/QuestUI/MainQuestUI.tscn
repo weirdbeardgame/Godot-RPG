@@ -1,6 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://dypbv71bswcme"]
 
-[ext_resource type="Script" uid="uid://buh1sngucw31p" path="res://Source/GameUIScenes/MainQuestUi.cs" id="1_p0ahw"]
+[ext_resource type="Script" uid="uid://buh1sngucw31p" path="res://Source/GameUIScenes/QuestUI/MainQuestUi.cs" id="1_p0ahw"]
+[ext_resource type="PackedScene" uid="uid://bnuli6cjw58hp" path="res://Source/GameUIScenes/QuestUI/ConditionTextControl.tscn" id="2_dpkcy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnub7"]
 bg_color = Color(0, 0, 0, 0.301961)
@@ -36,10 +37,7 @@ corner_radius_top_left = 1000
 corner_radius_bottom_left = 1000
 corner_detail = 20
 
-[sub_resource type="LabelSettings" id="LabelSettings_3yccr"]
-font_size = 24
-
-[node name="QuestUI" type="Control" node_paths=PackedStringArray("QuestHeaderControl", "QuestConditionsControl", "BGPanel", "ConditionTextControl", "TitleLabel")]
+[node name="QuestUI" type="Control" node_paths=PackedStringArray("QuestHeaderControl", "AllConditionsControl", "BGPanel", "ConditionsBGPanel", "TitleLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,13 +45,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_p0ahw")
+ConditionTextControl = ExtResource("2_dpkcy")
 QuestHeaderControl = NodePath("QuestHeaderControl")
-QuestConditionsControl = NodePath("QuestHeaderControl/QuestConditionsControl")
+AllConditionsControl = NodePath("QuestHeaderControl/QuestConditionsControl/AllConditionsControls")
 BGPanel = NodePath("QuestHeaderControl/BGPanel")
-ConditionTextControl = NodePath("MakeShiftPackedScenes/ConditionTextControl")
+ConditionsBGPanel = NodePath("QuestHeaderControl/QuestConditionsControl/QuestDetailBGPanel")
 TitleLabel = NodePath("QuestHeaderControl/HeaderVbox/Title")
-ConditionDetailYSize = 0.75
-Spacing = 0.0
 
 [node name="QuestHeaderControl" type="Control" parent="."]
 layout_mode = 1
@@ -131,34 +128,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MakeShiftPackedScenes" type="Node" parent="."]
-
-[node name="ConditionTextControl" type="Control" parent="MakeShiftPackedScenes"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 747.0
-offset_bottom = 954.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PreviewPanel_DeleteLater" type="Panel" parent="MakeShiftPackedScenes/ConditionTextControl"]
+[node name="AllConditionsControls" type="Control" parent="QuestHeaderControl/QuestConditionsControl"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
 
-[node name="ConditionText" type="Label" parent="MakeShiftPackedScenes/ConditionTextControl"]
+[node name="ConditionTextControl" parent="QuestHeaderControl/QuestConditionsControl/AllConditionsControls" instance=ExtResource("2_dpkcy")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Hunt enemies"
-label_settings = SubResource("LabelSettings_3yccr")
-vertical_alignment = 1
+
+[node name="ConditionTextControl2" parent="QuestHeaderControl/QuestConditionsControl/AllConditionsControls" instance=ExtResource("2_dpkcy")]
+layout_mode = 1
