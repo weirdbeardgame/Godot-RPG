@@ -1,13 +1,14 @@
 using Godot;
 using System;
-using System.Text.Json.Serialization;
-
 
 namespace Core.Items;
 
+// These are to define a small equation scripting language if so desired.
+// But they may remain unused, and direct coding operators used instead for flexibility sake
 public enum Operator { ADD, SUBTRACT, DIVIDE, MODULO };
 
-public partial class Item
+// Note, due to Item being a resource, JSON and the previous editor will be broken
+public partial class Item : Resource
 {
     protected string _itemName;
     protected bool _consumeable;
@@ -16,7 +17,7 @@ public partial class Item
     public Guid ID { get; set; }
 
     // The Stats this item applies too.
-    protected Dictionary<string, StatData> _statsAffected;
+    protected Godot.Collections.Dictionary<string, StatData> _statsAffected;
 
     // Uncomment for weight based Inventory system
     // private int _itemWeight;
@@ -78,7 +79,7 @@ public partial class Item
         }
     }
 
-    public Dictionary<string, StatData> SetStatsAffected
+    public Godot.Collections.Dictionary<string, StatData> SetStatsAffected
     {
         set
         {
@@ -87,6 +88,7 @@ public partial class Item
     }
 #endif
 
+    // For some reason, Godot preferres a Default Constructor when Searializing.
     public Item()
     {
 

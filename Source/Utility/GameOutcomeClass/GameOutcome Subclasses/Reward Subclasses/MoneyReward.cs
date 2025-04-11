@@ -8,7 +8,7 @@ public partial class MoneyReward : Reward
     [Export] public string Character = "Player";
     [Export] public float Money;
 
-    public override void PerformOutcome()
+    public override void GiveReward()
     {
         // Character.add_money(Money)
         // a better approach would be to use a dedicated utility class to handle similar game logic consistently across the project

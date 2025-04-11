@@ -1,7 +1,7 @@
 using Godot;
-using System.Text.Json.Serialization;
 
-public partial class StatData
+// Note, due to StatData being a resource. JSON and the previous editor will be broken
+public partial class StatData : Resource
 {
 
     private float _maxStat;

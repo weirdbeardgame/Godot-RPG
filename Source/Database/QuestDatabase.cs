@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Core.Quests;
 
 // No methods to be added here, Logic will be inside QuestManager Class
 public partial class QuestDatabase
