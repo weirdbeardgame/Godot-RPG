@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://dypbv71bswcme"]
 
-[ext_resource type="Script" uid="uid://buh1sngucw31p" path="res://Source/GameUIScenes/QuestUI/MainQuestUi.cs" id="1_p0ahw"]
-[ext_resource type="PackedScene" uid="uid://bnuli6cjw58hp" path="res://Source/GameUIScenes/QuestUI/ConditionTextControl.tscn" id="2_dpkcy"]
+[ext_resource type="Script" uid="uid://buh1sngucw31p" path="res://Assets/GameUIScenes/QuestUI/MainQuestUi.cs" id="1_p0ahw"]
+[ext_resource type="PackedScene" uid="uid://bnuli6cjw58hp" path="res://Assets/GameUIScenes/QuestUI/ConditionTextControl.tscn" id="2_dpkcy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnub7"]
 bg_color = Color(0, 0, 0, 0.301961)

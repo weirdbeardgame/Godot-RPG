@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cuujto3q5llbh"]
+
+[ext_resource type="Script" uid="uid://7vc2wlg2j8yj" path="res://addons/LevelManager/LevelManagerData.cs" id="1_6uygv"]
+
+[resource]
+script = ExtResource("1_6uygv")
+NewGameScene = ""
+Levels = Dictionary[String, int]({})
