@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://dujj8c2n3m8fq"]
+
+[ext_resource type="Script" uid="uid://dysvlyjwn7mw4" path="res://Assets/GameUIScenes/Hud.cs" id="1_kaqrk"]
+[ext_resource type="PackedScene" uid="uid://8qkiftt4erqp" path="res://Assets/GameUIScenes/PlayerStat/PlayerStatUI.tscn" id="2_6y3jf"]
+[ext_resource type="PackedScene" uid="uid://dypbv71bswcme" path="res://Assets/GameUIScenes/QuestUI/MainQuestUI.tscn" id="2_wnuho"]
+
+[node name="Hud" type="CanvasLayer" node_paths=PackedStringArray("MarkerPlayerStatUI", "MarkerQuestUI", "Previews")]
+script = ExtResource("1_kaqrk")
+PlayerStatUIScene = ExtResource("2_6y3jf")
+QuestUIScene = ExtResource("2_wnuho")
+MarkerPlayerStatUI = NodePath("HudControl/MarkerPlayerStatUI")
+MarkerQuestUI = NodePath("HudControl/MarkerQuestUI")
+Previews = [NodePath("HudControl/MarkerQuestUI/PreviewPanel2"), NodePath("HudControl/MarkerPlayerStatUI/PreviewPanel1")]
+
+[node name="HudControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarkerPlayerStatUI" type="Control" parent="HudControl"]
+layout_mode = 1
+anchor_left = 0.025
+anchor_top = 0.875
+anchor_right = 0.3
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PreviewPanel1" type="Panel" parent="HudControl/MarkerPlayerStatUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label1" type="Label" parent="HudControl/MarkerPlayerStatUI/PreviewPanel1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Player Health 100/100"
+
+[node name="MarkerQuestUI" type="Control" parent="HudControl"]
+layout_mode = 1
+anchor_left = 0.75
+anchor_top = 0.295
+anchor_right = 0.975
+anchor_bottom = 0.375
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PreviewPanel2" type="Panel" parent="HudControl/MarkerQuestUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label2" type="Label" parent="HudControl/MarkerQuestUI/PreviewPanel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tracked Quest: Just do it!"
+metadata/_edit_use_anchors_ = true

@@ -1,0 +1,135 @@
+[gd_scene load_steps=16 format=3 uid="uid://dypbv71bswcme"]
+
+[ext_resource type="Script" uid="uid://buh1sngucw31p" path="res://Assets/GameUIScenes/QuestUI/MainQuestUi.cs" id="1_p0ahw"]
+[ext_resource type="PackedScene" uid="uid://bnuli6cjw58hp" path="res://Assets/GameUIScenes/QuestUI/ConditionTextControl.tscn" id="2_dpkcy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnub7"]
+bg_color = Color(0, 0, 0, 0.301961)
+corner_radius_top_right = 12
+corner_detail = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_fnub7"]
+font_size = 28
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bk5yn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cy1ji"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p6w28"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yao7b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ic6u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nt08i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l80e5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vw3ah"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nmssb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5me7c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cy1ji"]
+bg_color = Color(0, 0, 0, 0.301961)
+corner_radius_top_left = 1000
+corner_radius_bottom_left = 1000
+corner_detail = 20
+
+[node name="QuestUI" type="Control" node_paths=PackedStringArray("QuestHeaderControl", "AllConditionsControl", "BGPanel", "ConditionsBGPanel", "TitleLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p0ahw")
+ConditionTextControl = ExtResource("2_dpkcy")
+QuestHeaderControl = NodePath("QuestHeaderControl")
+AllConditionsControl = NodePath("QuestHeaderControl/QuestConditionsControl/AllConditionsControls")
+BGPanel = NodePath("QuestHeaderControl/BGPanel")
+ConditionsBGPanel = NodePath("QuestHeaderControl/QuestConditionsControl/QuestDetailBGPanel")
+TitleLabel = NodePath("QuestHeaderControl/HeaderVbox/Title")
+
+[node name="QuestHeaderControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="BGPanel" type="Panel" parent="QuestHeaderControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_fnub7")
+
+[node name="HeaderVbox" type="VBoxContainer" parent="QuestHeaderControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="Label" parent="QuestHeaderControl/HeaderVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "QUEST TITLE"
+label_settings = SubResource("LabelSettings_fnub7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HideQuestUIControl" type="Control" parent="QuestHeaderControl"]
+layout_mode = 1
+anchor_left = -0.15
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="HideQuestUIButton" type="Button" parent="QuestHeaderControl/HideQuestUIControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bk5yn")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_cy1ji")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_p6w28")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_yao7b")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7ic6u")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_nt08i")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_l80e5")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_vw3ah")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_nmssb")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_5me7c")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cy1ji")
+text = "<"
+
+[node name="QuestConditionsControl" type="Control" parent="QuestHeaderControl"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="QuestDetailBGPanel" type="Panel" parent="QuestHeaderControl/QuestConditionsControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllConditionsControls" type="Control" parent="QuestHeaderControl/QuestConditionsControl"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
