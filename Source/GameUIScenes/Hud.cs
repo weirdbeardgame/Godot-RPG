@@ -2,6 +2,8 @@ using Godot;
 using System;
 using System.Diagnostics;
 
+namespace Core.UI;
+
 public partial class Hud : CanvasLayer
 {
     // The idea is that we provide the implementation of the Hud System and let devs either choose one

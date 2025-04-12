@@ -5,7 +5,7 @@ namespace Core.Quests;
 
 // All Quest logic should be written here
 public partial class QuestManager : Node
-{
+{   
     public enum MoveQuestType
     {
         COPY,

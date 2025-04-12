@@ -4,6 +4,8 @@ using GodotPlugins.Game;
 using System;
 using System.Diagnostics;
 
+namespace Core.UI;
+
 public partial class MainQuestUi : Control
 {
     [ExportGroup("Required Scenes")]
@@ -19,7 +21,6 @@ public partial class MainQuestUi : Control
     [Export] private Label TitleLabel;
 
     [ExportGroup("Size Manipulation")]
-    [Export] private float HeaderLength = 200f;
     [Export] private float ConditionLengthRatio = 1.0f;
 
     public override void _Ready()
@@ -34,7 +35,6 @@ public partial class MainQuestUi : Control
         TitleLabel.Text = quest.Title;
 
         for (int i = 0; i < 4; i++) { AddConditionControl(); }
-
         UpdateQuestConditions();
     }
 
@@ -64,7 +64,6 @@ public partial class MainQuestUi : Control
     {
         float QHX = QuestHeaderControl.Size.X;
         float QHY = QuestHeaderControl.Size.Y;
-
         float accumulatingY = 0;
 
         foreach(Control ConditionControl in AllConditionsControl.GetChildren())
