@@ -8,7 +8,7 @@ public partial class Player : Creature
 
     public void Equip(Equipable e)
     {
-        foreach (var slot in _slots)
+        foreach (var slot in Slots)
         {
             if (slot.CanBeEquipped(e, e.Job))
             {
@@ -19,7 +19,7 @@ public partial class Player : Creature
 
     public void Die()
     {
-        if (_stats["Health"].Stat == 0)
+        if (Stats["Health"].Stat == 0)
         {
             IsAlive = LivingStatus.DEAD;
         }
@@ -30,12 +30,10 @@ public partial class Player : Creature
         // Just some filler code, this should be more complicated
         if (Experience >= ExpReqForLevelUp)
         {
+            Level += 1;
+            // Increase ExpReqForLevelUp, increase stats based on JobType and any other desired factors
 
         }
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
-    }
 }
