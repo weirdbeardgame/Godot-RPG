@@ -41,6 +41,8 @@ public partial class Inventory : Node
         UseItem += Use;
     }
 
+
+    // Note, there is an error. `ItemAdded = toAdd[0];` would be assuming you're getting the same item instead of multiple different ones
     public void Add(List<Item> toAdd)
     {
         if (_amount < _invMax)
