@@ -16,7 +16,7 @@ public partial class Enemy : Creature
 
     public void Die()
     {
-        if (Stats["Health"].Stat == 0)
+        if (Stats["Health"].CurrentStat == 0)
         {
             IsAlive = LivingStatus.DEAD;
         }
