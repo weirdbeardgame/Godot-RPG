@@ -4,7 +4,7 @@ using Godot;
 
 public partial class HealingItem : Item
 {
-    public Dictionary<string, StatData> Stats;
+    public Dictionary<string, Stat> Stats;
 
     public HealingItem()
     {

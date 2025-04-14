@@ -17,7 +17,7 @@ public partial class Item : Resource
     public Guid ID { get; set; }
 
     // The Stats this item applies too.
-    protected Godot.Collections.Dictionary<string, StatData> _statsAffected;
+    protected Godot.Collections.Dictionary<string, Stat> _statsAffected;
 
     // Uncomment for weight based Inventory system
     // private int _itemWeight;
@@ -79,7 +79,7 @@ public partial class Item : Resource
         }
     }
 
-    public Godot.Collections.Dictionary<string, StatData> SetStatsAffected
+    public Godot.Collections.Dictionary<string, Stat> SetStatsAffected
     {
         set
         {
@@ -109,7 +109,7 @@ public partial class Item : Resource
     }
 
     // ToDo, add check if Buff or Debuff apply correctly. IE. Current stat is not too large or small
-    /*public virtual bool Use(Dictionary<string, StatData> stats)
+    /*public virtual bool Use(Dictionary<string, Stat> stats)
     {
         if (_consumeable)
         {

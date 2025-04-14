@@ -6,7 +6,7 @@ public enum LivingStatus { ALIVE, DEAD };
 public partial class Creature : Resource
 {
     // Stats are objects that can be dynamically constructed and set!
-    protected Godot.Collections.Dictionary<string, StatData> Stats;
+    protected Godot.Collections.Dictionary<string, Stat> Stats;
     protected LivingStatus IsAlive;
 
     // Weapon Slots
@@ -19,7 +19,7 @@ public partial class Creature : Resource
     // Enemies and Players can be assigned a job. In other Rpg types, this would be class type
     JobSystem Job;
 
-    public Godot.Collections.Dictionary<string, StatData> GetStats => Stats;
+    public Godot.Collections.Dictionary<string, Stat> GetStats => Stats;
 
     public void CreateWeaponSlots()
     {

@@ -1,7 +1,7 @@
 using Godot;
 
-// Note, due to StatData being a resource. JSON and the previous editor will be broken
-public partial class StatData : Resource
+// Note, due to Stat being a resource. JSON and the previous editor will be broken
+public partial class Stat : Resource
 {
 
     private float _maxStat;
@@ -11,14 +11,14 @@ public partial class StatData : Resource
 
     public Guid ID { get; set; }
 
-    public StatData()
+    public Stat()
     {
         _statName = "";
         _stat = 0.0f;
         ID = Guid.NewGuid();
     }
 
-    public StatData(string Name, float stat)
+    public Stat(string Name, float stat)
     {
         _statName = Name;
         _maxStat = stat;
@@ -39,7 +39,7 @@ public partial class StatData : Resource
         }
     }
 
-    public float Stat
+    public float CurrentStat
     {
 #if TOOLS // Note we only allow direct set in the editor, ingame updates should happen with operators
         set
@@ -71,16 +71,16 @@ public partial class StatData : Resource
     public override string ToString() => _statName + ": " + _stat.ToString();
 
     // Set of Operators for Stat math
-    public static bool operator >(StatData s1, StatData s2) => s1.Stat > s2.Stat;
+    public static bool operator >(Stat s1, Stat s2) => s1.CurrentStat > s2.CurrentStat;
 
-    public static bool operator <(StatData s1, StatData s2) => s1.Stat < s2.Stat;
+    public static bool operator <(Stat s1, Stat s2) => s1.CurrentStat < s2.CurrentStat;
 
-    public static StatData operator +(StatData s1, StatData s2) => new(s1.StatName, s1.Stat + s2.Stat);
+    public static Stat operator +(Stat s1, Stat s2) => new(s1.StatName, s1.CurrentStat + s2.CurrentStat);
 
-    public static StatData operator -(StatData s1, StatData s2) => new(s1.StatName, s1.Stat - s2.Stat);
+    public static Stat operator -(Stat s1, Stat s2) => new(s1.StatName, s1.CurrentStat - s2.CurrentStat);
 
-    public static StatData operator /(StatData s1, StatData s2) => new(s1.StatName, s1.Stat / s2.Stat);
+    public static Stat operator /(Stat s1, Stat s2) => new(s1.StatName, s1.CurrentStat / s2.CurrentStat);
 
-    public static StatData operator %(StatData s1, StatData s2) => new(s1.StatName, s1.Stat % s2.Stat);
+    public static Stat operator %(Stat s1, Stat s2) => new(s1.StatName, s1.CurrentStat % s2.CurrentStat);
 }
 

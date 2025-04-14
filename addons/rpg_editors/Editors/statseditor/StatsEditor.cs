@@ -14,8 +14,8 @@ public partial class StatsEditor : Control
     private ItemList _statsList;
 
     // Properties for _stats
-    private StatData _currentStat;
-    private Dictionary<string, StatData> _stats = new();
+    private Stat _currentStat;
+    private Dictionary<string, Stat> _stats = new();
 
     private LineEdit _statName;
     private SpinBox _stat;
@@ -37,7 +37,7 @@ public partial class StatsEditor : Control
 
     public override void _EnterTree()
     {
-        _currentStat = new StatData();
+        _currentStat = new Stat();
         _statsList = GetNode<ItemList>("StatsList");
         _statName = GetNode<LineEdit>("VBoxContainer/StatName");
         _createNewStat = GetNode<Button>("HBoxContainer/NewStat");
@@ -76,7 +76,7 @@ public partial class StatsEditor : Control
             {
                 _currentStat = _stats[_statsList.GetItemText(_currentIndex)];
                 _statName.Text = _currentStat.StatName;
-                _stat.Value = _currentStat.Stat;
+                _stat.Value = _currentStat.CurrentStat;
                 _maxStat.Value = _currentStat.MaxStat;
             }
         }
@@ -99,7 +99,7 @@ public partial class StatsEditor : Control
         {
             _currentStat = _stats[_statsList.GetItemText(_currentIndex)];
             _statName.Text = _currentStat.StatName;
-            _stat.Value = _currentStat.Stat;
+            _stat.Value = _currentStat.CurrentStat;
             _maxStat.Value = _currentStat.MaxStat;
         }
     }
@@ -108,11 +108,11 @@ public partial class StatsEditor : Control
     {
         if (string.IsNullOrEmpty(_newStatNameEdit.Text))
         {
-            _newStatNameEdit.Text = $"StatData: {_stats.Count}";
+            _newStatNameEdit.Text = $"Stat: {_stats.Count}";
         }
         if (!_stats.ContainsKey(_newStatNameEdit.Text))
         {
-            var newStat = new StatData(_newStatNameEdit.Text, 0);
+            var newStat = new Stat(_newStatNameEdit.Text, 0);
             _stats.Add(newStat.StatName, newStat);
             _statsList.AddItem(newStat.StatName);
         }
@@ -132,7 +132,7 @@ public partial class StatsEditor : Control
         Refresh();
     }
 
-    void OnStatUpdate(double val) => _currentStat.Stat = (float)val;
+    void OnStatUpdate(double val) => _currentStat.CurrentStat = (float)val;
     void OnMaxStatUpdate(double val) => _currentStat.MaxStat = (float)val;
     public void RemoveButton() => Remove(_statName.Text);
     public void Remove(string name)
@@ -144,7 +144,7 @@ public partial class StatsEditor : Control
     {
         if (value >= 0 && value <= _currentStat.MaxStat)
         {
-            _currentStat.Stat = value;
+            _currentStat.CurrentStat = value;
         }
     }
 
