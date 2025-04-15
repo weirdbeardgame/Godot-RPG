@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://drlxul6t6i30n"]
+[gd_scene load_steps=9 format=3 uid="uid://drlxul6t6i30n"]
 
 [ext_resource type="Script" uid="uid://b83bphqctou8s" path="res://addons/LevelManager/LevelDockScript.cs" id="1_66pb0"]
 [ext_resource type="Theme" uid="uid://5q220lv5g1ke" path="res://Assets/Editor_GUI/Themes/EditorTheme.tres" id="1_ejouf"]
@@ -9,6 +9,11 @@
 color = Color(0.947199, 0.947199, 0.947199, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xa76a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqers"]
+bg_color = Color(0.105882, 0.105882, 0.117647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8o785"]
 bg_color = Color(0.105882, 0.105882, 0.117647, 1)
 
 [node name="Panel" type="Panel"]
@@ -50,6 +55,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
 [node name="HSeparator2" type="HSeparator" parent="ManagerLabelControl/ManagerLabel"]
 layout_mode = 2
@@ -64,7 +70,6 @@ theme = ExtResource("1_ejouf")
 theme_override_font_sizes/bold_font_size = 25
 bbcode_enabled = true
 text = "[b]Level Manager: "
-fit_content = true
 autowrap_mode = 0
 vertical_alignment = 1
 
@@ -84,12 +89,16 @@ size_flags_horizontal = 3
 theme = ExtResource("5_l86uh")
 text = "Refresh
 "
+alignment = 0
+text_overrun_behavior = 1
 
 [node name="Save" type="Button" parent="ManagerLabelControl/ManagerLabel/ControlButtonsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_l86uh")
 text = "Save"
+alignment = 0
+text_overrun_behavior = 1
 
 [node name="LevelDockControl" type="Control" parent="."]
 layout_mode = 1
@@ -112,83 +121,52 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LevelDockControl/ContentControl"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = 0.016
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.985
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
+theme_override_constants/separation = 0
 
 [node name="LevelsLable" type="RichTextLabel" parent="LevelDockControl/ContentControl/VBoxContainer"]
 layout_mode = 2
+size_flags_stretch_ratio = 0.01
 theme = ExtResource("1_ejouf")
 theme_override_fonts/normal_font = ExtResource("4_degp0")
 theme_override_font_sizes/normal_font_size = 20
-text = "Levels: "
+theme_override_styles/background = SubResource("StyleBoxFlat_xa76a")
+text = "Levels:"
 fit_content = true
-
-[node name="Panel" type="Panel" parent="LevelDockControl/ContentControl/VBoxContainer/LevelsLable"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xa76a")
-
-[node name="LevelsLableDuplicate" type="RichTextLabel" parent="LevelDockControl/ContentControl/VBoxContainer/LevelsLable/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_ejouf")
-theme_override_fonts/normal_font = ExtResource("4_degp0")
-theme_override_font_sizes/normal_font_size = 20
-text = "Levels: "
-fit_content = true
+vertical_alignment = 1
 
 [node name="LevelList" type="ItemList" parent="LevelDockControl/ContentControl/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_ejouf")
 
-[node name="HSeparator2" type="HSeparator" parent="LevelDockControl/ContentControl/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_constants/separation = 9
-theme_override_styles/separator = SubResource("StyleBoxLine_ycvli")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="LevelDockControl/ContentControl/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="NewLevel" type="Button" parent="LevelDockControl/ContentControl/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("5_l86uh")
-text = "New Level"
-
-[node name="RemoveLevel" type="Button" parent="LevelDockControl/ContentControl/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("5_l86uh")
-text = "RemoveLevel
-"
-
-[node name="FilePickerControl" type="Control" parent="."]
+[node name="LastControl" type="Control" parent="."]
 layout_mode = 1
-anchor_top = 1.001
+anchor_top = 0.951
 anchor_right = 1.0
-anchor_bottom = 1.001
-offset_top = -92.6418
-offset_bottom = 0.358154
+anchor_bottom = 1.0
+offset_top = 1.03833
+offset_right = 40.0
+offset_bottom = -0.600098
+
+[node name="BottomControl" type="Control" parent="LastControl"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -118.0
 grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.35
 
-[node name="FilePickerContainer" type="VBoxContainer" parent="FilePickerControl"]
+[node name="Panel" type="Panel" parent="LastControl/BottomControl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -196,39 +174,141 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FilePickerBackground" type="ColorRect" parent="FilePickerControl/FilePickerContainer"]
+[node name="ControlFirst" type="Control" parent="LastControl/BottomControl"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.39
+offset_top = -1.00001
+offset_bottom = -0.0500031
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Control3" type="Control" parent="LastControl/BottomControl/ControlFirst"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.04
+
+[node name="HSeparator2" type="HSeparator" parent="LastControl/BottomControl/ControlFirst/Control3"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 9.0
+grow_horizontal = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxLine_ycvli")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LastControl/BottomControl/ControlFirst/Control3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="NewLevel" type="Button" parent="LastControl/BottomControl/ControlFirst/Control3/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_l86uh")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wqers")
+text = "New Level"
+alignment = 0
+text_overrun_behavior = 1
+
+[node name="RemoveLevel" type="Button" parent="LastControl/BottomControl/ControlFirst/Control3/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_l86uh")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8o785")
+text = "RemoveLevel
+"
+alignment = 0
+text_overrun_behavior = 1
+
+[node name="ControlSecond" type="Control" parent="LastControl/BottomControl"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -72.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="FilePickerContainer" type="VBoxContainer" parent="LastControl/BottomControl/ControlSecond"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+
+[node name="FilePickerBackground" type="ColorRect" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 color = Color(0.214031, 0.220623, 0.226234, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FilePickerControl/FilePickerContainer/FilePickerBackground"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.008
-anchor_right = 0.991
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.288
-offset_right = -0.0510254
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NewGameLabel" type="RichTextLabel" parent="FilePickerControl/FilePickerContainer/FilePickerBackground/VBoxContainer"]
+[node name="Control2" type="Control" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 3
+
+[node name="NewGameLabel" type="RichTextLabel" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 2208.0
+offset_bottom = 11.5
+grow_vertical = 2
+size_flags_vertical = 8
 theme = ExtResource("1_ejouf")
 text = "New Game Level Selector:"
 fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
 
-[node name="NewGameLevel" type="OptionButton" parent="FilePickerControl/FilePickerContainer/FilePickerBackground/VBoxContainer"]
+[node name="NewGameLevel" type="OptionButton" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
 theme = ExtResource("1_ejouf")
 
-[node name="DataFilePath" type="RichTextLabel" parent="FilePickerControl/FilePickerContainer/FilePickerBackground/VBoxContainer"]
+[node name="Control" type="Control" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 2
+size_flags_vertical = 3
+
+[node name="DataFilePath" type="RichTextLabel" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -21.0
+offset_right = 2200.0
+offset_bottom = 21.0
+grow_vertical = 2
+size_flags_vertical = 0
 text = "Manager Data: res://Assets/Data/LevelManagerData.tres"
 fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
