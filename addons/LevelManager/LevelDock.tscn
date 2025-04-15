@@ -1,20 +1,56 @@
-[gd_scene load_steps=9 format=3 uid="uid://drlxul6t6i30n"]
+[gd_scene load_steps=20 format=3 uid="uid://drlxul6t6i30n"]
 
 [ext_resource type="Script" uid="uid://b83bphqctou8s" path="res://addons/LevelManager/LevelDockScript.cs" id="1_66pb0"]
 [ext_resource type="Theme" uid="uid://5q220lv5g1ke" path="res://Assets/Editor_GUI/Themes/EditorTheme.tres" id="1_ejouf"]
+[ext_resource type="FontFile" uid="uid://fysvng1sjbfd" path="res://Assets/Resources/Fonts/robotoFont/Roboto-Black.ttf" id="3_8pnay"]
+[ext_resource type="Texture2D" uid="uid://caeb5gb3vukvv" path="res://Assets/Resources/Icons/LevelManager/Refresh100Icon.png" id="4_8o785"]
 [ext_resource type="FontFile" uid="uid://cjwbsk3uisdcs" path="res://Assets/Resources/Fonts/OpenSans.tres" id="4_degp0"]
+[ext_resource type="FontFile" uid="uid://cf3qtj4grwj75" path="res://Assets/Resources/Fonts/robotoFont/Roboto-Bold.ttf" id="4_rlvy3"]
+[ext_resource type="Texture2D" uid="uid://druokq71lwua7" path="res://Assets/Resources/Icons/LevelManager/SaveIcon100.png" id="5_8o785"]
 [ext_resource type="Theme" uid="uid://dltcx5jine88c" path="res://Assets/Editor_GUI/Themes/Button_Theme.tres" id="5_l86uh"]
+[ext_resource type="Texture2D" uid="uid://chy5p2i0sqj2e" path="res://Assets/Resources/Icons/LevelManager/Add100.png" id="9_e6uw6"]
+[ext_resource type="Texture2D" uid="uid://cl3nw3i6k53k8" path="res://Assets/Resources/Icons/LevelManager/Remove100.png" id="10_6klgq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6uw6"]
+bg_color = Color(0.105882, 0.105882, 0.117647, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ycvli"]
-color = Color(0.947199, 0.947199, 0.947199, 1)
+color = Color(0.847059, 0.858824, 0.886275, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xa76a"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avv87"]
+bg_color = Color(0.105882, 0.105882, 0.117647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pnay"]
+bg_color = Color(0.215686, 0.247059, 0.317647, 1)
+border_width_bottom = 3
+border_color = Color(0.105882, 0.105882, 0.117647, 1)
+corner_radius_top_right = 8
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rlvy3"]
+bg_color = Color(0.215686, 0.247059, 0.317647, 1)
+border_width_bottom = 3
+border_color = Color(0.105882, 0.105882, 0.117647, 1)
+corner_radius_top_left = 8
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6klgq"]
+bg_color = Color(0.105882, 0.105882, 0.117647, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqers"]
 bg_color = Color(0.215686, 0.247059, 0.317647, 1)
+corner_radius_top_right = 8
+corner_detail = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8o785"]
 bg_color = Color(0.215686, 0.247059, 0.317647, 1)
+corner_radius_top_left = 8
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_de6nh"]
+bg_color = Color(0.215686, 0.247059, 0.317647, 1)
+border_width_bottom = 3
+border_color = Color(0.105882, 0.105882, 0.117647, 1)
 
 [node name="Panel" type="Panel"]
 z_as_relative = false
@@ -49,32 +85,51 @@ grow_horizontal = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.35
 
-[node name="ManagerLabel" type="VBoxContainer" parent="ManagerLabelControl"]
+[node name="Panel" type="Panel" parent="ManagerLabelControl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e6uw6")
+
+[node name="ManagerLabel" type="VBoxContainer" parent="ManagerLabelControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.478
+offset_right = 0.5
+offset_bottom = -0.0200005
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="HSeparator2" type="HSeparator" parent="ManagerLabelControl/ManagerLabel"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 9
 theme_override_styles/separator = SubResource("StyleBoxLine_ycvli")
 
 [node name="LevelManagerLabel" type="RichTextLabel" parent="ManagerLabelControl/ManagerLabel"]
+visible = false
+clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_ejouf")
+theme_override_colors/default_color = Color(0.972549, 0.972549, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_8pnay")
+theme_override_fonts/bold_font = ExtResource("4_rlvy3")
 theme_override_font_sizes/bold_font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_avv87")
 bbcode_enabled = true
 text = "[b]Level Manager: "
 autowrap_mode = 0
 vertical_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="ManagerLabelControl/ManagerLabel"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 9
 theme_override_styles/separator = SubResource("StyleBoxLine_ycvli")
@@ -83,32 +138,67 @@ theme_override_styles/separator = SubResource("StyleBoxLine_ycvli")
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.7
-theme_override_constants/separation = 8
+theme_override_constants/separation = 2
 
 [node name="Refresh" type="Button" parent="ManagerLabelControl/ManagerLabel/ControlButtonsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_l86uh")
-text = "Refresh
+theme_override_colors/font_color = Color(0.972549, 0.972549, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_8pnay")
+text = "         Refresh
 "
 alignment = 0
 text_overrun_behavior = 1
+
+[node name="TextureRect" type="TextureRect" parent="ManagerLabelControl/ManagerLabel/ControlButtonsContainer/Refresh"]
+self_modulate = Color(0.804743, 0.804743, 0.804743, 1)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_right = 38.0
+offset_bottom = 17.5
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_8o785")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Save" type="Button" parent="ManagerLabelControl/ManagerLabel/ControlButtonsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_l86uh")
-text = "Save"
+theme_override_colors/font_color = Color(0.972549, 0.972549, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_rlvy3")
+text = "          Save"
 alignment = 0
 text_overrun_behavior = 1
+
+[node name="TextureRect" type="TextureRect" parent="ManagerLabelControl/ManagerLabel/ControlButtonsContainer/Save"]
+self_modulate = Color(0.804743, 0.804743, 0.804743, 1)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_right = 38.0
+offset_bottom = 17.5
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_8o785")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="LevelDockControl" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 100.0
-offset_bottom = -127.6
+offset_top = 43.0
+offset_right = 0.5
+offset_bottom = -127.56
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -124,23 +214,27 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="LevelDockControl/ContentControl"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.016
+anchor_top = 0.003
 anchor_right = 1.0
 anchor_bottom = 0.985
+offset_top = -0.114
+offset_bottom = -0.429932
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="LevelsLable" type="RichTextLabel" parent="LevelDockControl/ContentControl/VBoxContainer"]
+clip_contents = false
 layout_mode = 2
 size_flags_stretch_ratio = 0.01
 theme = ExtResource("1_ejouf")
+theme_override_colors/default_color = Color(0.972549, 0.972549, 1, 1)
 theme_override_fonts/normal_font = ExtResource("4_degp0")
 theme_override_font_sizes/normal_font_size = 20
-theme_override_styles/background = SubResource("StyleBoxFlat_xa76a")
 text = "Levels:"
 fit_content = true
-vertical_alignment = 1
+autowrap_mode = 0
+vertical_alignment = 2
 
 [node name="LevelList" type="ItemList" parent="LevelDockControl/ContentControl/VBoxContainer"]
 layout_mode = 2
@@ -149,10 +243,10 @@ theme = ExtResource("1_ejouf")
 
 [node name="BottomControl" type="Control" parent="."]
 layout_mode = 1
-anchor_top = 0.951
+anchor_top = 0.964
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 0.962402
+offset_top = -1.36011
 offset_right = -0.5
 offset_bottom = -0.560059
 
@@ -175,13 +269,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6klgq")
 
 [node name="LevelAdditionRemovalControl" type="Control" parent="BottomControl/AnchorSupportControl"]
 layout_mode = 1
 anchor_right = 1.0
 anchor_bottom = 0.39
-offset_top = -1.00001
-offset_bottom = -0.0500031
+offset_bottom = -0.0199966
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -196,6 +290,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.04
 
 [node name="HSeparator2" type="HSeparator" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -209,13 +304,13 @@ theme_override_styles/separator = SubResource("StyleBoxLine_ycvli")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.95
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 5
+theme_override_constants/separation = 2
 alignment = 1
 
 [node name="NewLevel" type="Button" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer"]
@@ -223,21 +318,55 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_l86uh")
+theme_override_colors/font_color = Color(0.972549, 0.972549, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_wqers")
-text = "New Level"
+text = "         New Level"
 alignment = 0
 text_overrun_behavior = 1
+
+[node name="TextureRect" type="TextureRect" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer/NewLevel"]
+self_modulate = Color(0.74558, 0.74558, 0.74558, 1)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_right = 38.0
+offset_bottom = 17.5
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+pivot_offset = Vector2(0, 17)
+mouse_filter = 2
+texture = ExtResource("9_e6uw6")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="RemoveLevel" type="Button" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_l86uh")
+theme_override_colors/font_color = Color(0.972549, 0.972549, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_8o785")
-text = "RemoveLevel
+text = "         Remove Level
 "
 alignment = 0
 text_overrun_behavior = 1
+
+[node name="TextureRect" type="TextureRect" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer/RemoveLevel"]
+self_modulate = Color(0.804743, 0.804743, 0.804743, 1)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_right = 38.0
+offset_bottom = 17.5
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("10_6klgq")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="LevelDetailControl" type="Control" parent="BottomControl/AnchorSupportControl"]
 layout_mode = 1
@@ -284,6 +413,7 @@ offset_bottom = 11.5
 grow_vertical = 2
 size_flags_vertical = 8
 theme = ExtResource("1_ejouf")
+theme_override_colors/default_color = Color(0.972549, 0.972549, 1, 1)
 text = "New Game Level Selector:"
 fit_content = true
 autowrap_mode = 0
@@ -294,6 +424,7 @@ layout_mode = 2
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("1_ejouf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_de6nh")
 
 [node name="Control" type="Control" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer"]
 layout_mode = 2
@@ -309,6 +440,7 @@ offset_right = 2200.0
 offset_bottom = 21.0
 grow_vertical = 2
 size_flags_vertical = 0
+theme_override_colors/default_color = Color(0.972549, 0.972549, 1, 1)
 text = "Manager Data: res://Assets/Data/LevelManagerData.tres"
 fit_content = true
 autowrap_mode = 0
