@@ -40,21 +40,21 @@ public partial class LevelDockScript : Panel
         _refresh = GetNode<Button>("ManagerLabelControl/ManagerLabel/ControlButtonsContainer/Refresh");
 
         _levelList = GetNode<ItemList>("LevelDockControl/ContentControl/VBoxContainer/LevelList");
-        _newLevelButton = GetNode<Button>("LevelDockControl/ContentControl/VBoxContainer/HBoxContainer/NewLevel");
-        _removeLevelButton = GetNode<Button>("LevelDockControl/ContentControl/VBoxContainer/HBoxContainer/RemoveLevel");
+        _newLevelButton = GetNode<Button>("BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer/NewLevel");
+        _removeLevelButton = GetNode<Button>("BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer/RemoveLevel");
 
         _dialog.InitialPosition = Window.WindowInitialPosition.CenterMainWindowScreen;
 
         _levelList.ItemClicked += ItemClicked;
         _removeLevelButton.Pressed += Remove;
 
-        _pathLable = GetNode<RichTextLabel>("FilePickerControl/FilePickerContainer/FilePickerBackground/VBoxContainer/DataFilePath");
+        _pathLable = GetNode<RichTextLabel>("BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer/Control/DataFilePath");
         _pathLable.Text = "Manager Data: " + _levelManagerPath;
 
         _save.Pressed += Save;
         _refresh.Pressed += RefreshUI;
         _newLevelButton.Pressed += NewLevel_Button;
-        _newGameLevelSelector = GetNode<OptionButton>("FilePickerControl/FilePickerContainer/FilePickerBackground/VBoxContainer/NewGameLevel");
+        _newGameLevelSelector = GetNode<OptionButton>("BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer/NewGameLevel");
         _newGameLevelSelector.Select(-1);
         _newGameLevelSelector.ItemSelected += SetNewGameLevelInLevelManager;
 

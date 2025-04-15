@@ -11,12 +11,13 @@ color = Color(0.947199, 0.947199, 0.947199, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xa76a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqers"]
-bg_color = Color(0.105882, 0.105882, 0.117647, 1)
+bg_color = Color(0.215686, 0.247059, 0.317647, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8o785"]
-bg_color = Color(0.105882, 0.105882, 0.117647, 1)
+bg_color = Color(0.215686, 0.247059, 0.317647, 1)
 
 [node name="Panel" type="Panel"]
+z_as_relative = false
 anchors_preset = -1
 anchor_top = -0.094
 anchor_right = 1.15
@@ -82,6 +83,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_ycvli")
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.7
+theme_override_constants/separation = 8
 
 [node name="Refresh" type="Button" parent="ManagerLabelControl/ManagerLabel/ControlButtonsContainer"]
 layout_mode = 2
@@ -106,7 +108,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 100.0
-offset_bottom = -93.0
+offset_bottom = -127.6
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -145,16 +147,16 @@ layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_ejouf")
 
-[node name="LastControl" type="Control" parent="."]
+[node name="BottomControl" type="Control" parent="."]
 layout_mode = 1
 anchor_top = 0.951
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1.03833
-offset_right = 40.0
-offset_bottom = -0.600098
+offset_top = 0.962402
+offset_right = -0.5
+offset_bottom = -0.560059
 
-[node name="BottomControl" type="Control" parent="LastControl"]
+[node name="AnchorSupportControl" type="Control" parent="BottomControl"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -166,7 +168,7 @@ grow_vertical = 0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.35
 
-[node name="Panel" type="Panel" parent="LastControl/BottomControl"]
+[node name="Panel" type="Panel" parent="BottomControl/AnchorSupportControl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -174,7 +176,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ControlFirst" type="Control" parent="LastControl/BottomControl"]
+[node name="LevelAdditionRemovalControl" type="Control" parent="BottomControl/AnchorSupportControl"]
 layout_mode = 1
 anchor_right = 1.0
 anchor_bottom = 0.39
@@ -183,7 +185,7 @@ offset_bottom = -0.0500031
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Control3" type="Control" parent="LastControl/BottomControl/ControlFirst"]
+[node name="Control3" type="Control" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -193,11 +195,11 @@ grow_vertical = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.04
 
-[node name="HSeparator2" type="HSeparator" parent="LastControl/BottomControl/ControlFirst/Control3"]
-visible = false
+[node name="HSeparator2" type="HSeparator" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
 anchor_right = 1.0
+offset_top = -9.0
 offset_bottom = 9.0
 grow_horizontal = 2
 size_flags_vertical = 3
@@ -205,7 +207,7 @@ size_flags_stretch_ratio = 0.1
 theme_override_constants/separation = 9
 theme_override_styles/separator = SubResource("StyleBoxLine_ycvli")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LastControl/BottomControl/ControlFirst/Control3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -213,8 +215,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 5
+alignment = 1
 
-[node name="NewLevel" type="Button" parent="LastControl/BottomControl/ControlFirst/Control3/HBoxContainer"]
+[node name="NewLevel" type="Button" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -224,7 +228,7 @@ text = "New Level"
 alignment = 0
 text_overrun_behavior = 1
 
-[node name="RemoveLevel" type="Button" parent="LastControl/BottomControl/ControlFirst/Control3/HBoxContainer"]
+[node name="RemoveLevel" type="Button" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -235,7 +239,7 @@ text = "RemoveLevel
 alignment = 0
 text_overrun_behavior = 1
 
-[node name="ControlSecond" type="Control" parent="LastControl/BottomControl"]
+[node name="LevelDetailControl" type="Control" parent="BottomControl/AnchorSupportControl"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -245,19 +249,19 @@ offset_top = -72.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="FilePickerContainer" type="VBoxContainer" parent="LastControl/BottomControl/ControlSecond"]
+[node name="FilePickerContainer" type="VBoxContainer" parent="BottomControl/AnchorSupportControl/LevelDetailControl"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 
-[node name="FilePickerBackground" type="ColorRect" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer"]
+[node name="FilePickerBackground" type="ColorRect" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 color = Color(0.214031, 0.220623, 0.226234, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -265,11 +269,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control2" type="Control" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer"]
+[node name="Control2" type="Control" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NewGameLabel" type="RichTextLabel" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer/Control2"]
+[node name="NewGameLabel" type="RichTextLabel" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer/Control2"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -285,17 +289,17 @@ fit_content = true
 autowrap_mode = 0
 vertical_alignment = 1
 
-[node name="NewGameLevel" type="OptionButton" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer"]
+[node name="NewGameLevel" type="OptionButton" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("1_ejouf")
 
-[node name="Control" type="Control" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer"]
+[node name="Control" type="Control" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="DataFilePath" type="RichTextLabel" parent="LastControl/BottomControl/ControlSecond/FilePickerContainer/FilePickerBackground/VBoxContainer/Control"]
+[node name="DataFilePath" type="RichTextLabel" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.5
