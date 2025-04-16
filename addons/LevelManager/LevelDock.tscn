@@ -150,6 +150,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_l86uh")
 theme_override_colors/font_color = Color(0.972549, 0.972549, 1, 1)
+theme_override_font_sizes/font_size = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_8pnay")
 text = "         Refresh
 "
@@ -157,7 +158,6 @@ alignment = 0
 text_overrun_behavior = 1
 
 [node name="TextureRect" type="TextureRect" parent="ManagerLabelControl/ManagerLabel/ControlButtonsContainer/Refresh"]
-self_modulate = Color(0.804743, 0.804743, 0.804743, 1)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -182,7 +182,6 @@ alignment = 0
 text_overrun_behavior = 1
 
 [node name="TextureRect" type="TextureRect" parent="ManagerLabelControl/ManagerLabel/ControlButtonsContainer/Save"]
-self_modulate = Color(0.804743, 0.804743, 0.804743, 1)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -228,22 +227,23 @@ size_flags_stretch_ratio = 0.01
 theme = ExtResource("1_ejouf")
 theme_override_colors/default_color = Color(0.105882, 0.105882, 0.117647, 1)
 theme_override_fonts/normal_font = ExtResource("4_degp0")
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 18
 text = "         Levels:"
 fit_content = true
 autowrap_mode = 0
 vertical_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="ManagerLabelControl/LabelControl/LevelsLable2"]
-self_modulate = Color(0.804743, 0.804743, 0.804743, 1)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -17.5
+offset_top = -17.0
 offset_right = 38.0
-offset_bottom = 17.5
+offset_bottom = 18.0
 grow_vertical = 2
+scale = Vector2(0.95, 0.95)
+pivot_offset = Vector2(0, 17.5)
 mouse_filter = 2
 texture = ExtResource("9_6klgq")
 expand_mode = 3
@@ -367,7 +367,6 @@ alignment = 0
 text_overrun_behavior = 1
 
 [node name="TextureRect" type="TextureRect" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer/NewLevel"]
-self_modulate = Color(0.74558, 0.74558, 0.74558, 1)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -396,7 +395,6 @@ alignment = 0
 text_overrun_behavior = 1
 
 [node name="TextureRect" type="TextureRect" parent="BottomControl/AnchorSupportControl/LevelAdditionRemovalControl/Control3/HBoxContainer/RemoveLevel"]
-self_modulate = Color(0.804743, 0.804743, 0.804743, 1)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5

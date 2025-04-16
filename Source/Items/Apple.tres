@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemNew" load_steps=2 format=3 uid="uid://dyl67mfy4hot2"]
+
+[ext_resource type="Script" uid="uid://cb3fgy1lxnwwe" path="res://Source/Items/ItemNew.cs" id="1_tl48m"]
+
+[resource]
+script = ExtResource("1_tl48m")
+itemName = "Apple"
+itemDescription = "An apple a day keeps the doctor away"
+basePrice = 10.0
+maxStackCount = 10
+category = 0
+useScope = 0
+usableOn = 1
+usableWhile = 0
+features = Dictionary[int, bool]({
+0: false,
+1: true,
+2: true
+})
+stats = null
+uniqueBehaviour = null
+metadata/_custom_type_script = "uid://cb3fgy1lxnwwe"
