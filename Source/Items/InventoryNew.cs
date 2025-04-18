@@ -4,7 +4,7 @@ using System;
 
 public partial class InventoryNew : Node
 {
-    private Node inventoryHolder;
+    private Node inventoryHolder; // the character/entity holding the inventory. Should be injected
 
     [Export] private int maxSlots;
     private int usedSlots;
@@ -12,13 +12,9 @@ public partial class InventoryNew : Node
     public override void _Ready()
     {
         base._Ready();
-
-
-    //  inventoryHolder = GetParent();
-    // better way to do it would be the character injecting itself into the invHolder variable
     }
 
-    public void UseItem(ItemNew ItemResource, String TargetCharacter) 
+    public void UseItem(ItemNew ItemResource, String TargetCharacter)
     { }
 
     private bool AddItem(ItemNew ItemResource) { return false; }

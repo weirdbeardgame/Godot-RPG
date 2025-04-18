@@ -11,16 +11,18 @@ public partial class ItemNew : Resource
     public enum ItemFeatures { Usable, Stackable, Sellable }
 
     [Export] public string itemName;
-    [Export] public string itemDescription;
+    [Export] public string itemDescription1;
+	[Export] public string itemDescription2;
+	[Export] public string itemDescription3;
     [Export] public ImageTexture itemImage;
 
-    [ExportCategory("Item Properties")]
+    [ExportCategory("Item Properties")] // all of the values should probably be present inside the stat resource/object itself
     [Export] public float basePrice;
     [Export] public int maxStackCount;
-	[Export] public float critRate;
-	[Export] public float critRatio;
-	[Export] public float hitChance;
-	[Export] public string attackType; // This needs to be resource of type 'Attack'. since defense is calculated based on attackType
+	//[Export] public float critRate;
+	//[Export] public float critRatio;
+	//[Export] public float hitChance;
+	//[Export] public resource effectSource;
 
     [ExportCategory("Usage Settings")]
 	[Export] public ItemCategory category;
@@ -37,7 +39,7 @@ public partial class ItemNew : Resource
 
     [Export] public Godot.Collections.Array<StatData> stats;
 	[Export] public string calculationFormula; // can be an array<string> to support multiple stages of calculation
-	[Export] public Resource targetAreaContainer; // Resource of class TargetAreaContainer, TargetAreaContainer will contain TargetArea/s as well as their spawnrelation
+	//[Export] public Resource targetAreaContainer; // Resource of class TargetAreaContainer, TargetAreaContainer will contain TargetArea/s as well as their spawnrelation
 
     [ExportCategory("Custom Item Behvaiour")]
     [Export] protected Godot.Collections.Array<Resource> uniqueBehaviour; // Resource being extended by GameOutcome/Event/Reward class

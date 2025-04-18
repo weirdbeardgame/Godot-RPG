@@ -439,6 +439,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Control2" type="Control" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer"]
+clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -467,6 +468,7 @@ theme = ExtResource("1_ejouf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_de6nh")
 
 [node name="Control" type="Control" parent="BottomControl/AnchorSupportControl/LevelDetailControl/FilePickerContainer/FilePickerBackground/VBoxContainer"]
+clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -476,7 +478,7 @@ anchors_preset = -1
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -21.0
-offset_right = 2200.0
+offset_right = 1324.0
 offset_bottom = 21.0
 grow_vertical = 2
 size_flags_vertical = 0
