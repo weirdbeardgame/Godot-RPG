@@ -143,6 +143,7 @@ size_flags_vertical = 0
 theme = ExtResource("1_jkd0v")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_5485x")
+text = "Potion"
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -155,6 +156,7 @@ layout_mode = 2
 theme = ExtResource("1_jkd0v")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_8ks85")
+text = "Heals 50 points"
 
 [node name="ItemNamePanel" type="PopupPanel" parent="."]
 size = Vector2i(250, 101)

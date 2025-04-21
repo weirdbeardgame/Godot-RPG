@@ -1,0 +1,373 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsr7ls1m5a1fl"]
+
+[ext_resource type="Theme" uid="uid://bxkyrw078lnht" path="res://Assets/Editor_GUI/Themes/Label.tres" id="1_7h06o"]
+[ext_resource type="Texture2D" uid="uid://dkt3w44faddyt" path="res://Assets/Resources/Icons/LevelManager/Level100.png" id="2_ut3jt"]
+[ext_resource type="Theme" uid="uid://bj1ii2u3kdtcr" path="res://Assets/Theme/ButtonTheme.tres" id="2_wyqe5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ut3jt"]
+bg_color = Color(0.662745, 0.737255, 0.815686, 1)
+border_width_bottom = 4
+border_color = Color(0.105882, 0.105882, 0.117647, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyqe5"]
+bg_color = Color(1, 1, 1, 1)
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jx45e"]
+bg_color = Color(0.6, 0.713726, 0.811765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r850u"]
+bg_color = Color(0.6, 0.713726, 0.6, 1)
+
+[node name="ItemEditorNew" type="Control"]
+layout_mode = 3
+anchor_right = 1.058
+anchor_bottom = 1.113
+offset_right = 0.183838
+offset_bottom = -0.223999
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CoreControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox" type="HBoxContainer" parent="CoreControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemList" type="Control" parent="CoreControl/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="ItemLabels" type="Control" parent="CoreControl/HBox/ItemList"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.144
+offset_bottom = 0.175995
+
+[node name="ItemsHeaderControl" type="Control" parent="CoreControl/HBox/ItemList/ItemLabels"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.607
+offset_bottom = -0.0540085
+grow_horizontal = 2
+
+[node name="Panel" type="Panel" parent="CoreControl/HBox/ItemList/ItemLabels/ItemsHeaderControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ut3jt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CoreControl/HBox/ItemList/ItemLabels/ItemsHeaderControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7h06o")
+theme_override_colors/default_color = Color(0.105882, 0.105882, 0.117647, 1)
+text = "ITEMS"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemCategoryControl" type="Control" parent="CoreControl/HBox/ItemList/ItemLabels"]
+layout_mode = 1
+anchor_top = 0.607
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.0540085
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CoreControl/HBox/ItemList/ItemLabels/ItemCategoryControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wyqe5")
+
+[node name="HBox" type="HBoxContainer" parent="CoreControl/HBox/ItemList/ItemLabels/ItemCategoryControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CoreControl/HBox/ItemList/ItemLabels/ItemCategoryControl/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wyqe5")
+text = "All"
+clip_text = true
+
+[node name="Button2" type="Button" parent="CoreControl/HBox/ItemList/ItemLabels/ItemCategoryControl/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wyqe5")
+text = "Consumables"
+clip_text = true
+
+[node name="Button3" type="Button" parent="CoreControl/HBox/ItemList/ItemLabels/ItemCategoryControl/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wyqe5")
+text = "Equipment"
+clip_text = true
+
+[node name="Button4" type="Button" parent="CoreControl/HBox/ItemList/ItemLabels/ItemCategoryControl/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wyqe5")
+text = "Key"
+clip_text = true
+
+[node name="Button5" type="Button" parent="CoreControl/HBox/ItemList/ItemLabels/ItemCategoryControl/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wyqe5")
+text = "Material"
+clip_text = true
+
+[node name="ItemListHBoxAsControl" type="Control" parent="CoreControl/HBox/ItemList"]
+layout_mode = 1
+anchor_top = 0.15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.200005
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect4" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect5" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect6" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect7" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect8" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect9" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect10" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="TextureRect11" type="TextureRect" parent="CoreControl/HBox/ItemList/ItemListHBoxAsControl/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ut3jt")
+stretch_mode = 5
+
+[node name="HBox" type="HBoxContainer" parent="CoreControl/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemDetails" type="Control" parent="CoreControl/HBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Description" type="Control" parent="CoreControl/HBox/HBox/ItemDetails"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.205
+offset_bottom = 0.194992
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CoreControl/HBox/HBox/ItemDetails/Description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GeneralDetails" type="Control" parent="CoreControl/HBox/HBox/ItemDetails"]
+layout_mode = 1
+anchor_top = 0.211
+anchor_right = 1.0
+anchor_bottom = 0.368
+offset_top = -0.131012
+offset_bottom = -0.328033
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CoreControl/HBox/HBox/ItemDetails/GeneralDetails"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemDetails1" type="Control" parent="CoreControl/HBox/HBox"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CoreControl/HBox/HBox/ItemDetails1"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Effect" type="Control" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer/Effect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jx45e")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer/Effect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer/Effect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Damage"
+
+[node name="Label2" type="Label" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer/Effect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "StatAffectType Resource and Formula"
+
+[node name="Label3" type="Label" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer/Effect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Hitchance, Critchance and Critrate"
+
+[node name="Label4" type="Label" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer/Effect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Custom Function Resource"
+
+[node name="Control2" type="Control" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Notes" type="Control" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer/Notes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r850u")
+
+[node name="Label" type="Label" parent="CoreControl/HBox/HBox/ItemDetails1/VBoxContainer/Notes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Dev Notes:"
