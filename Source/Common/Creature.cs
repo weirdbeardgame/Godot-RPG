@@ -10,23 +10,34 @@ public partial class Creature : Resource
     protected LivingStatus IsAlive;
 
     // Weapon Slots
-    protected List<EquipSlot> Slots;
-    protected string CeatureName;
+    private List<EquipSlot> _slots;
+
+    // Need to account for Level Curves
     protected float ExpReqForLevelUp;
     protected float Experience;
     protected int Level;
 
+    public string Name;
+
+    public List<EquipSlot> Slots
+    {
+        get
+        {
+            return _slots;
+        }
+    }
+
     // Enemies and Players can be assigned a job. In other Rpg types, this would be class type
-    JobSystem Job;
+    protected JobSystem Job;
 
     public Godot.Collections.Dictionary<string, Stat> GetStats => Stats;
 
     public void CreateWeaponSlots()
     {
-        Slots ??= new List<EquipSlot>();
+        _slots ??= new List<EquipSlot>();
         for (int i = 0; i < 5; i++)
         {
-            Slots.Add(new EquipSlot((SlotType)i));
+            _slots.Add(new EquipSlot((SlotType)i));
         }
     }
 

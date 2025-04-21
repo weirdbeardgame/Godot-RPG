@@ -7,9 +7,9 @@ public partial class Skill : Resource
 {
     public string Name;
     public string Description;
-    public Dictionary<string, Stat> Stats;
+    public Stat StatAffected;
+    public Stat Effect;
     public Creature Target;
-
     public SkillType Type;
 
     [Export] public string Formula;
@@ -17,12 +17,9 @@ public partial class Skill : Resource
 
     public void Use()
     {
-        foreach (var stat in Target.GetStats)
+        if (Target.GetStats.ContainsKey(StatAffected.StatName))
         {
-            if (Stats.ContainsKey(stat.Key))
-            {
-                stat.Value.CurrentStat = (float)_expression.Execute([stat.Value.CurrentStat, Stats[stat.Key].CurrentStat]);
-            }
+            Target.GetStats[StatAffected.StatName].CurrentStat = (float)_expression.Execute([Target.GetStats[StatAffected.StatName].CurrentStat, Effect.CurrentStat]);
         }
     }
 }
