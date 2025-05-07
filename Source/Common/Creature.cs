@@ -17,15 +17,12 @@ public partial class Creature : Resource
     protected float ExpReqForLevelUp;
     protected float Experience;
     protected int Level;
-    protected CreatureType type;
     public string Name;
 
     public CreatureType Type
     {
-        get
-        {
-            return type;
-        }
+        get;
+        protected set;
     }
 
     public List<EquipSlot> Slots

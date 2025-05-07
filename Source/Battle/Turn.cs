@@ -6,6 +6,7 @@ public partial class Turn : Node
 {
     public Creature TurnTaker;
     private bool _isActive;
+    public iAction QueuedAction;
 
     public void SetIsActive(bool isActive) => _isActive = isActive;
 
@@ -13,7 +14,7 @@ public partial class Turn : Node
     {
         if (_isActive)
         {
-            // Execute actions in here.
+            QueuedAction.Execute();
         }
     }
 

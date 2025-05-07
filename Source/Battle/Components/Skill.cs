@@ -3,19 +3,23 @@ using System;
 
 public enum SkillType { HEALING, DAMAGE }
 
-public partial class Skill : Resource
+public partial class Skill : Resource, iAction
 {
     public string Name;
     public string Description;
     public Stat StatAffected;
     public Stat Effect;
     public List<Creature> Targets;
+
     public SkillType Type;
+
+    // Can enemies or players attack each other unless confused?
+    public CreatureType User;
 
     [Export] public string Formula;
     private Expression _expression;
 
-    public void Use()
+    public void Execute()
     {
         foreach (var target in Targets)
         {
