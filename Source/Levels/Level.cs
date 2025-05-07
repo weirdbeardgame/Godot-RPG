@@ -30,7 +30,7 @@ public partial class Level : LevelCommon
     {
         base.EnterLevel();
 
-        AddChild(_playerEntityInLevel);
+        //AddChild(_playerEntityInLevel);
     }
 
     public override void Update(double delta)

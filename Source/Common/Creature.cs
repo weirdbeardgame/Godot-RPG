@@ -1,5 +1,7 @@
 using Godot;
 
+public enum CreatureType { Player, Enemy, NPC } // Should this be string?
+
 public enum LivingStatus { ALIVE, DEAD };
 
 // A Class to be inherited from. Creatures are units stats.
@@ -8,7 +10,6 @@ public partial class Creature : Resource
     // Stats are objects that can be dynamically constructed and set!
     protected Godot.Collections.Dictionary<string, Stat> Stats;
     protected LivingStatus IsAlive;
-
     // Weapon Slots
     private List<EquipSlot> _slots;
 
@@ -16,8 +17,16 @@ public partial class Creature : Resource
     protected float ExpReqForLevelUp;
     protected float Experience;
     protected int Level;
-
+    protected CreatureType type;
     public string Name;
+
+    public CreatureType Type
+    {
+        get
+        {
+            return type;
+        }
+    }
 
     public List<EquipSlot> Slots
     {

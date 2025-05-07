@@ -9,7 +9,7 @@ public partial class Skill : Resource
     public string Description;
     public Stat StatAffected;
     public Stat Effect;
-    public Creature Target;
+    public List<Creature> Targets;
     public SkillType Type;
 
     [Export] public string Formula;
@@ -17,9 +17,15 @@ public partial class Skill : Resource
 
     public void Use()
     {
-        if (Target.GetStats.ContainsKey(StatAffected.StatName))
+        foreach (var target in Targets)
         {
-            Target.GetStats[StatAffected.StatName].CurrentStat = (float)_expression.Execute([Target.GetStats[StatAffected.StatName].CurrentStat, Effect.CurrentStat]);
+            if (target.GetStats.ContainsKey(StatAffected.StatName))
+            {
+                // Refractor eventually:
+                // This uses two stat's. StatAffected, to select the Stat we're changing.
+                // Effect, the actual effect stat. That could be damage, or any other effecting type of stat.
+                target.GetStats[StatAffected.StatName].CurrentStat = (float)_expression.Execute([target.GetStats[StatAffected.StatName].CurrentStat, Effect.CurrentStat]);
+            }
         }
     }
 }
