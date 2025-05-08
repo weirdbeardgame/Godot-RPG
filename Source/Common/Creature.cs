@@ -9,7 +9,11 @@ public partial class Creature : Resource
 {
     // Stats are objects that can be dynamically constructed and set!
     protected Godot.Collections.Dictionary<string, Stat> Stats;
-    protected LivingStatus IsAlive;
+    public LivingStatus IsAlive
+    {
+        get;
+        protected set;
+    }
     // Weapon Slots
     private List<EquipSlot> _slots;
 

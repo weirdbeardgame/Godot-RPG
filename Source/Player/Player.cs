@@ -6,6 +6,12 @@ using Godot;
 public partial class Player : Creature
 {
 
+    public void Init()
+    {
+        // ToDo: Load all state and other info from file.
+        IsAlive = LivingStatus.ALIVE;
+    }
+
     public void Equip(Equipable e)
     {
         foreach (var slot in Slots)
@@ -32,6 +38,7 @@ public partial class Player : Creature
         {
             Level += 1;
             // Increase ExpReqForLevelUp, increase stats based on JobType and any other desired factors
+            // Need growth curve
 
         }
     }
