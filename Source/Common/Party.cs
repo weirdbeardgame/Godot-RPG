@@ -34,7 +34,7 @@ public partial class Party : Node
     }
 
     // InGame party remove. Some character was a temp or was taken out for some story reason
-    public void Remove(Player p)
+    public void Remove(Creature p)
     {
         if (_party.Contains(p))
         {

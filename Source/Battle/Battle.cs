@@ -1,5 +1,4 @@
 using Godot;
-
 public partial class Battle : Node
 {
     public Party PlayerParty;

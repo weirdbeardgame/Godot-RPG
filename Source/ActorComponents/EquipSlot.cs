@@ -1,5 +1,3 @@
-
-
 public partial class EquipSlot : Node
 {
     private SlotType _slot;
