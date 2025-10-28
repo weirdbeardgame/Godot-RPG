@@ -1,0 +1,335 @@
+[gd_scene load_steps=12 format=3 uid="uid://c7337rtktqgjg"]
+
+[ext_resource type="Theme" uid="uid://cijnpag6p7end" path="res://Assets/Theme/EditorTheme.tres" id="1_3rnv2"]
+[ext_resource type="Script" uid="uid://dhci0h60s43wp" path="res://addons/rpg_editors/Editors/playereditor/PlayerEditor.cs" id="2_uw6wx"]
+[ext_resource type="FontFile" uid="uid://daudqpipaknfq" path="res://Assets/Resources/Fonts/static/OpenSans/OpenSans-Light.ttf" id="3_cihr1"]
+[ext_resource type="Theme" uid="uid://bj1ii2u3kdtcr" path="res://Assets/Theme/ButtonTheme.tres" id="4_2l41k"]
+[ext_resource type="Theme" uid="uid://dltcx5jine88c" path="res://Assets/Editor_GUI/Themes/Button_Theme.tres" id="5_p0iqt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5cgb"]
+bg_color = Color(0.148487, 0.171768, 0.201333, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_khsh0"]
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g4klu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ujy6q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p38lh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2216y"]
+
+[node name="PlayerEditor" type="Panel"]
+anchors_preset = -1
+anchor_left = 0.004
+anchor_right = 1.004
+anchor_bottom = 1.003
+offset_left = -0.6080003
+offset_top = 2.0
+offset_right = -0.6080322
+offset_bottom = 0.05596924
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_3rnv2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_r5cgb")
+script = ExtResource("2_uw6wx")
+
+[node name="ListOfPlayers" type="ItemList" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 3.9999995
+offset_top = -281.0
+offset_right = 253.0
+offset_bottom = 161.0
+grow_vertical = 2
+
+[node name="HSeparator" type="HSeparator" parent="ListOfPlayers"]
+layout_mode = 0
+offset_left = 2.9999995
+offset_top = 408.0
+offset_right = 250.0
+offset_bottom = 418.0
+theme_override_styles/separator = SubResource("StyleBoxLine_khsh0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ListOfPlayers"]
+layout_mode = 0
+offset_left = 2.9999995
+offset_top = 417.0
+offset_right = 243.0
+offset_bottom = 470.0
+
+[node name="NewPlayer" type="Button" parent="ListOfPlayers/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "New Player"
+
+[node name="RemovePlayer" type="Button" parent="ListOfPlayers/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Remove Player"
+
+[node name="Save" type="Button" parent="ListOfPlayers/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Save"
+
+[node name="PlayerListLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+offset_right = 140.0
+offset_bottom = 40.0
+theme = ExtResource("1_3rnv2")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 25
+theme_override_styles/background = SubResource("StyleBoxEmpty_g4klu")
+bbcode_enabled = true
+text = "[b]Players:[/b]"
+
+[node name="PlayerNamePanel" type="PopupPanel" parent="."]
+oversampling_override = 1.0
+title = "Enter Stat Name"
+initial_position = 2
+size = Vector2i(200, 100)
+theme = ExtResource("1_3rnv2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerNamePanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 196.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PlayerNamePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_ujy6q")
+text = "Enter Player Name:"
+fit_content = true
+
+[node name="PlayerName" type="LineEdit" parent="PlayerNamePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerNamePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Ok" type="Button" parent="PlayerNamePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_2l41k")
+text = "OK"
+
+[node name="Cancel" type="Button" parent="PlayerNamePanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_p0iqt")
+text = "Cancel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -249.99994
+offset_top = -151.0
+offset_right = 250.00006
+offset_bottom = 149.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="ProfileLabel" type="RichTextLabel" parent="HBoxContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+offset_right = 150.0
+offset_bottom = 69.0
+text = "Profile: "
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ProfileBackground" type="ColorRect" parent="HBoxContainer/Panel"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -75.0
+offset_right = 150.0
+offset_bottom = 75.0
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+color = Color(0.3515629, 0.3515629, 0.35156286, 1)
+
+[node name="ProfileIcon" type="TextureRect" parent="HBoxContainer/Panel/ProfileBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+expand_mode = 2
+
+[node name="SpriteLabel" type="RichTextLabel" parent="HBoxContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 69.0
+grow_horizontal = 2
+text = "Sprite: "
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="SpriteBackground" type="ColorRect" parent="HBoxContainer/Panel"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+color = Color(0.3515629, 0.3515629, 0.35156286, 1)
+
+[node name="Sprite" type="TextureRect" parent="HBoxContainer/Panel/SpriteBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="BattlerBackgroundLabel" type="RichTextLabel" parent="HBoxContainer/Panel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_bottom = 69.0
+grow_horizontal = 0
+text = "Battler: "
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="BattlerBackground" type="ColorRect" parent="HBoxContainer/Panel"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -75.0
+offset_bottom = 75.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+color = Color(0.3515629, 0.3515629, 0.35156286, 1)
+
+[node name="Battler" type="TextureRect" parent="HBoxContainer/Panel/BattlerBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+expand_mode = 4
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="GridContainer" type="GridContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -106.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PlayerNameLabel" type="RichTextLabel" parent="Panel/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/background = SubResource("StyleBoxEmpty_p38lh")
+text = "Name:
+"
+fit_content = true
+
+[node name="PlayerName" type="LineEdit" parent="Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerDescriptionLabel" type="RichTextLabel" parent="Panel/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "Field to describe the character's back story
+\"Billy Bob has been living on the same farm his whole life and cherishes his animals\""
+theme_override_fonts/normal_font = ExtResource("3_cihr1")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/background = SubResource("StyleBoxEmpty_2216y")
+text = "Player Description:
+"
+fit_content = true
+
+[node name="Description" type="TextEdit" parent="Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+metadata/_edit_use_anchors_ = true

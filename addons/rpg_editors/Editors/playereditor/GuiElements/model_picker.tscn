@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://hjw635joa45b"]
+
+[ext_resource type="Material" uid="uid://bc40vegacecqi" path="res://addons/rpg_editors/Editors/playereditor/GuiElements/model_picker.tres" id="1_mke5g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l50i7"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l50i7"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_l50i7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4l3du"]
+
+[node name="Root" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09261322, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_l50i7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_l50i7")
+surface_material_override/0 = ExtResource("1_mke5g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.750538, 0.66082734, 0, -0.66082734, 0.750538, 0, 26.950422, 0)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5677748, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CylinderShape3D_l50i7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6217718, 0)
+mesh = SubResource("CapsuleMesh_4l3du")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76750946, 3.95821)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
